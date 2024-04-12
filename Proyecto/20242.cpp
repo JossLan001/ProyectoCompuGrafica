@@ -663,15 +663,15 @@ int main() {
 		staticShader.setMat4("model", modelOp);
 		//carro.Draw(staticShader);
 
-		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
-		modelOp = glm::scale(modelOp, glm::vec3(0.2f));
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-3000.0f, 0.0f, 0.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(0.1f));
 		staticShader.setMat4("model", modelOp);
-		//proyecto.Draw(staticShader);
+		proyecto.Draw(staticShader);
 
 		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
 		modelOp = glm::scale(modelOp, glm::vec3(1.0f));
 		staticShader.setMat4("model", modelOp);
-		escaleras.Draw(staticShader);
+		//escaleras.Draw(staticShader);
 
 
 		modelOp = glm::translate(tmp, glm::vec3(8.5f, 2.5f, 12.9f));
