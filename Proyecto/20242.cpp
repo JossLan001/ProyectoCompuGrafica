@@ -42,7 +42,7 @@ GLuint VBO[3], VAO[3], EBO[3];
 
 //Camera
 Camera camera(glm::vec3(0.0f, 20.0f, 150.0f));
-float MovementSpeed = 0.1f;
+float MovementSpeed = 15.1f;
 GLfloat lastX = SCR_WIDTH / 2.0f,
 		lastY = SCR_HEIGHT / 2.0f;
 bool firstMouse = true;
@@ -663,8 +663,8 @@ int main() {
 		staticShader.setMat4("model", modelOp);
 		//carro.Draw(staticShader);
 
-		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-3000.0f, 0.0f, 0.0f));
-		modelOp = glm::scale(modelOp, glm::vec3(0.1f));
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(1.0f));
 		staticShader.setMat4("model", modelOp);
 		proyecto.Draw(staticShader);
 
@@ -700,57 +700,6 @@ int main() {
 		// -------------------------------------------------------------------------------------------------------------------------
 		
 	
-		// -------------------------------------------------------------------------------------------------------------------------
-		// Just in case
-		// -------------------------------------------------------------------------------------------------------------------------
-		/*modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(posX, posY, posZ));
-		tmp = modelOp = glm::rotate(modelOp, glm::radians(giroMonito), glm::vec3(0.0f, 1.0f, 0.0));
-		staticShader.setMat4("model", modelOp);
-		torso.Draw(staticShader);
-
-		//Pierna Der
-		modelOp = glm::translate(tmp, glm::vec3(-0.5f, 0.0f, -0.1f));
-		modelOp = glm::rotate(modelOp, glm::radians(0.0f), glm::vec3(0.0f, 1.0f, 0.0));
-		modelOp = glm::rotate(modelOp, glm::radians(-rotRodIzq), glm::vec3(1.0f, 0.0f, 0.0f));
-		staticShader.setMat4("model", modelOp);
-		piernaDer.Draw(staticShader);
-
-		//Pie Der
-		modelOp = glm::translate(modelOp, glm::vec3(0, -0.9f, -0.2f));
-		staticShader.setMat4("model", modelOp);
-		botaDer.Draw(staticShader);
-
-		//Pierna Izq
-		modelOp = glm::translate(tmp, glm::vec3(0.5f, 0.0f, -0.1f));
-		modelOp = glm::rotate(modelOp, glm::radians(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		staticShader.setMat4("model", modelOp);
-		piernaIzq.Draw(staticShader);
-
-		//Pie Iz
-		modelOp = glm::translate(modelOp, glm::vec3(0, -0.9f, -0.2f));
-		staticShader.setMat4("model", modelOp);
-		botaDer.Draw(staticShader);	//Izq trase
-
-		//Brazo derecho
-		modelOp = glm::translate(tmp, glm::vec3(0.0f, -1.0f, 0.0f));
-		modelOp = glm::translate(modelOp, glm::vec3(-0.75f, 2.5f, 0));
-		modelOp = glm::rotate(modelOp, glm::radians(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		staticShader.setMat4("model", modelOp);
-		brazoDer.Draw(staticShader);
-
-		//Brazo izquierdo
-		modelOp = glm::translate(tmp, glm::vec3(0.0f, -1.0f, 0.0f));
-		modelOp = glm::translate(modelOp, glm::vec3(0.75f, 2.5f, 0));
-		modelOp = glm::rotate(modelOp, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-		staticShader.setMat4("model", modelOp);
-		brazoIzq.Draw(staticShader);
-
-		//Cabeza
-		modelOp = glm::translate(tmp, glm::vec3(0.0f, -1.0f, 0.0f));
-		modelOp = glm::rotate(modelOp, glm::radians(0.0f), glm::vec3(0.0f, 1.0f, 0.0));
-		modelOp = glm::translate(modelOp, glm::vec3(0.0f, 2.5f, 0));
-		staticShader.setMat4("model", modelOp);
-		cabeza.Draw(staticShader);*/
 
 		//-------------------------------------------------------------------------------------
 		// draw skybox as last
