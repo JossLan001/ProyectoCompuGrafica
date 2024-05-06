@@ -463,9 +463,10 @@ int main() {
 	Model escaleras("resources/objects/escaleras_afuera/escaleras_afuera.obj");
 
 	/*MODELOS DE TIENDA DE MUEBLES*/
-	Model mueble1("resources/objects/Tienda_Muebles/mueble3/mueble3v1.obj");
+	Model mueble1("resources/objects/Tienda_Muebles/mueble1/mueble3v1.obj");
 	Model mueble1v3("resources/objects/Tienda_Muebles/mueble1v3/mueble1v3.obj");
 	Model mueble2v2("resources/objects/Tienda_Muebles/mueble2/mueble2v2.obj");
+
 	Model mueble4v2("resources/objects/Tienda_Muebles/mueble4/mueble4v2.obj");
 	Model mueble4v3("resources/objects/Tienda_Muebles/mueble4/mueble4v3.obj");
 	
@@ -668,7 +669,7 @@ int main() {
 
 		
 
-		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-1600.0f, 0.0f, 0.0f));
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-1650.0f, 0.0f, 0.0f));
 		modelOp = glm::scale(modelOp, glm::vec3(0.20f));
 		staticShader.setMat4("model", modelOp);
 		proyecto.Draw(staticShader);
@@ -679,32 +680,34 @@ int main() {
 		//escaleras.Draw(staticShader);
 		// -------------------------------------------------------------------------------------------------------------------------
 		// TIENDA MUEBLES
-		// -------------------------------------------------------------------------------------------------------------------------
+		// limites: x=-555   z=-1965
+		// -----------------------------------------------------x----y------z----------------------------------------------------------
 
-		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(160.0f, 0.0f, -50.0f));
-		modelOp = glm::scale(modelOp, glm::vec3(0.2f));
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-540.0f, 0.0f, -1950.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(0.1f));
 		staticShader.setMat4("model", modelOp);
-		mueble1.Draw(staticShader);
+		mueble1.Draw(staticShader);//comedor
 
-		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(1000.0f, 0.0f, -100.0f));
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(00.0f, 0.0f, -100.0f));
 		modelOp = glm::scale(modelOp, glm::vec3(0.2f));
-		staticShader.setMat4("model", modelOp);
+		staticShader.setMat4("model", modelOp);	
 		//mueble1v3.Draw(staticShader);
 
 		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(100.0f, 0.0f, 500.0f));
 		modelOp = glm::scale(modelOp, glm::vec3(0.2f));
 		staticShader.setMat4("model", modelOp);
 		//mueble2v2.Draw(staticShader);
+		   
 
-		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(100.0f, 0.0f, 50.0f));
-		modelOp = glm::scale(modelOp, glm::vec3(0.2f));
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-500.0f, 0.0f, -1900.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(0.01f));
 		staticShader.setMat4("model", modelOp);
-		//mueble4v2.Draw(staticShader);
+		mueble4v2.Draw(staticShader); //sillon
 
-		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(100.0f, 50.0f, 50.0f));
-		modelOp = glm::scale(modelOp, glm::vec3(0.2f));
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-350.0f, 0.0f, -1900.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(0.01f));
 		staticShader.setMat4("model", modelOp);
-		//mueble4v3.Draw(staticShader);
+		mueble4v3.Draw(staticShader); //sillon
 		//mueble2.Draw(staticShader);
 		// -------------------------------------------------------------------------------------------------------------------------
 		// TIENDA ARCADE
