@@ -12,4 +12,5 @@ C:\Users\elvia\Documents\GitHub\ProyectoCompuGrafica\Proyecto\20242.cpp(838,10):
 C:\Users\elvia\Documents\GitHub\ProyectoCompuGrafica\Proyecto\20242.cpp(840,39): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
 C:\Users\elvia\Documents\GitHub\ProyectoCompuGrafica\Proyecto\20242.cpp(840,30): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
 C:\Users\elvia\Documents\GitHub\ProyectoCompuGrafica\Proyecto\20242.cpp(845,28): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+LINK : warning LNK4098: la biblioteca predeterminada'MSVCRT' entra en conflicto con otras bibliotecas; use la biblioteca /NODEFAULTLIB:biblioteca
   PROYECTO.vcxproj -> C:\Users\elvia\Documents\GitHub\ProyectoCompuGrafica\x64\Debug\PROYECTO.exe

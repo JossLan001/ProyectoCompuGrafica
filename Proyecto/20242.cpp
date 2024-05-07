@@ -465,12 +465,12 @@ int main() {
 	/*MODELOS DE TIENDA DE MUEBLES*/
 	Model receptionTable("resources/objects/Tienda_Ropa/ReceptionTable/receptionTable.obj");
 
-	Model chisig("resources/objects/Tienda_Ropa/chisig/chisig.obj");
-	Model mueble2v2("resources/objects/Tienda_Ropa/mueble2/mueble2v2.obj");
+	//Model perchero("resources/objects/Tienda_Ropa/perchero/perchero.obj");
 
 	Model mueble4v2("resources/objects/Tienda_Ropa/mueble4/mueble4v2.obj"); //sillon
 	Model mueble4v3("resources/objects/Tienda_Ropa/mueble4/mueble4v3.obj");
-	
+	//Model perchero("resources/objects/Tienda_Ropa/perchero/perchero.obj");
+
 
 
 	/*MODELOS DE ANIMACIÓN*/
@@ -674,12 +674,7 @@ int main() {
 		staticShader.setMat4("model", modelOp);	
 		receptionTable.Draw(staticShader);//recepción
 
-		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(00.0f, 0.0f, 0.0f));
-		modelOp = glm::scale(modelOp, glm::vec3(1.5f));
-		staticShader.setMat4("model", modelOp);
-		chisig.Draw(staticShader);
-
-		   
+			   
 
 		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-350.0f, 0.0f, -1950.0f));
 		modelOp = glm::scale(modelOp, glm::vec3(0.012f));
@@ -690,6 +685,11 @@ int main() {
 		modelOp = glm::scale(modelOp, glm::vec3(0.01f));
 		staticShader.setMat4("model", modelOp);
 		mueble4v3.Draw(staticShader); //sillon
+
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(0.01f));
+		staticShader.setMat4("model", modelOp);
+		//perchero.Draw(staticShader); //perchero
 		//mueble2.Draw(staticShader);
 		// -------------------------------------------------------------------------------------------------------------------------
 		// TIENDA ARCADE
