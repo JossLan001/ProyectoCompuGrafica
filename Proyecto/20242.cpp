@@ -469,6 +469,7 @@ int main() {
 
 	Model mueble4v2("resources/objects/Tienda_Ropa/mueble4/mueble4v2.obj"); //sillon
 	Model mueble4v3("resources/objects/Tienda_Ropa/mueble4/mueble4v3.obj");
+	Model cuadro1("resources/objects/Tienda_Ropa/cuadro/cuadro1.obj");
 	//Model perchero("resources/objects/Tienda_Ropa/perchero/perchero.obj");
 
 
@@ -685,6 +686,11 @@ int main() {
 		modelOp = glm::scale(modelOp, glm::vec3(0.01f));
 		staticShader.setMat4("model", modelOp);
 		mueble4v3.Draw(staticShader); //sillon
+
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-350.0f, 0.0f, -1800.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(0.01f));
+		staticShader.setMat4("model", modelOp);
+		cuadro1.Draw(staticShader); //cuadro
 
 		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
 		modelOp = glm::scale(modelOp, glm::vec3(0.01f));
