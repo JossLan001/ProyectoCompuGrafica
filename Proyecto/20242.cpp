@@ -46,7 +46,7 @@ GLuint VBO[3], VAO[3], EBO[3];
 
 //Camera
 Camera camera(glm::vec3(0.0f, 20.0f, 150.0f));
-float MovementSpeed = 15.1f;
+float MovementSpeed = 180.1f;
 GLfloat lastX = SCR_WIDTH / 2.0f,
 		lastY = SCR_HEIGHT / 2.0f;
 bool firstMouse = true;
@@ -463,14 +463,24 @@ int main() {
 	Model escaleras("resources/objects/escaleras_afuera/escaleras_afuera.obj");
 
 	/*MODELOS DE TIENDA DE MUEBLES*/
+	Model mueble2v2("resources/objects/Tienda_Muebles/mueble2/mueble2_v2.obj");
+	Model mueble3v1("resources/objects/Tienda_Muebles/mueble3/mueble3v1.obj");
+
+	/*MODELOS DE TIENDA DE ROPA*/
 	Model receptionTable("resources/objects/Tienda_Ropa/ReceptionTable/receptionTable.obj");
 
-	//Model perchero("resources/objects/Tienda_Ropa/perchero/perchero.obj");
 
 	Model mueble4v2("resources/objects/Tienda_Ropa/mueble4/mueble4v2.obj"); //sillon
-	Model mueble4v3("resources/objects/Tienda_Ropa/mueble4/mueble4v3.obj");
+	Model mueble4v3("resources/objects/Tienda_Ropa/mueble4/mueble4v3.obj"); //sillon 2
 	Model cuadro1("resources/objects/Tienda_Ropa/cuadro/cuadro1.obj");
 	//Model perchero("resources/objects/Tienda_Ropa/perchero/perchero.obj");
+
+	/*MODELOS DE TIENDA DE ARCADE*/
+	//Modelo Maquina RESIDENT
+	Model maquina("resources/objects/tienda_arcade/maquina/maquina1.obj");
+	//MODELO MAQUINA ASTERFIRE
+	Model asterfire("resources/objects/tienda_arcade/Asterfire/maquinaArcadeAsterfire.obj");
+
 
 
 
@@ -668,7 +678,16 @@ int main() {
 		// TIENDA Ropa
 		// limites: x=-555   z=-1965
 		// -----------------------------------------------------x----y------z----------------------------------------------------------
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-355.0f, 0.0f, -2043.0f));//(0.0f,0.0f,0.0f)); 
+		modelOp = glm::scale(modelOp, glm::vec3(0.1f));
+		staticShader.setMat4("model", modelOp);
+		mueble2v2.Draw(staticShader);//recepción
 
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-555.0f, 0.0f, -1943.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(0.1f));
+		staticShader.setMat4("model", modelOp);
+		mueble3v1.Draw(staticShader);//recepción
+		
 
 		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-355.0f, 0.0f, -1843.0f));
 		modelOp = glm::scale(modelOp, glm::vec3(0.3f));
@@ -701,7 +720,21 @@ int main() {
 		// TIENDA ARCADE
 		// -------------------------------------------------------------------------------------------------------------------------
 
+		//----maquina											x y z
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-500.0f, 15.0f, -1700.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(10.0f));
+		staticShader.setMat4("model", modelOp);
+		maquina.Draw(staticShader);
 
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-470.0f, 15.0f, -1700.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(10.0f));
+		staticShader.setMat4("model", modelOp);
+		maquina.Draw(staticShader);
+		//----ASTERFIRE									x y z
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-500.0f, 20.0f, -1750.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(2.0f));
+		staticShader.setMat4("model", modelOp);
+		asterfire.Draw(staticShader);
 		// -------------------------------------------------------------------------------------------------------------------------
 		// TIENDA de Comida
 		// -------------------------------------------------------------------------------------------------------------------------
