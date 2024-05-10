@@ -435,12 +435,14 @@ int main() {
 	Shader animShader("Shaders/anim.vs", "Shaders/anim.fs");	//To use with animated models 
 	
 	vector<std::string> faces{
-		"resources/skybox/right.jpg",
-		"resources/skybox/left.jpg",
-		"resources/skybox/top.jpg",
-		"resources/skybox/bottom.jpg",
-		"resources/skybox/front.jpg",
-		"resources/skybox/back.jpg"
+		"resources/skybox/posx.jpg",
+		"resources/skybox/negx.jpg",
+
+		"resources/skybox/posy.jpg",
+		"resources/skybox/negy.jpg",
+
+		"resources/skybox/posz.jpg",
+		"resources/skybox/negz.jpg",
 	};
 
 	Skybox skybox = Skybox(faces);
@@ -451,23 +453,20 @@ int main() {
 	skyboxShader.setInt("skybox", 0);
 
 	// load models
-	// -----------
-	//Model piso("resources/objects/piso/piso.obj");
-	//Model carro("resources/objects/lambo/carroceria.obj");
-	//Model llanta("resources/objects/lambo/Wheel.obj");
-	//Model casaVieja("resources/objects/casa/OldHouse.obj");
-	//Model cubo("resources/objects/cubo/cube02.obj");
-	//Model casaDoll("resources/objects/casa/DollHouse.obj");
+	
 
 	Model proyecto("resources/objects/fachada/fachadap.obj");
 	Model escaleras("resources/objects/escaleras_afuera/escaleras_afuera.obj");
 
-	/*MODELOS DE TIENDA DE MUEBLES*/
+	/*MODELOS DE TIENDA DE MUEBLES*********************************************************************************/
 	Model mueble2v2("resources/objects/Tienda_Muebles/mueble2/mueble2_v2.obj");
 	Model mueble3v1("resources/objects/Tienda_Muebles/mueble3/mueble3v1.obj");
 
-	/*MODELOS DE TIENDA DE ROPA*/
+	/*MODELOS DE TIENDA DE ROPA*************************************************************************************/
+	Model publicidad("resources/objects/Tienda_Ropa/publicidad/publicidad.obj");
 	Model receptionTable("resources/objects/Tienda_Ropa/ReceptionTable/receptionTable.obj");
+	Model estante("resources/objects/Tienda_Ropa/estante/estante.obj");
+	
 
 
 	Model mueble4v2("resources/objects/Tienda_Ropa/mueble4/mueble4v2.obj"); //sillon
@@ -475,11 +474,15 @@ int main() {
 	Model cuadro1("resources/objects/Tienda_Ropa/cuadro/cuadro1.obj");
 	//Model perchero("resources/objects/Tienda_Ropa/perchero/perchero.obj");
 
-	/*MODELOS DE TIENDA DE ARCADE*/
+	/*MODELOS DE TIENDA DE ARCADE************************************************************************************/
 	//Modelo Maquina RESIDENT
 	Model maquina("resources/objects/tienda_arcade/maquina/maquina1.obj");
 	//MODELO MAQUINA ASTERFIRE
 	Model asterfire("resources/objects/tienda_arcade/Asterfire/maquinaArcadeAsterfire.obj");
+	Model machineArcade("resources/objects/Tienda_arcade/machineArcade/machineArcade.obj");
+
+	/*MODELOS DE TIENDA DE COMIDA*************************************************************************************/
+	Model sandwich("resources/objects/tienda_Comida/Sandwich/Sandwich.obj");
 
 
 
@@ -663,7 +666,7 @@ int main() {
 		staticShader.setMat4("projection", projectionOp);
 		staticShader.setMat4("view", viewOp);
 
-		
+
 
 		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-1650.0f, 0.0f, 0.0f));
 		modelOp = glm::scale(modelOp, glm::vec3(0.20f));
@@ -678,26 +681,25 @@ int main() {
 		// TIENDA Ropa
 		// limites: x=-555   z=-1965
 		// -----------------------------------------------------x----y------z----------------------------------------------------------
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-355.0f, 0.0f, -1843.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(0.3f));
+		staticShader.setMat4("model", modelOp);
+		receptionTable.Draw(staticShader);//recepciOn
+		
 		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-355.0f, 0.0f, -2043.0f));//(0.0f,0.0f,0.0f)); 
 		modelOp = glm::scale(modelOp, glm::vec3(0.1f));
 		staticShader.setMat4("model", modelOp);
-		mueble2v2.Draw(staticShader);//recepción
+		mueble2v2.Draw(staticShader);//mesita
 
 		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-555.0f, 0.0f, -1943.0f));
 		modelOp = glm::scale(modelOp, glm::vec3(0.1f));
 		staticShader.setMat4("model", modelOp);
-		mueble3v1.Draw(staticShader);//recepción
-		
+		mueble3v1.Draw(staticShader);//comedor
 
-		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-355.0f, 0.0f, -1843.0f));
-		modelOp = glm::scale(modelOp, glm::vec3(0.3f));
-		staticShader.setMat4("model", modelOp);	
-		receptionTable.Draw(staticShader);//recepción
 
-			   
 
 		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-350.0f, 0.0f, -1950.0f));
-		modelOp = glm::scale(modelOp, glm::vec3(0.012f));
+		modelOp = glm::scale(modelOp, glm::vec3(0.01f));
 		staticShader.setMat4("model", modelOp);
 		mueble4v2.Draw(staticShader); //sillon
 
@@ -706,10 +708,10 @@ int main() {
 		staticShader.setMat4("model", modelOp);
 		mueble4v3.Draw(staticShader); //sillon
 
-		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-350.0f, 0.0f, -1800.0f));
-		modelOp = glm::scale(modelOp, glm::vec3(0.01f));
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(1.01f));
 		staticShader.setMat4("model", modelOp);
-		cuadro1.Draw(staticShader); //cuadro
+		publicidad.Draw(staticShader); //cuadro
 
 		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
 		modelOp = glm::scale(modelOp, glm::vec3(0.01f));
@@ -735,10 +737,19 @@ int main() {
 		modelOp = glm::scale(modelOp, glm::vec3(2.0f));
 		staticShader.setMat4("model", modelOp);
 		asterfire.Draw(staticShader);
-		// -------------------------------------------------------------------------------------------------------------------------
+
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-100.0f, 0.0f, 0.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(0.1f));
+		staticShader.setMat4("model", modelOp);
+		//machineArcade.Draw(staticShader);
+		// --------------------------------------------	-----------------------------------------------------------------------------
 		// TIENDA de Comida
 		// -------------------------------------------------------------------------------------------------------------------------
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
 
+		modelOp = glm::scale(modelOp, glm::vec3(2.0f));
+		staticShader.setMat4("model", modelOp);
+		//sandwich.Draw(staticShader);
 
 		// -------------------------------------------------------------------------------------------------------------------------
 		// TIENDA JUGUETES

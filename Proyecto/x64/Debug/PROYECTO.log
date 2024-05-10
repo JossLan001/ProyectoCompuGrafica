@@ -4,13 +4,13 @@ C:\Users\elvia\Documents\GitHub\ProyectoCompuGrafica\Proyecto\include\mesh.h(88,
 C:\Users\elvia\Documents\GitHub\ProyectoCompuGrafica\Proyecto\include\meshAnim.h(116,1): warning C4267: 'argumento': conversión de 'size_t' a 'GLsizei'; posible pérdida de datos
 C:\Users\elvia\Documents\GitHub\ProyectoCompuGrafica\Proyecto\include\modelAnim.h(104,44): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
 C:\Users\elvia\Documents\GitHub\ProyectoCompuGrafica\Proyecto\include\modelAnim.h(520,24): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\elvia\Documents\GitHub\ProyectoCompuGrafica\Proyecto\20242.cpp(516,27): warning C4244: '=': conversión de 'Uint64' a 'double'; posible pérdida de datos
-C:\Users\elvia\Documents\GitHub\ProyectoCompuGrafica\Proyecto\20242.cpp(868,11): warning C4244: '=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-C:\Users\elvia\Documents\GitHub\ProyectoCompuGrafica\Proyecto\20242.cpp(869,11): warning C4244: '=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-C:\Users\elvia\Documents\GitHub\ProyectoCompuGrafica\Proyecto\20242.cpp(876,10): warning C4244: '=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-C:\Users\elvia\Documents\GitHub\ProyectoCompuGrafica\Proyecto\20242.cpp(877,10): warning C4244: '=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-C:\Users\elvia\Documents\GitHub\ProyectoCompuGrafica\Proyecto\20242.cpp(879,39): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\elvia\Documents\GitHub\ProyectoCompuGrafica\Proyecto\20242.cpp(879,30): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\elvia\Documents\GitHub\ProyectoCompuGrafica\Proyecto\20242.cpp(884,28): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\elvia\Documents\GitHub\ProyectoCompuGrafica\Proyecto\20242.cpp(519,27): warning C4244: '=': conversión de 'Uint64' a 'double'; posible pérdida de datos
+C:\Users\elvia\Documents\GitHub\ProyectoCompuGrafica\Proyecto\20242.cpp(879,11): warning C4244: '=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Users\elvia\Documents\GitHub\ProyectoCompuGrafica\Proyecto\20242.cpp(880,11): warning C4244: '=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Users\elvia\Documents\GitHub\ProyectoCompuGrafica\Proyecto\20242.cpp(887,10): warning C4244: '=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Users\elvia\Documents\GitHub\ProyectoCompuGrafica\Proyecto\20242.cpp(888,10): warning C4244: '=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Users\elvia\Documents\GitHub\ProyectoCompuGrafica\Proyecto\20242.cpp(890,39): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\elvia\Documents\GitHub\ProyectoCompuGrafica\Proyecto\20242.cpp(890,30): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\elvia\Documents\GitHub\ProyectoCompuGrafica\Proyecto\20242.cpp(895,28): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
 LINK : warning LNK4098: la biblioteca predeterminada'MSVCRT' entra en conflicto con otras bibliotecas; use la biblioteca /NODEFAULTLIB:biblioteca
   PROYECTO.vcxproj -> C:\Users\elvia\Documents\GitHub\ProyectoCompuGrafica\x64\Debug\PROYECTO.exe
