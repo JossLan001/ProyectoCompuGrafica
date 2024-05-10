@@ -1,6 +1,10 @@
 /*---------------------------------------------------------*/
 /* ----------------   Proyecto final --------------------------*/
 /*-----------------    2024-2   ---------------------------*/
+/*-----------------   Integrantes:   ---------------------------*/
+/*-----------------    Bautista Ortega Elvia  ---------------------------*/
+/*-----------------       ---------------------------*/
+/*-----------------       ---------------------------*/
 
 #include <Windows.h>
 
@@ -42,7 +46,7 @@ GLuint VBO[3], VAO[3], EBO[3];
 
 //Camera
 Camera camera(glm::vec3(0.0f, 20.0f, 150.0f));
-float MovementSpeed = 15.1f;
+float MovementSpeed = 180.1f;
 GLfloat lastX = SCR_WIDTH / 2.0f,
 		lastY = SCR_HEIGHT / 2.0f;
 bool firstMouse = true;
@@ -61,7 +65,7 @@ unsigned int generateTextures(char*, bool, bool);	// De la práctica 6
 //For Keyboard
 float	movX = 0.0f,
 movY = 0.0f,
-movZ = -5.0f,
+movZ = -15.0f,
 rotX = 0.0f;
 
 //Texture
@@ -81,7 +85,7 @@ glm::vec3 diffuseColor = lightColor * glm::vec3(0.5f);
 glm::vec3 ambientColor = diffuseColor * glm::vec3(0.75f);
 
 // posiciones
-float	movAuto_x = 0.0f,
+float	movAuto_x = 10.0f,
 movAuto_z = 0.0f,
 orienta = 90.0f;
 bool	animacion = false,
@@ -431,12 +435,14 @@ int main() {
 	Shader animShader("Shaders/anim.vs", "Shaders/anim.fs");	//To use with animated models 
 	
 	vector<std::string> faces{
-		"resources/skybox/right.jpg",
-		"resources/skybox/left.jpg",
-		"resources/skybox/top.jpg",
-		"resources/skybox/bottom.jpg",
-		"resources/skybox/front.jpg",
-		"resources/skybox/back.jpg"
+		"resources/skybox/posx.jpg",
+		"resources/skybox/negx.jpg",
+
+		"resources/skybox/posy.jpg",
+		"resources/skybox/negy.jpg",
+
+		"resources/skybox/posz.jpg",
+		"resources/skybox/negz.jpg",
 	};
 
 	Skybox skybox = Skybox(faces);
@@ -447,17 +453,41 @@ int main() {
 	skyboxShader.setInt("skybox", 0);
 
 	// load models
-	// -----------
-	//Model piso("resources/objects/piso/piso.obj");
-	//Model carro("resources/objects/lambo/carroceria.obj");
-	//Model llanta("resources/objects/lambo/Wheel.obj");
-	//Model casaVieja("resources/objects/casa/OldHouse.obj");
-	//Model cubo("resources/objects/cubo/cube02.obj");
-	//Model casaDoll("resources/objects/casa/DollHouse.obj");
+	
 
 	Model proyecto("resources/objects/fachada/fachadap.obj");
 	Model escaleras("resources/objects/escaleras_afuera/escaleras_afuera.obj");
 
+	/*MODELOS DE TIENDA DE MUEBLES*********************************************************************************/
+	Model mueble2v2("resources/objects/Tienda_Muebles/mueble2/mueble2_v2.obj");
+	Model mueble3v1("resources/objects/Tienda_Muebles/mueble3/mueble3v1.obj");
+
+	/*MODELOS DE TIENDA DE ROPA*************************************************************************************/
+	Model publicidad("resources/objects/Tienda_Ropa/publicidad/publicidad.obj");
+	Model receptionTable("resources/objects/Tienda_Ropa/ReceptionTable/receptionTable.obj");
+	Model estante("resources/objects/Tienda_Ropa/estante/estante.obj");
+	
+
+
+	Model mueble4v2("resources/objects/Tienda_Ropa/mueble4/mueble4v2.obj"); //sillon
+	Model mueble4v3("resources/objects/Tienda_Ropa/mueble4/mueble4v3.obj"); //sillon 2
+	Model cuadro1("resources/objects/Tienda_Ropa/cuadro/cuadro1.obj");
+	//Model perchero("resources/objects/Tienda_Ropa/perchero/perchero.obj");
+
+	/*MODELOS DE TIENDA DE ARCADE************************************************************************************/
+	//Modelo Maquina RESIDENT
+	Model maquina("resources/objects/tienda_arcade/maquina/maquina1.obj");
+	//MODELO MAQUINA ASTERFIRE
+	Model asterfire("resources/objects/tienda_arcade/Asterfire/maquinaArcadeAsterfire.obj");
+	Model machineArcade("resources/objects/Tienda_arcade/machineArcade/machineArcade.obj");
+
+	/*MODELOS DE TIENDA DE COMIDA*************************************************************************************/
+	Model sandwich("resources/objects/tienda_Comida/Sandwich/Sandwich.obj");
+
+
+
+
+	/*MODELOS DE ANIMACIÓN*/
 	ModelAnim animacionPersonaje("resources/objects/Personaje1/Arm.dae");
 	animacionPersonaje.initShaders(animShader.ID);
 
@@ -636,35 +666,10 @@ int main() {
 		staticShader.setMat4("projection", projectionOp);
 		staticShader.setMat4("view", viewOp);
 
-		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(250.0f, 0.0f, -10.0f));
-		modelOp = glm::rotate(modelOp, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		staticShader.setMat4("model", modelOp);
-		//casaDoll.Draw(staticShader);
 
-		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, -1.75f, 0.0f));
-		modelOp = glm::scale(modelOp, glm::vec3(0.2f));
-		staticShader.setMat4("model", modelOp);
-		//piso.Draw(staticShader);
 
-		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -70.0f));
-		modelOp = glm::scale(modelOp, glm::vec3(5.0f));
-		staticShader.setMat4("model", modelOp);
-		staticShader.setVec3("dirLight.specular", glm::vec3(0.0f, 0.0f, 0.0f));
-		//casaVieja.Draw(staticShader);
-
-		// -------------------------------------------------------------------------------------------------------------------------
-		// Carro
-		// -------------------------------------------------------------------------------------------------------------------------
-		//modelOp = glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(movAuto_x, -1.0f, movAuto_z - 15.0f));
-		tmp = modelOp = glm::rotate(modelOp, glm::radians(orienta), glm::vec3(0.0f, 1.0f, 0.0f));
-		modelOp = glm::scale(modelOp, glm::vec3(0.1f, 0.1f, 0.1f));
-		staticShader.setVec3("dirLight.specular", glm::vec3(0.6f, 0.6f, 0.6f));
-		staticShader.setMat4("model", modelOp);
-		//carro.Draw(staticShader);
-
-		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
-		modelOp = glm::scale(modelOp, glm::vec3(1.0f));
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-1650.0f, 0.0f, 0.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(0.20f));
 		staticShader.setMat4("model", modelOp);
 		proyecto.Draw(staticShader);
 
@@ -672,29 +677,85 @@ int main() {
 		modelOp = glm::scale(modelOp, glm::vec3(1.0f));
 		staticShader.setMat4("model", modelOp);
 		//escaleras.Draw(staticShader);
-
-
-		modelOp = glm::translate(tmp, glm::vec3(8.5f, 2.5f, 12.9f));
-		modelOp = glm::scale(modelOp, glm::vec3(0.1f, 0.1f, 0.1f));
+		// -------------------------------------------------------------------------------------------------------------------------
+		// TIENDA Ropa
+		// limites: x=-555   z=-1965
+		// -----------------------------------------------------x----y------z----------------------------------------------------------
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-355.0f, 0.0f, -1843.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(0.3f));
 		staticShader.setMat4("model", modelOp);
-		//llanta.Draw(staticShader);	//Izq delantera
-
-		modelOp = glm::translate(tmp, glm::vec3(-8.5f, 2.5f, 12.9f));
-		modelOp = glm::scale(modelOp, glm::vec3(0.1f, 0.1f, 0.1f));
-		modelOp = glm::rotate(modelOp, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		receptionTable.Draw(staticShader);//recepciOn
+		
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-355.0f, 0.0f, -2043.0f));//(0.0f,0.0f,0.0f)); 
+		modelOp = glm::scale(modelOp, glm::vec3(0.1f));
 		staticShader.setMat4("model", modelOp);
-		//llanta.Draw(staticShader);	//Der delantera
+		mueble2v2.Draw(staticShader);//mesita
 
-		modelOp = glm::translate(tmp, glm::vec3(-8.5f, 2.5f, -14.5f));
-		modelOp = glm::scale(modelOp, glm::vec3(0.1f, 0.1f, 0.1f));
-		modelOp = glm::rotate(modelOp, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-555.0f, 0.0f, -1943.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(0.1f));
 		staticShader.setMat4("model", modelOp);
-		//llanta.Draw(staticShader);	//Der trasera
+		mueble3v1.Draw(staticShader);//comedor
 
-		modelOp = glm::translate(tmp, glm::vec3(8.5f, 2.5f, -14.5f));
-		modelOp = glm::scale(modelOp, glm::vec3(0.1f, 0.1f, 0.1f));
+
+
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-350.0f, 0.0f, -1950.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(0.01f));
 		staticShader.setMat4("model", modelOp);
-		//llanta.Draw(staticShader);	//Izq trase
+		mueble4v2.Draw(staticShader); //sillon
+
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-350.0f, 0.0f, -1800.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(0.01f));
+		staticShader.setMat4("model", modelOp);
+		mueble4v3.Draw(staticShader); //sillon
+
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(1.01f));
+		staticShader.setMat4("model", modelOp);
+		publicidad.Draw(staticShader); //cuadro
+
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(0.01f));
+		staticShader.setMat4("model", modelOp);
+		//perchero.Draw(staticShader); //perchero
+		//mueble2.Draw(staticShader);
+		// -------------------------------------------------------------------------------------------------------------------------
+		// TIENDA ARCADE
+		// -------------------------------------------------------------------------------------------------------------------------
+
+		//----maquina											x y z
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-500.0f, 15.0f, -1700.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(10.0f));
+		staticShader.setMat4("model", modelOp);
+		maquina.Draw(staticShader);
+
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-470.0f, 15.0f, -1700.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(10.0f));
+		staticShader.setMat4("model", modelOp);
+		maquina.Draw(staticShader);
+		//----ASTERFIRE									x y z
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-500.0f, 20.0f, -1750.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(2.0f));
+		staticShader.setMat4("model", modelOp);
+		asterfire.Draw(staticShader);
+
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-100.0f, 0.0f, 0.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(0.1f));
+		staticShader.setMat4("model", modelOp);
+		//machineArcade.Draw(staticShader);
+		// --------------------------------------------	-----------------------------------------------------------------------------
+		// TIENDA de Comida
+		// -------------------------------------------------------------------------------------------------------------------------
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
+
+		modelOp = glm::scale(modelOp, glm::vec3(2.0f));
+		staticShader.setMat4("model", modelOp);
+		//sandwich.Draw(staticShader);
+
+		// -------------------------------------------------------------------------------------------------------------------------
+		// TIENDA JUGUETES
+		// -------------------------------------------------------------------------------------------------------------------------
+		
+
 		// -------------------------------------------------------------------------------------------------------------------------
 		// Personaje
 		// -------------------------------------------------------------------------------------------------------------------------
