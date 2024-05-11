@@ -463,10 +463,10 @@ int main() {
 	Model mueble3v1("resources/objects/Tienda_Muebles/mueble3/mueble3v1.obj");
 
 	/*MODELOS DE TIENDA DE ROPA*************************************************************************************/
+	
 	Model publicidad("resources/objects/Tienda_Ropa/publicidad/publicidad.obj");
 	Model receptionTable("resources/objects/Tienda_Ropa/ReceptionTable/receptionTable.obj");
-	Model estante("resources/objects/Tienda_Ropa/estante/estante.obj");
-	
+	//Model estante("resources/objects/Tienda_Ropa/estante/estante.obj");
 
 
 	Model mueble4v2("resources/objects/Tienda_Ropa/mueble4/mueble4v2.obj"); //sillon
@@ -709,7 +709,7 @@ int main() {
 		mueble4v3.Draw(staticShader); //sillon
 
 		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
-		modelOp = glm::scale(modelOp, glm::vec3(1.01f));
+		modelOp = glm::scale(modelOp, glm::vec3(5.01f));
 		staticShader.setMat4("model", modelOp);
 		publicidad.Draw(staticShader); //cuadro
 
