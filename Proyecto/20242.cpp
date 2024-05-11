@@ -465,7 +465,9 @@ int main() {
 	/*MODELOS DE TIENDA DE ROPA*************************************************************************************/
 	Model publi("resources/objects/Tienda_Ropa/publicidad/publi.obj");
 	Model receptionTable("resources/objects/Tienda_Ropa/ReceptionTable/receptionTable.obj");
-	//Model estante("resources/objects/Tienda_Ropa/estante/estante.obj");
+	Model estante("resources/objects/Tienda_Ropa/mueble2/mueble2.obj");
+	Model ropa("resources/objects/Tienda_Ropa/ropa/ropaff.obj");
+	//Model ropa2("resources/objects/Tienda_Ropa/ropa/ropa3.obj");
 	Model mueble4v2("resources/objects/Tienda_Ropa/mueble4/mueble4v2.obj"); //sillon
 	Model mueble4v3("resources/objects/Tienda_Ropa/mueble4/mueble4v3.obj"); //sillon 2
 	
@@ -677,25 +679,37 @@ int main() {
 		// TIENDA Ropa
 		// limites: x=-555   z=-1965
 		// -----------------------------------------------------x----y------z----------------------------------------------------------
-		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-355.0f, 0.0f, -1443.0f));
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-355.0f, 0.0f, -1380.0f));
 		modelOp = glm::scale(modelOp, glm::vec3(0.3f));
 		staticShader.setMat4("model", modelOp);
 		receptionTable.Draw(staticShader);//recepciOn
-		
+
 		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-310.0f, 30.0f, -1440.0f));
 		modelOp = glm::scale(modelOp, glm::vec3(0.3f));
 		staticShader.setMat4("model", modelOp);
 		publi.Draw(staticShader); //cuadro
 
-		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-350.0f, 0.0f, -1400.0f));
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-350.0f, 0.0f, -1450.0f));
 		modelOp = glm::scale(modelOp, glm::vec3(0.01f));
 		staticShader.setMat4("model", modelOp);
 		mueble4v3.Draw(staticShader); //sillon
 
-		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-350.0f, 0.0f, -1400.0f));
-		modelOp = glm::scale(modelOp, glm::vec3(0.01f));
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-400.0f, 0.0f, -1445.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(0.13f));
 		staticShader.setMat4("model", modelOp);
-		//|muebler1.Draw(staticShader); //mueblepara ropa
+		estante.Draw(staticShader); //mueblepara ropa
+
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-559.0f, 15.0f, -1440.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(0.023f));
+		staticShader.setMat4("model", modelOp);
+		ropa.Draw(staticShader); //mueblepara ropa
+	
+
+		//modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-559.0f, 15.0f, -1440.0f));
+		//modelOp = glm::scale(modelOp, glm::vec3(0.023f));
+		//staticShader.setMat4("model", modelOp);
+		//ropa2.Draw(staticShader); //mueblepara ropa
+
 
 	
 		// -------------------------------------------------------------------------------------------------------------------------
