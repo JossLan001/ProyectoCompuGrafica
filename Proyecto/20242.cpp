@@ -464,7 +464,8 @@ int main() {
 
 	/*MODELOS DE TIENDA DE ROPA*************************************************************************************/
 	
-	Model publicidad("resources/objects/Tienda_Ropa/publicidad/publicidad.obj");
+	//Model publicidad("resources/objects/Tienda_Ropa/publicidad/letrero.obj");
+	Model publi("resources/objects/Tienda_Ropa/publicidad/publi.obj");
 	Model receptionTable("resources/objects/Tienda_Ropa/ReceptionTable/receptionTable.obj");
 	//Model estante("resources/objects/Tienda_Ropa/estante/estante.obj");
 
@@ -685,7 +686,7 @@ int main() {
 		modelOp = glm::scale(modelOp, glm::vec3(0.3f));
 		staticShader.setMat4("model", modelOp);
 		receptionTable.Draw(staticShader);//recepciOn
-		
+
 		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-355.0f, 0.0f, -2043.0f));//(0.0f,0.0f,0.0f)); 
 		modelOp = glm::scale(modelOp, glm::vec3(0.1f));
 		staticShader.setMat4("model", modelOp);
@@ -709,9 +710,9 @@ int main() {
 		mueble4v3.Draw(staticShader); //sillon
 
 		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
-		modelOp = glm::scale(modelOp, glm::vec3(5.01f));
+		modelOp = glm::scale(modelOp, glm::vec3(1.01f));
 		staticShader.setMat4("model", modelOp);
-		publicidad.Draw(staticShader); //cuadro
+		publi.Draw(staticShader); //cuadro
 
 		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
 		modelOp = glm::scale(modelOp, glm::vec3(0.01f));
