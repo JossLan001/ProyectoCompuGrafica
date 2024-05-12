@@ -702,13 +702,18 @@ int main() {
 		estante.Draw(staticShader); //mueblepara ropa
 
 		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-545.0f, 15.0f, -1400.0f));
-		modelOp = glm::scale(modelOp, glm::vec3(0.033f));
+		modelOp = glm::scale(modelOp, glm::vec3(0.030f));
 		staticShader.setMat4("model", modelOp);
 		ropa.Draw(staticShader); //muebleparaRopa
 
 		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-530.0f, 15.0f, -1490.0f));
 		modelOp = glm::scale(modelOp, glm::vec3(0.030f));
 		modelOp = glm::rotate(modelOp, glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
+		staticShader.setMat4("model", modelOp);
+		ropa.Draw(staticShader); //muebleparaRopa
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-530.0f, 15.0f, -1400.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(0.030f));
+		modelOp = glm::rotate(modelOp, glm::radians(90.0f), glm::vec3(0.0f, .0f, -1.0f));
 		staticShader.setMat4("model", modelOp);
 		ropa.Draw(staticShader); //muebleparaRopa
 
