@@ -12,8 +12,8 @@ newmtl 03___Default
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka C:\Users\elvia\Downloads\ProyectoCompuGrafica\ProyectoCompuGrafica\Proyecto\resources\objects\Tienda_Ropa\ropa\11.jpg
-	map_Kd C:\Users\elvia\Downloads\ProyectoCompuGrafica\ProyectoCompuGrafica\Proyecto\resources\objects\Tienda_Ropa\ropa\11.jpg
+	map_Ka  11.jpg
+	map_Kd  11.jpg
 
 newmtl Material__27
 	Ns 10.0000
@@ -26,5 +26,5 @@ newmtl Material__27
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka C:\Users\elvia\Downloads\ProyectoCompuGrafica\ProyectoCompuGrafica\Proyecto\resources\objects\Tienda_Ropa\ropa\16.jpg
-	map_Kd C:\Users\elvia\Downloads\ProyectoCompuGrafica\ProyectoCompuGrafica\Proyecto\resources\objects\Tienda_Ropa\ropa\16.jpg
+	map_Ka  16.jpg
+	map_Kd  16.jpg

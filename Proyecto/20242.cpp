@@ -726,7 +726,7 @@ int main() {
 		staticShader.setMat4("model", modelOp);
 		ropa.Draw(staticShader); //muebleparaRopa
 
-		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-530.0f, 15.0f, -1400.0f));      
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-430.0f, 15.0f, -1400.0f));      
 		modelOp = glm::scale(modelOp, glm::vec3(0.030f));
 		modelOp = glm::rotate(modelOp, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		staticShader.setMat4("model", modelOp);
