@@ -456,7 +456,8 @@ int main() {
 	
 
 	Model proyecto("resources/objects/fachada/fachadap.obj");
-	Model escaleras("resources/objects/escaleras_afuera/escaleras_afuera.obj");
+	//Model escaleras("resources/objects/escaleras_afuera/escaleras_afuera.obj");
+	Model urna("resources/objects/decoracion/urna.obj");
 
 	/*MODELOS DE TIENDA DE MUEBLES*********************************************************************************/
 	Model mueble2v2("resources/objects/Tienda_Muebles/mueble2/mueble2_v2.obj");
@@ -676,7 +677,20 @@ int main() {
 		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
 		modelOp = glm::scale(modelOp, glm::vec3(1.0f));
 		staticShader.setMat4("model", modelOp);
-		//escaleras.Draw(staticShader);
+		//   escaleras.Draw(staticShader);
+
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -500.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(0.30f));
+		staticShader.setMat4("model", modelOp);
+		urna.Draw(staticShader);
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -1000.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(0.30f));
+		staticShader.setMat4("model", modelOp);
+		urna.Draw(staticShader);
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -1500.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(0.30f));
+		staticShader.setMat4("model", modelOp);
+		urna.Draw(staticShader);
 		// -------------------------------------------------------------------------------------------------------------------------
 		// TIENDA Ropa
 		// limites: x=-555   z=-1965
@@ -711,9 +725,10 @@ int main() {
 		modelOp = glm::rotate(modelOp, glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
 		staticShader.setMat4("model", modelOp);
 		ropa.Draw(staticShader); //muebleparaRopa
-		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-530.0f, 15.0f, -1400.0f));
+
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-530.0f, 15.0f, -1400.0f));      
 		modelOp = glm::scale(modelOp, glm::vec3(0.030f));
-		modelOp = glm::rotate(modelOp, glm::radians(90.0f), glm::vec3(0.0f, .0f, -1.0f));
+		modelOp = glm::rotate(modelOp, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		staticShader.setMat4("model", modelOp);
 		ropa.Draw(staticShader); //muebleparaRopa
 
