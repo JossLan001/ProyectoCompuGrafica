@@ -3,7 +3,7 @@
 /*-----------------    2024-2   ---------------------------*/
 /*-----------------   Integrantes:   ---------------------------*/
 /*-----------------    Bautista Ortega Elvia  ---------------------------*/
-/*-----------------       ---------------------------*/
+/*-----------------    Garces Gomez Eduardo Tonathiu   ---------------------------*/
 /*-----------------       ---------------------------*/
 
 #include <Windows.h>
@@ -453,16 +453,72 @@ int main() {
 	skyboxShader.setInt("skybox", 0);
 
 	// load models
-	
-
+	//Modelo Centro comercial
 	Model proyecto("resources/objects/fachada/fachadap.obj");
 	//Model escaleras("resources/objects/escaleras_afuera/escaleras_afuera.obj");
+
+	//Modelos Generales o decoracion
 	Model urna("resources/objects/decoracion/urna.obj");
+	Model Estante("resources/objects/Estante/Estante.obj");
+	Model Estante2("resources/objects/Estante2/Estante2.obj");
+
 	
 
 	/*MODELOS DE TIENDA DE MUEBLES*********************************************************************************/
 	Model mueble2v2("resources/objects/Tienda_Muebles/mueble2/mueble2_v2.obj");
 	Model mueble3v1("resources/objects/Tienda_Muebles/mueble3/mueble3v1.obj");
+	
+	Model Armario1("resources/objects/Armario1/Armario1.obj");
+	Model Banca1("resources/objects/Banca1/Banca1.obj");
+	Model Cama("resources/objects/Cama/Cama.obj");
+	Model Cama1("resources/objects/Cama1/Cama1.obj");
+	Model Cama2("resources/objects/Cama2/Cama2.obj");
+	Model Cama3("resources/objects/Cama3/Cama3.obj");
+	Model Cama4("resources/objects/Cama4/Cama4.obj");
+
+	Model Camara("resources/objects/Camara/Camara.obj");
+	Model Barra("resources/objects/Barra/Barra.obj");
+	Model Armario("resources/objects/Armario/Armario.obj");
+	Model Armario2("resources/objects/Armario2/Armario2.obj");
+	Model Archivos("resources/objects/Archivos/Archivos.obj");
+	Model Lampara1("resources/objects/Lampara1/Lampara1.obj");
+	Model TV("resources/objects/TV/TV.obj");
+	Model Sofa("resources/objects/Sofa/Sofa.obj");
+	Model Silla("resources/objects/Silla/Silla.obj");
+	Model Silla1("resources/objects/Silla1/Silla1.obj");
+	Model Ropero("resources/objects/Ropero/Ropero.obj");
+	Model Cesto("resources/objects/Cesto/Cesto.obj");
+	Model Puerta("resources/objects/Puerta/Puerta.obj");
+	Model Mesa("resources/objects/Mesa/Mesa.obj");
+	Model Mesa1("resources/objects/Mesa1/Mesa1.obj");
+	Model Lampara("resources/objects/Lampara/Lampara.obj");
+	Model Lampara2("resources/objects/Lampara2/Lampara2.obj");
+
+	/*MODELOS DE TIENDA DE Juguetes*********************************************************************************/
+	
+	Model CajaAmarilla("resources/objects/CajaAmarilla/CajaAmarilla.obj");
+	Model CajaRoja("resources/objects/CajaRoja/CajaRoja.obj");
+	Model Juguete("resources/objects/Juguete/Juguete.obj");
+	Model Juguete1("resources/objects/Juguete1/Juguete1.obj");
+	Model Juguete2("resources/objects/Juguete2/Juguete2.obj");
+	Model Juguete3("resources/objects/Juguete3/Juguete3.obj");
+	Model Juguete4("resources/objects/Juguete4/Juguete4.obj");
+	Model Juguete5("resources/objects/Juguete5/Juguete5.obj");
+	Model Juguete6("resources/objects/Juguete6/Juguete6.obj");
+	Model Juguete7("resources/objects/Juguete7/Juguete7.obj");
+	Model Juguete8("resources/objects/Juguete8/Juguete8.obj");
+	Model Juguete9("resources/objects/Juguete9/Juguete9.obj");
+	Model Juguete10("resources/objects/Juguete10/Juguete10.obj");
+	Model Juguete11("resources/objects/Juguete11/Juguete11.obj");
+	Model Juguete12("resources/objects/Juguete12/Juguete12.obj");
+	Model Juguete13("resources/objects/Juguete13/Juguete13.obj");
+	Model Juguete14("resources/objects/Juguete14/Juguete14.obj");
+	Model Juguete15("resources/objects/Juguete15/Juguete15.obj");
+	
+	Model Ejercicio("resources/objects/Ejercicio/Ejercicio.obj");
+	Model Ejercicio1("resources/objects/Ejercicio1/Ejercicio1.obj");
+	Model Pesa("resources/objects/Pesa/Pesa.obj");
+	Model Pesa1("resources/objects/Pesa1/Pesa1.obj");
 
 	/*MODELOS DE TIENDA DE ROPA*************************************************************************************/
 	Model publi("resources/objects/Tienda_Ropa/publicidad/publi.obj");
@@ -470,7 +526,9 @@ int main() {
 	Model receptionTable("resources/objects/Tienda_Ropa/ReceptionTable/receptionTable.obj");
 	Model estante("resources/objects/Tienda_Ropa/mueble2/mueble2.obj");
 	Model ropa("resources/objects/Tienda_Ropa/ropa/ropaff.obj");//ropa colgada
-	
+	Model Ropa("resources/objects/Ropa/Ropa.obj");
+	Model Ropa2("resources/objects/Ropa2/Ropa2.obj");
+	Model Piano("resources/objects/Piano/Piano.obj");
 	Model r("resources/objects/Tienda_Ropa/ropa/r.obj");
 	Model mueble4v2("resources/objects/Tienda_Ropa/mueble4/mueble4v2.obj"); //sillon
 	Model mueble4v3("resources/objects/Tienda_Ropa/mueble4/mueble4v3.obj"); //sillon 2
@@ -479,16 +537,32 @@ int main() {
 	
 	//Modelo Maquina RESIDENT
 	Model maquina("resources/objects/tienda_arcade/maquina/maquina1.obj");
+
 	//MODELO MAQUINA ASTERFIRE
 	Model asterfire("resources/objects/tienda_arcade/Asterfire/maquinaArcadeAsterfire.obj");
 	Model machineArcade("resources/objects/Tienda_arcade/machineArcade/machineArcade.obj");
 
+	Model Mesahc("resources/objects/Mesahc/Mesahc.obj");
+
 	/*MODELOS DE TIENDA DE COMIDA*************************************************************************************/
+	
+	Model Comida("resources/objects/Comida/Comida.obj");
+	Model Comida1("resources/objects/Comida1/Comida1.obj");
+	Model Comida2("resources/objects/Comida2/Comida2.obj");
+	Model Comida3("resources/objects/Comida3/Comida3.obj");
+	Model Comida4("resources/objects/Comida4/Comida4.obj");
+	Model Lavabo("resources/objects/Lavabo/Lavabo.obj");
+	Model MaquinaCa("resources/objects/MaquinaCa/MaquinaCa.obj");
+	Model Micro("resources/objects/Micro/Micro.obj");
+	Model Refrigerador("resources/objects/Refrigerador/Refrigerador.obj");
 	Model sandwich("resources/objects/tienda_Comida/Sandwich/Sandwich.obj");
 
-
-
-
+	
+	
+	
+	
+	
+	
 	/*MODELOS DE ANIMACIÓN*/
 	//ModelAnim animacionPersonaje("resources/objects/Personaje1/Arm.dae");
 	//animacionPersonaje.initShaders(animShader.ID);
