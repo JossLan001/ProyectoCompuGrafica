@@ -872,7 +872,7 @@ int main() {
 		asterfire.Draw(staticShader);
 
 		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
-		modelOp = glm::scale(modelOp, glm::vec3(1.1f));
+		modelOp = glm::scale(modelOp, glm::vec3(10.1f));
 		staticShader.setMat4("model", modelOp);
 		television.Draw(staticShader);
 		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-490.0f, 0.0f, -1730.0f));
