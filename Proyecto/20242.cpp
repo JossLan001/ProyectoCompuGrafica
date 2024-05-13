@@ -467,9 +467,9 @@ int main() {
 	Model publi("resources/objects/Tienda_Ropa/publicidad/publi.obj");
 	Model receptionTable("resources/objects/Tienda_Ropa/ReceptionTable/receptionTable.obj");
 	Model estante("resources/objects/Tienda_Ropa/mueble2/mueble2.obj");
-	Model ropa("resources/objects/Tienda_Ropa/ropa/ropaff.obj");
-	Model ropadoblada("resources/objects/Tienda_Ropa/ropa/ropita.obj");
-	Model ropa2("resources/objects/Tienda_Ropa/ropa/ropa2.obj");
+	Model ropa("resources/objects/Tienda_Ropa/ropa/ropaff.obj");//ropa colgada
+	//Model ropadoblada("resources/objects/Tienda_Ropa/ropa/ropadoblada.obj");
+	//Model ropa2("resources/objects/Tienda_Ropa/ropa/ropa2.obj");
 	Model r("resources/objects/Tienda_Ropa/ropa/r.obj");
 	Model mueble4v2("resources/objects/Tienda_Ropa/mueble4/mueble4v2.obj"); //sillon
 	Model mueble4v3("resources/objects/Tienda_Ropa/mueble4/mueble4v3.obj"); //sillon 2
@@ -716,47 +716,48 @@ int main() {
 		estante.Draw(staticShader); //mueblepara ropa
 
 		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-545.0f, 15.0f, -1400.0f));
-		modelOp = glm::scale(modelOp, glm::vec3(0.030f));
+		modelOp = glm::scale(modelOp, glm::vec3(0.028f));
 		staticShader.setMat4("model", modelOp);
 		ropa.Draw(staticShader); //muebleparaRopa
 
 		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-530.0f, 15.0f, -1490.0f));
-		modelOp = glm::scale(modelOp, glm::vec3(0.030f));
+		modelOp = glm::scale(modelOp, glm::vec3(0.028f));
 		modelOp = glm::rotate(modelOp, glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
 		staticShader.setMat4("model", modelOp);
 		ropa.Draw(staticShader); //muebleparaRopa
 
-		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-430.0f, 15.0f, -1400.0f));      
-		modelOp = glm::scale(modelOp, glm::vec3(0.030f));
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-430.0f, 15.0f, -13850.0f));      
+		modelOp = glm::scale(modelOp, glm::vec3(0.028f));
 		modelOp = glm::rotate(modelOp, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		staticShader.setMat4("model", modelOp);
 		ropa.Draw(staticShader); //muebleparaRopa
 
-		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-400.0f, 10.0f, -1445.0f));//(-559.0f, 15.0f, -1440.0f));
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-401.0f, 10.0f, -1445.0f));//(-559.0f, 15.0f, -1440.0f));
 		modelOp = glm::scale(modelOp, glm::vec3(0.2f));
 		modelOp = glm::rotate(modelOp, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		staticShader.setMat4("model", modelOp);
-		ropadoblada.Draw(staticShader); //mueblepara ropa
+		r.Draw(staticShader); //mueblepara ropa
+
 
 		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-405.0f, 4.5f, -1440.0f));//(-559.0f, 15.0f, -1440.0f));
 		modelOp = glm::scale(modelOp, glm::vec3(0.2f));
 		modelOp = glm::rotate(modelOp, glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
 		staticShader.setMat4("model", modelOp);
-		ropadoblada.Draw(staticShader); //mueblepara ropa
+		r.Draw(staticShader); //mueblepara ropa
 
-		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-405.0f, 10.0f, -1440.0f));//(-559.0f, 15.0f, -1440.0f));
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-404.0f, 10.0f, -1440.0f));//(-559.0f, 15.0f, -1440.0f));
 		modelOp = glm::scale(modelOp, glm::vec3(0.2f));
 		modelOp = glm::rotate(modelOp, glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
 		staticShader.setMat4("model", modelOp);
-		//ropa2.Draw(staticShader); //mueblepara ropa
+		r.Draw(staticShader); //mueblepara ropa
 
 		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-399.0f, 4.50f, -1445.0f));//(-559.0f, 15.0f, -1440.0f));
 		modelOp = glm::scale(modelOp, glm::vec3(0.2f));
 		modelOp = glm::rotate(modelOp, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		staticShader.setMat4("model", modelOp);
-		ropa2.Draw(staticShader); //mueblepara ropa
+		r.Draw(staticShader); //mueblepara ropa
 
-		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-399.2f, 16.5f, -1446.0f));
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-399.2f, 16.0f, -1446.0f));
 		modelOp = glm::scale(modelOp, glm::vec3(0.2f));
 		modelOp = glm::rotate(modelOp, glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
 		staticShader.setMat4("model", modelOp);
