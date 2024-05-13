@@ -458,6 +458,7 @@ int main() {
 	Model proyecto("resources/objects/fachada/fachadap.obj");
 	//Model escaleras("resources/objects/escaleras_afuera/escaleras_afuera.obj");
 	Model urna("resources/objects/decoracion/urna.obj");
+	//Model contenedores("resources/objects/decoracion/contenedores.obj");
 	
 
 	/*MODELOS DE TIENDA DE MUEBLES*********************************************************************************/
@@ -482,6 +483,8 @@ int main() {
 	//MODELO MAQUINA ASTERFIRE
 	Model asterfire("resources/objects/tienda_arcade/Asterfire/maquinaArcadeAsterfire.obj");
 	Model machineArcade("resources/objects/Tienda_arcade/machineArcade/machineArcade.obj");
+	Model television("resources/objects/Tienda_arcade/television/televison.obj");
+	Model juegom("resources/objects/Tienda_arcade/juegom/juegom.obj");
 
 	/*MODELOS DE TIENDA DE COMIDA*************************************************************************************/
 	Model sandwich("resources/objects/tienda_Comida/Sandwich/Sandwich.obj");
@@ -668,7 +671,6 @@ int main() {
 		staticShader.setMat4("projection", projectionOp);
 		staticShader.setMat4("view", viewOp);
 
-		
 
 		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-1650.0f, 0.0f, 0.0f));
 		modelOp = glm::scale(modelOp, glm::vec3(0.20f));
@@ -688,10 +690,17 @@ int main() {
 		modelOp = glm::scale(modelOp, glm::vec3(0.30f));
 		staticShader.setMat4("model", modelOp);
 		urna.Draw(staticShader);
+
 		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -1500.0f));
 		modelOp = glm::scale(modelOp, glm::vec3(0.30f));
 		staticShader.setMat4("model", modelOp);
 		urna.Draw(staticShader);
+
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(0.30f));
+		staticShader.setMat4("model", modelOp);
+		//contenedores.Draw(staticShader);
+
 		// -------------------------------------------------------------------------------------------------------------------------
 		// TIENDA Ropa
 		// limites: x=-555   z=-1965
@@ -792,10 +801,14 @@ int main() {
 		staticShader.setMat4("model", modelOp);
 		asterfire.Draw(staticShader);
 
-		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-100.0f, 0.0f, 0.0f));
-		modelOp = glm::scale(modelOp, glm::vec3(0.1f));
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(1.1f));
 		staticShader.setMat4("model", modelOp);
-		//machineArcade.Draw(staticShader);
+		television.Draw(staticShader);
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-490.0f, 0.0f, -1730.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(1.1f));
+		staticShader.setMat4("model", modelOp);
+		juegom.Draw(staticShader);
 		// --------------------------------------------	-----------------------------------------------------------------------------
 		// TIENDA de Comida
 		// -------------------------------------------------------------------------------------------------------------------------
