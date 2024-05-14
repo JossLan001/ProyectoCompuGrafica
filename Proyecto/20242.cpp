@@ -3,7 +3,7 @@
 /*-----------------    2024-2   ---------------------------*/
 /*-----------------   Integrantes:   ---------------------------*/
 /*-----------------    Bautista Ortega Elvia  ---------------------------*/
-/*-----------------    Garces Gomez Eduardo Tonathiu   ---------------------------*/
+/*-----------------     ---------------------------*/
 /*-----------------       ---------------------------*/
 
 #include <Windows.h>
@@ -94,6 +94,8 @@ recorrido2 = false,
 recorrido3 = false,
 recorrido4 = false;
 
+//animación
+float recorridoCliente = 0.0f;
 
 //Keyframes (Manipulaci�n y dibujo)
 float	posX = 0.0f,
@@ -563,8 +565,8 @@ int main() {
 	
 	
 	/*MODELOS DE ANIMACI�N*/
-	//ModelAnim animacionPersonaje("resources/objects/Personaje1/Arm.dae");
-	//animacionPersonaje.initShaders(animShader.ID);
+	ModelAnim cliente("resources/objects/animacion/cliente/cliente.dae");
+	cliente.initShaders(animShader.ID);
 
 
 	//Inicializaci�n de KeyFrames
@@ -681,10 +683,10 @@ int main() {
 		animShader.setVec3("viewPos", camera.Position);
 
 		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-40.3f, 1.75f, 0.3f)); // translate it down so it's at the center of the scene
-		modelOp = glm::scale(modelOp, glm::vec3(0.05f));	// it's a bit too big for our scene, so scale it down
+		modelOp = glm::scale(modelOp, glm::vec3(0.85f));	// it's a bit too big for our scene, so scale it down
 		modelOp = glm::rotate(modelOp, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		animShader.setMat4("model", modelOp);
-		//animacionPersonaje.Draw(animShader);
+		//cliente.Draw(animShader);
 
 		// -------------------------------------------------------------------------------------------------------------------------
 		// Segundo Personaje Animacion
@@ -871,14 +873,17 @@ int main() {
 		staticShader.setMat4("model", modelOp);
 		asterfire.Draw(staticShader);
 
-		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
-		modelOp = glm::scale(modelOp, glm::vec3(10.1f));
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-390.0f, 15.0f, 170.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(9.1f));
+		modelOp = glm::rotate(modelOp, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		staticShader.setMat4("model", modelOp);
 		television.Draw(staticShader);
-		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-490.0f, 0.0f, -1730.0f));
-		modelOp = glm::scale(modelOp, glm::vec3(1.1f));
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-420.0f, 0.0f, -1780.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(1.0f));
 		staticShader.setMat4("model", modelOp);
 		juegom.Draw(staticShader);
+		
+		
 		// --------------------------------------------	-----------------------------------------------------------------------------
 		// TIENDA de Comida
 		// -------------------------------------------------------------------------------------------------------------------------
