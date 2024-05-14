@@ -95,7 +95,7 @@ recorrido3 = false,
 recorrido4 = false;
 
 //animación
-float recorridoCliente = 0.0f;
+float recorridoCliente = 0.0f, recorridoClienta = 0.0f;
 
 //Keyframes (Manipulaci�n y dibujo)
 float	posX = 0.0f,
@@ -251,8 +251,8 @@ void animate(void)
 		}
 	}
 
-	//Veh�culo
-	if (animacion)
+	//animación
+	if (recorridoCliente)
 	{
 		movAuto_x += 3.0f;
 	}
@@ -567,6 +567,9 @@ int main() {
 	/*MODELOS DE ANIMACI�N*/
 	ModelAnim cliente("resources/objects/animacion/cliente/cliente.dae");
 	cliente.initShaders(animShader.ID);
+	ModelAnim clienta("resources/objects/animacion/clienta/clienta.dae");
+	clienta.initShaders(animShader.ID);
+
 
 
 	//Inicializaci�n de KeyFrames
@@ -682,11 +685,20 @@ int main() {
 		animShader.setVec3("light.direction", lightDirection);
 		animShader.setVec3("viewPos", camera.Position);
 
-		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-40.3f, 1.75f, 0.3f)); // translate it down so it's at the center of the scene
-		modelOp = glm::scale(modelOp, glm::vec3(0.85f));	// it's a bit too big for our scene, so scale it down
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-40.3f, 0.0f, -10.3f)); // translate it down so it's at the center of the scene
+		modelOp = glm::scale(modelOp, glm::vec3(0.25f));	// it's a bit too big for our scene, so scale it down
+		modelOp = glm::rotate(modelOp, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+
+		animShader.setMat4("model", modelOp);
+		cliente.Draw(animShader);
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(40.3f, 0.0f, 0.3f)); // translate it down so it's at the center of the scene
+		modelOp = glm::scale(modelOp, glm::vec3(0.25f));	// it's a bit too big for our scene, so scale it down
+		modelOp = glm::rotate(modelOp, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		modelOp = glm::rotate(modelOp, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		modelOp = glm::rotate(modelOp, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		animShader.setMat4("model", modelOp);
-		//cliente.Draw(animShader);
+		clienta.Draw(animShader);
+		
 
 		// -------------------------------------------------------------------------------------------------------------------------
 		// Segundo Personaje Animacion
