@@ -62,11 +62,21 @@ void myData(void);							// De la practica 4
 void LoadTextures(void);					// De la pr�ctica 6
 unsigned int generateTextures(char*, bool, bool);	// De la pr�ctica 6
 
-//For Keyboard
+//For animate
 float	movX = 0.0f,
 movY = 0.0f,
 movZ = -15.0f,
-rotX = 0.0f;
+rotX = 0.0f,
+
+movRx = 0.0f,
+movRy = 0.0f,
+movRz = 0.0f,
+movAx = 0.0f,
+movAy = 0.0f,
+movAz = 0.0f,
+rotRa = 0.0f,
+rotAb = 0.0f,
+rotRc = 0.0f;
 
 //Texture
 /*unsigned int	t_smile,
@@ -249,13 +259,64 @@ void animate(void)
 
 			i_curr_steps++;
 		}
+
+
 	}
 
 	//animación
-	if (recorridoCliente)
+	if (animacion)
 	{
-		movAuto_x += 3.0f;
+		rotRa = 90.0f;
+		if (recorridoCliente == 0)
+		{
+			movRx += 1.0f;
+			if (movRx == 40.0f)
+
+				recorridoCliente = 1;
+		}
+
+		if (recorridoCliente == 1)
+		{
+			rotRa = -90.0f;
+			movRx -= 1.0f;
+			if (movRx == 0.0f)
+				recorridoCliente = 2;
+		}
+
+		if (recorridoCliente == 2)
+		{
+			rotRa = -360.0f;
+			recorridoCliente = 0;
+	
+		}
+		
 	}
+	
+		rotAb = 90.0f;
+		if (recorridoClienta == 0)
+		{
+			movAx -= 1.0f;
+			if (movAx == -40.0f)
+
+				recorridoClienta = 1;
+		}
+
+		if (recorridoClienta == 1)
+		{
+			rotAb = -90.0f;
+			movAx += 1.0f;
+			if (movAx == 40.0f)
+				recorridoClienta = 2;
+		}
+
+		if (recorridoClienta == 2)
+		{
+			//rotAb = 360.0f;
+			recorridoClienta = 0;
+
+		}
+
+	
 }
 
 void getResolution() {
@@ -685,17 +746,18 @@ int main() {
 		animShader.setVec3("light.direction", lightDirection);
 		animShader.setVec3("viewPos", camera.Position);
 
-		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-40.3f, 0.0f, -10.3f)); // translate it down so it's at the center of the scene
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(-40.3f + movRx, 0.0f + movRy, -100.3f + movRz)); // translate it down so it's at the center of the scene
 		modelOp = glm::scale(modelOp, glm::vec3(0.25f));	// it's a bit too big for our scene, so scale it down
-		modelOp = glm::rotate(modelOp, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		modelOp = glm::rotate(modelOp, glm::radians(0.0f + rotRa), glm::vec3(0.0f, 1.0f, 0.0f));
 
 		animShader.setMat4("model", modelOp);
 		cliente.Draw(animShader);
-		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(40.3f, 0.0f, 0.3f)); // translate it down so it's at the center of the scene
+
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(40.3f + movAx, 0.0f + movAy, -90.3f + movAz)); // translate it down so it's at the center of the scene
 		modelOp = glm::scale(modelOp, glm::vec3(0.25f));	// it's a bit too big for our scene, so scale it down
 		modelOp = glm::rotate(modelOp, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		modelOp = glm::rotate(modelOp, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		modelOp = glm::rotate(modelOp, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		modelOp = glm::rotate(modelOp, glm::radians(0.0f+rotAb), glm::vec3(0.0f, 1.0f, 0.0f));
 		animShader.setMat4("model", modelOp);
 		clienta.Draw(animShader);
 		
