@@ -33,7 +33,7 @@ void CaminarPoseInicial();
 void Caminar();
 
 // Window dimensions
-const GLuint WIDTH = 800, HEIGHT = 600;
+const GLuint WIDTH = 1920, HEIGHT = 1080;
 int SCREEN_WIDTH, SCREEN_HEIGHT;
 
 // Camera
@@ -55,44 +55,22 @@ glm::vec3 spotLightDirection = glm::vec3(0.0f, 0.0f, 0.0f);
 GLfloat deltaTime = 0.0f;	// Time between current frame and last frame
 GLfloat lastFrame = 0.0f;  	// Time of last frame
 
+//Cámara
+bool camaraEstatica = false;
+
 //Animación Harley
-
 glm::vec3 posicionHarley = glm::vec3(0.0f, 0.92f, 0.0f);
-float rotacionXHarley = 0.0f;
-float rotacionYHarley = 0.0f;
-float rotacionZHarley = 0.0f;
+glm::vec3 rotacionHarley = glm::vec3(0.0f);
 
-float rotacionXCabezaHarley = 0.0f;
-float rotacionYCabezaHarley = 0.0f;
-float rotacionZCabezaHarley = 0.0f;
-
-float rotacionXBrazoL1Harley = 0.0f;
-float rotacionYBrazoL1Harley = 0.0f;
-float rotacionZBrazoL1Harley = 0.0f;
-
-float rotacionXBrazoL2Harley = 0.0f;
-float rotacionYBrazoL2Harley = 0.0f;
-
-float rotacionXBrazoR1Harley = 0.0f;
-float rotacionYBrazoR1Harley = 0.0f;
-float rotacionZBrazoR1Harley = 0.0f;
-
-float rotacionXBrazoR2Harley = 0.0f;
-float rotacionYBrazoR2Harley = 0.0f;
-
-float rotacionXPiernaL1Harley = 0.0f;
-float rotacionYPiernaL1Harley = 0.0f;
-float rotacionZPiernaL1Harley = 0.0f;
-
-float rotacionXPiernaL2Harley = 0.0f;
-float rotacionYPiernaL2Harley = 0.0f;
-
-float rotacionXPiernaR1Harley = 0.0f;
-float rotacionYPiernaR1Harley = 0.0f;
-float rotacionZPiernaR1Harley = 0.0f;
-
-float rotacionXPiernaR2Harley = 0.0f;
-float rotacionYPiernaR2Harley = 0.0f;
+glm::vec3 rotacionCabezaHarley = glm::vec3(0.0f);
+glm::vec3 rotacionBrazoL1Harley = glm::vec3(0.0f);
+glm::vec3 rotacionBrazoL2Harley = glm::vec3(0.0f);
+glm::vec3 rotacionBrazoR1Harley = glm::vec3(0.0f);
+glm::vec3 rotacionBrazoR2Harley = glm::vec3(0.0f);
+glm::vec3 rotacionPiernaL1Harley = glm::vec3(0.0f);
+glm::vec3 rotacionPiernaL2Harley = glm::vec3(0.0f);
+glm::vec3 rotacionPiernaR1Harley = glm::vec3(0.0f);
+glm::vec3 rotacionPiernaR2Harley = glm::vec3(0.0f);
 
 float velocidadAnim = 100.0f;
 float tiempoAnim = 0.0f;
@@ -131,7 +109,7 @@ int main()
 	glfwSetCursorPosCallback(window, MouseCallback);
 
 	// GLFW Options
-	//glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	// Set this to true so GLEW knows to use a modern approach to retrieving function pointers and extensions
 	glewExperimental = GL_TRUE;
@@ -149,6 +127,8 @@ int main()
 	//Load Model
 	Shader lightingShader("Shaders/lighting.vs", "Shaders/lighting.frag");
 	Shader lampShader("Shaders/lamp.vs", "Shaders/lamp.frag");
+
+	Model test_model((char*)"Modelos/Test.obj");
 
 	//Harley
 	Model harley_cuerpo((char*)"Modelos/Harley_Cuerpo.obj");
@@ -258,7 +238,18 @@ int main()
 
 		// Create camera transformations
 		glm::mat4 view;
-		view = camera.GetViewMatrix();
+		camera.target = posicionHarley;
+		camera.updateCameraVectors();
+		if (camaraEstatica)
+		{
+			glm::vec3 posicionCamara = glm::vec3(0.0f, 40.0f, 0.0f);
+			glm::vec3 objetivo = glm::vec3(0.0f, 0.0f, 0.0f);
+			view = glm::lookAt(posicionCamara, objetivo, glm::vec3(0.0f, 0.0f, -1.0f)); // Mira hacia abajo
+		}
+		else
+		{
+			view = camera.GetViewMatrix(); // Vista en tercera persona
+		}
 
 		// Get the uniform locations
 		GLint modelLoc = glGetUniformLocation(lightingShader.Program, "model");
@@ -277,113 +268,117 @@ int main()
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTransparencia"), 0);
 		glUniform4f(glGetUniformLocation(lightingShader.Program, "colorAlpha"), 1.0f, 1.0f, 1.0f, 1.0f);
 
-		//Agua
-		//glEnable(GL_BLEND);//Avtiva la funcionalidad para trabajar el canal alfa
+		//Test Transparencia
+		//glEnable(GL_BLEND);//Activa la funcionalidad para trabajar el canal alfa
 		//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		//model = glm::mat4(1);
 		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//agua.Draw(lightingShader);
+		//test_model.Draw(lightingShader);
 		//glDisable(GL_BLEND); //Desactiva el canal alfa 
+
+		model = glm::mat4(1);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		test_model.Draw(lightingShader);
 
 		//Harley
 		//Cuerpo Harley
 		model = glm::mat4(1);
 		model = glm::translate(model, posicionHarley);
-		model = glm::rotate(model, glm::radians(rotacionXHarley), glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(rotacionYHarley), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(rotacionZHarley), glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(rotacionHarley.x), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(rotacionHarley.y), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(rotacionHarley.z), glm::vec3(0.0f, 0.0f, 1.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		harley_cuerpo.Draw(lightingShader);
 
 		//Cabeza Harley
 		model = glm::translate(model, glm::vec3(0.0f, 0.507119f, -0.005981f));
-		model = glm::rotate(model, glm::radians(rotacionXCabezaHarley), glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(rotacionYCabezaHarley), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(rotacionZCabezaHarley), glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(rotacionCabezaHarley.x), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(rotacionCabezaHarley.y), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(rotacionCabezaHarley.z), glm::vec3(0.0f, 0.0f, 1.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		harley_cabeza.Draw(lightingShader);
 
 		//Brazo_L_1 Harley
 		model = glm::mat4(1);
 		model = glm::translate(model, posicionHarley);
-		model = glm::rotate(model, glm::radians(rotacionXHarley), glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(rotacionYHarley), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(rotacionZHarley), glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(rotacionHarley.x), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(rotacionHarley.y), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(rotacionHarley.z), glm::vec3(0.0f, 0.0f, 1.0f));
 
 		model = glm::translate(model, glm::vec3(0.107058f, 0.389674f, -0.020696f));
-		model = glm::rotate(model, glm::radians(rotacionXBrazoL1Harley), glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(rotacionYBrazoL1Harley), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(rotacionZBrazoL1Harley), glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(rotacionBrazoL1Harley.x), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(rotacionBrazoL1Harley.y), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(rotacionBrazoL1Harley.z), glm::vec3(0.0f, 0.0f, 1.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		harley_brazo_l_1.Draw(lightingShader);
 
 		//Brazo_L_2 Harley
 		model = glm::translate(model, glm::vec3(0.249121f, 0.015555f, 0.000215f));
-		model = glm::rotate(model, glm::radians(rotacionXBrazoL2Harley), glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(rotacionYBrazoL2Harley), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(rotacionBrazoL2Harley.x), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(rotacionBrazoL2Harley.y), glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		harley_brazo_l_2.Draw(lightingShader);
 
 		//Brazo_R_1 Harley
 		model = glm::mat4(1);
 		model = glm::translate(model, posicionHarley);
-		model = glm::rotate(model, glm::radians(rotacionXHarley), glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(rotacionYHarley), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(rotacionZHarley), glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(rotacionHarley.x), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(rotacionHarley.y), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(rotacionHarley.z), glm::vec3(0.0f, 0.0f, 1.0f));
 
 		model = glm::translate(model, glm::vec3(-0.107058, 0.389674, -0.020696));
-		model = glm::rotate(model, glm::radians(rotacionXBrazoR1Harley), glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(rotacionYBrazoR1Harley), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(rotacionZBrazoR1Harley), glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(rotacionBrazoR1Harley.x), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(rotacionBrazoR1Harley.y), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(rotacionBrazoR1Harley.z), glm::vec3(0.0f, 0.0f, 1.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		harley_brazo_r_1.Draw(lightingShader);
 
 		//Brazo_R_2 Harley
 		model = glm::translate(model, glm::vec3(-0.249121, 0.015555, 0.000215));
-		model = glm::rotate(model, glm::radians(rotacionXBrazoR2Harley), glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(rotacionYBrazoR2Harley), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(rotacionBrazoR2Harley.x), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(rotacionBrazoR2Harley.y), glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		harley_brazo_r_2.Draw(lightingShader);
 
 		//Pierna_L_1 Harley
 		model = glm::mat4(1);
 		model = glm::translate(model, posicionHarley);
-		model = glm::rotate(model, glm::radians(rotacionXHarley), glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(rotacionYHarley), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(rotacionZHarley), glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(rotacionHarley.x), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(rotacionHarley.y), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(rotacionHarley.z), glm::vec3(0.0f, 0.0f, 1.0f));
 
-		model = glm::rotate(model, glm::radians(rotacionXPiernaL1Harley), glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(rotacionYPiernaL1Harley), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(rotacionZPiernaL1Harley), glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(rotacionPiernaL1Harley.x), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(rotacionPiernaL1Harley.y), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(rotacionPiernaL1Harley.z), glm::vec3(0.0f, 0.0f, 1.0f));
 		model = glm::translate(model, glm::vec3(0.06f, 0.0f, 0.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		harley_pierna_l_1.Draw(lightingShader);
 
 		//Pierna_L_2 Harley
 		model = glm::translate(model, glm::vec3(0.076131f - 0.06f, -0.413235f, 0.007457f));
-		model = glm::rotate(model, glm::radians(rotacionXPiernaL2Harley), glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(rotacionYPiernaL2Harley), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(rotacionPiernaL2Harley.x), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(rotacionPiernaL2Harley.y), glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		harley_pierna_l_2.Draw(lightingShader);
 
 		//Pierna_R_1 Harley
 		model = glm::mat4(1);
 		model = glm::translate(model, posicionHarley);
-		model = glm::rotate(model, glm::radians(rotacionXHarley), glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(rotacionYHarley), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(rotacionZHarley), glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(rotacionHarley.x), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(rotacionHarley.y), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(rotacionHarley.z), glm::vec3(0.0f, 0.0f, 1.0f));
 
 		model = glm::translate(model, glm::vec3(-0.06f, 0.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(rotacionXPiernaR1Harley), glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(rotacionYPiernaR1Harley), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(rotacionZPiernaR1Harley), glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(rotacionPiernaR1Harley.x), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(rotacionPiernaR1Harley.y), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(rotacionPiernaR1Harley.z), glm::vec3(0.0f, 0.0f, 1.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		harley_pierna_r_1.Draw(lightingShader);
 
 		//Pierna_R_2 Harley
 		model = glm::translate(model, glm::vec3(-0.086131f + 0.06f, -0.413235f, 0.007457f));
-		model = glm::rotate(model, glm::radians(rotacionXPiernaR2Harley), glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(rotacionYPiernaR2Harley), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(rotacionPiernaR2Harley.x), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(rotacionPiernaR2Harley.y), glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		harley_pierna_r_2.Draw(lightingShader);
 
@@ -408,33 +403,35 @@ int main()
 // Moves/alters the camera positions based on user input
 void DoMovement()
 {
+	glm::vec3 front = camera.GetFront();
+	front.y = 0.0f;
+	front = glm::normalize(front);
 
-	// Camera controls
+	glm::vec3 right = glm::normalize(glm::cross(front, glm::vec3(0.0f, 1.0f, 0.0f)));
+
+	float speed = 2.5f * deltaTime;
+	glm::vec3 movimiento(0.0f);
+
 	if (keys[GLFW_KEY_W] || keys[GLFW_KEY_UP])
-	{
-		camera.ProcessKeyboard(FORWARD, deltaTime);
-
-	}
+		movimiento += front;
 
 	if (keys[GLFW_KEY_S] || keys[GLFW_KEY_DOWN])
-	{
-		camera.ProcessKeyboard(BACKWARD, deltaTime);
-
-
-	}
+		movimiento -= front;
 
 	if (keys[GLFW_KEY_A] || keys[GLFW_KEY_LEFT])
-	{
-		camera.ProcessKeyboard(LEFT, deltaTime);
-
-
-	}
+		movimiento -= right;
 
 	if (keys[GLFW_KEY_D] || keys[GLFW_KEY_RIGHT])
+		movimiento += right;
+
+	if (glm::length(movimiento) > 0.0f)
 	{
-		camera.ProcessKeyboard(RIGHT, deltaTime);
+		movimiento = glm::normalize(movimiento);
+		posicionHarley += movimiento * speed;
 
-
+		// Calcular ángulo en Y desde la dirección del movimiento
+		float angle = glm::degrees(atan2(movimiento.x, movimiento.z));
+		rotacionHarley.y = angle;
 	}
 
 	if (caminando)
@@ -462,6 +459,11 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode
 		{
 			keys[key] = false;
 		}
+	}
+
+	if (key == GLFW_KEY_P && action == GLFW_PRESS)
+	{
+		camaraEstatica = !camaraEstatica;
 	}
 
 	if (keys[GLFW_KEY_SPACE])
@@ -492,41 +494,25 @@ void MouseCallback(GLFWwindow *window, double xPos, double yPos)
 
 void ReiniciarPose()
 {
-	rotacionXHarley = 0.0f;
-	rotacionYHarley = 0.0f;
-	rotacionZHarley = 0.0f;
+	rotacionHarley = glm::vec3(0.0f, 0.0f, 0.0f);
 
-	rotacionXCabezaHarley = 0.0f;
-	rotacionYCabezaHarley = 0.0f;
-	rotacionZCabezaHarley = 0.0f;
+	rotacionCabezaHarley = glm::vec3(0.0f, 0.0f, 0.0f);
 
-	rotacionXBrazoL1Harley = 0.0f;
-	rotacionYBrazoL1Harley = 0.0f;
-	rotacionZBrazoL1Harley = 0.0f;
+	rotacionBrazoL1Harley = glm::vec3(0.0f, 0.0f, 0.0f);
 
-	rotacionXBrazoL2Harley = 0.0f;
-	rotacionYBrazoL2Harley = 0.0f;
+	rotacionBrazoL2Harley = glm::vec3(0.0f, 0.0f, 0.0f);
 
-	rotacionXBrazoR1Harley = 0.0f;
-	rotacionYBrazoR1Harley = 0.0f;
-	rotacionZBrazoR1Harley = 0.0f;
+	rotacionBrazoR1Harley = glm::vec3(0.0f, 0.0f, 0.0f);
 
-	rotacionXBrazoR2Harley = 0.0f;
-	rotacionYBrazoR2Harley = 0.0f;
+	rotacionBrazoR2Harley = glm::vec3(0.0f, 0.0f, 0.0f);
 
-	rotacionXPiernaL1Harley = 0.0f;
-	rotacionYPiernaL1Harley = 0.0f;
-	rotacionZPiernaL1Harley = 0.0f;
+	rotacionPiernaL1Harley = glm::vec3(0.0f, 0.0f, 0.0f);
 
-	rotacionXPiernaL2Harley = 0.0f;
-	rotacionYPiernaL2Harley = 0.0f;
+	rotacionPiernaL2Harley = glm::vec3(0.0f, 0.0f, 0.0f);
 
-	rotacionXPiernaR1Harley = 0.0f;
-	rotacionYPiernaR1Harley = 0.0f;
-	rotacionZPiernaR1Harley = 0.0f;
+	rotacionPiernaR1Harley = glm::vec3(0.0f, 0.0f, 0.0f);
 
-	rotacionXPiernaR2Harley = 0.0f;
-	rotacionYPiernaR2Harley = 0.0f;
+	rotacionPiernaR2Harley = glm::vec3(0.0f, 0.0f, 0.0f);
 
 	tiempoAnim = 0.0f;
 	cicloAnim = 1.0f;
@@ -534,27 +520,27 @@ void ReiniciarPose()
 
 void CaminarPoseInicial()
 {
-	rotacionXHarley = 2.0f;
+	rotacionHarley = glm::vec3(2.0f, 0.0f, 0.0f);
 
-	rotacionXCabezaHarley = -5.0f;
+	rotacionCabezaHarley.x = -5.0f;
 
-	rotacionXBrazoL1Harley = 35.0f;
-	rotacionZBrazoL1Harley = -75.0f;
+	rotacionBrazoL1Harley.x = 35.0f;
+	rotacionBrazoL1Harley.z = -75.0f;
 
-	rotacionYBrazoL2Harley = -43.0f;
+	rotacionBrazoL2Harley.y = -43.0f;
 
-	rotacionXBrazoR1Harley = 10.0f;
-	rotacionZBrazoR1Harley = 75.0f;
+	rotacionBrazoR1Harley.x = 10.0f;
+	rotacionBrazoR1Harley.z = 75.0f;
 
-	rotacionYBrazoR2Harley = 30.0f;
+	rotacionBrazoR2Harley.y = 30.0f;
 
-	rotacionXPiernaL1Harley = -30.0f;
+	rotacionPiernaL1Harley.x = -30.0f;
 
-	rotacionXPiernaL2Harley = 15.0f;
+	rotacionPiernaL2Harley.x = 15.0f;
 
-	rotacionXPiernaR1Harley = 10.0f;
+	rotacionPiernaR1Harley.x = 10.0f;
 
-	rotacionXPiernaR2Harley = 35.0f;
+	rotacionPiernaR2Harley.x = 35.0f;
 
 }
 
@@ -562,17 +548,17 @@ void Caminar()
 {
 	tiempoAnim += deltaTime;
 	
-	rotacionXBrazoL1Harley += -50.0f * cicloAnim * deltaTime;
-	rotacionYBrazoL2Harley += 30.0f * cicloAnim * deltaTime;
+	rotacionBrazoL1Harley.x += -50.0f * cicloAnim * deltaTime;
+	rotacionBrazoL2Harley.y += 30.0f * cicloAnim * deltaTime;
 
-	rotacionXBrazoR1Harley += 50.0f * cicloAnim * deltaTime;
-	rotacionYBrazoR2Harley += 30.0f * cicloAnim * deltaTime;
+	rotacionBrazoR1Harley.x += 50.0f * cicloAnim * deltaTime;
+	rotacionBrazoR2Harley.y += 30.0f * cicloAnim * deltaTime;
 
-	rotacionXPiernaL1Harley += 80.0f * cicloAnim * deltaTime;
-	rotacionXPiernaL2Harley += 40.0f * cicloAnim * deltaTime;
+	rotacionPiernaL1Harley.x += 80.0f * cicloAnim * deltaTime;
+	rotacionPiernaL2Harley.x += 40.0f * cicloAnim * deltaTime;
 
-	rotacionXPiernaR1Harley += -80.0f * cicloAnim * deltaTime;
-	rotacionXPiernaR2Harley += -40.0f * cicloAnim * deltaTime;
+	rotacionPiernaR1Harley.x += -80.0f * cicloAnim * deltaTime;
+	rotacionPiernaR2Harley.x += -40.0f * cicloAnim * deltaTime;
 
 	if (tiempoAnim >= 0.5f)
 	{
