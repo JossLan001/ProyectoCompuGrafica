@@ -29,6 +29,7 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode
 void MouseCallback(GLFWwindow *window, double xPos, double yPos);
 void DoMovement();
 void ReiniciarPose();
+void PoseIdle();
 void CaminarPoseInicial();
 void Caminar();
 
@@ -60,13 +61,14 @@ bool camaraEstatica = false;
 
 //Animación Harley
 glm::vec3 posicionHarley = glm::vec3(0.0f, 0.92f, 0.0f);
+glm::vec3 posicionHarleyAnterior = glm::vec3(0.0f, 0.92f, 0.0f);
 glm::vec3 rotacionHarley = glm::vec3(0.0f);
 
 glm::vec3 rotacionCabezaHarley = glm::vec3(0.0f);
-glm::vec3 rotacionBrazoL1Harley = glm::vec3(0.0f);
-glm::vec3 rotacionBrazoL2Harley = glm::vec3(0.0f);
-glm::vec3 rotacionBrazoR1Harley = glm::vec3(0.0f);
-glm::vec3 rotacionBrazoR2Harley = glm::vec3(0.0f);
+glm::vec3 rotacionBrazoL1Harley = glm::vec3(15.0f, 0.0f, -75.0f);
+glm::vec3 rotacionBrazoL2Harley = glm::vec3(0.0f, -25.0f, 0.0f);
+glm::vec3 rotacionBrazoR1Harley = glm::vec3(15.0f, 0.0f, 75.0f);
+glm::vec3 rotacionBrazoR2Harley = glm::vec3(0.0f, 25.0f, 0.0f);
 glm::vec3 rotacionPiernaL1Harley = glm::vec3(0.0f);
 glm::vec3 rotacionPiernaL2Harley = glm::vec3(0.0f);
 glm::vec3 rotacionPiernaR1Harley = glm::vec3(0.0f);
@@ -242,14 +244,34 @@ int main()
 		camera.updateCameraVectors();
 		if (camaraEstatica)
 		{
-			glm::vec3 posicionCamara = glm::vec3(0.0f, 40.0f, 0.0f);
-			glm::vec3 objetivo = glm::vec3(0.0f, 0.0f, 0.0f);
-			view = glm::lookAt(posicionCamara, objetivo, glm::vec3(0.0f, 0.0f, -1.0f)); // Mira hacia abajo
+			view = glm::lookAt(glm::vec3(0.0f, 40.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f)); // Mira hacia abajo
 		}
 		else
 		{
 			view = camera.GetViewMatrix(); // Vista en tercera persona
 		}
+
+		if (posicionHarley != posicionHarleyAnterior)
+		{
+			// Está caminando
+			if (!caminando)
+			{
+				ReiniciarPose();
+				CaminarPoseInicial();
+				caminando = true;
+			}
+		}
+		else
+		{
+			// Está quieta
+			if (caminando)
+			{
+				ReiniciarPose();
+				PoseIdle();
+				caminando = false;
+			}
+		}
+		posicionHarleyAnterior = posicionHarley;
 
 		// Get the uniform locations
 		GLint modelLoc = glGetUniformLocation(lightingShader.Program, "model");
@@ -494,8 +516,6 @@ void MouseCallback(GLFWwindow *window, double xPos, double yPos)
 
 void ReiniciarPose()
 {
-	rotacionHarley = glm::vec3(0.0f, 0.0f, 0.0f);
-
 	rotacionCabezaHarley = glm::vec3(0.0f, 0.0f, 0.0f);
 
 	rotacionBrazoL1Harley = glm::vec3(0.0f, 0.0f, 0.0f);
@@ -520,10 +540,6 @@ void ReiniciarPose()
 
 void CaminarPoseInicial()
 {
-	rotacionHarley = glm::vec3(2.0f, 0.0f, 0.0f);
-
-	rotacionCabezaHarley.x = -5.0f;
-
 	rotacionBrazoL1Harley.x = 35.0f;
 	rotacionBrazoL1Harley.z = -75.0f;
 
@@ -565,4 +581,12 @@ void Caminar()
 		cicloAnim = cicloAnim * -1.0f;
 		tiempoAnim = 0.0f;
 	}
+}
+
+void PoseIdle() {
+	rotacionBrazoL1Harley = glm::vec3(15.0f, 0.0f, -75.0f);
+	rotacionBrazoL2Harley.y = -25.0f;
+
+	rotacionBrazoR1Harley = glm::vec3(15.0f, 0.0f, 75.0f);
+	rotacionBrazoR2Harley.y = 25.0f;
 }
