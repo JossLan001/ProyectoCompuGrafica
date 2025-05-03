@@ -11,3 +11,13 @@
 6.- Dar "Extraer aquí" a cada uno.
 
 Ya se puede abrir y correr el proyecto desde Visual Studio o desde "ProyectoFinalCGeIHC.sln".
+
+Controles:
+
+Mouse para mover la cámara.
+
+W, A, S, D, para mover el personaje.
+
+E para interactuar con los stands de tickets.
+
+P para activar la camara de pajaro.
