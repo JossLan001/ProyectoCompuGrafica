@@ -1,7 +1,7 @@
 // Other includes.
 #include "Main.h"
 
-Personaje test;
+Personaje purohueso;
 
 int main()
 {
@@ -52,6 +52,7 @@ int main()
 	Shader lightingShader("Shaders/lighting.vs", "Shaders/lighting.frag");
 	Shader lampShader("Shaders/lamp.vs", "Shaders/lamp.frag");
 
+	Model vacio((char*)"Modelos/Vacio.obj");
 	Model suelo((char*)"Modelos/Suelo.obj");
 
 	// Stand Tickets.
@@ -65,16 +66,16 @@ int main()
 	Model maquina_topos((char*)"Modelos/Maquina_Topos.obj");
 
 	// Hachas.
-	//Model cabina_hachas((char*)"Modelos/Cabina_Hachas.obj");
+	Model cabina_hachas((char*)"Modelos/Cabina_Hachas.obj");
 
 	// Boliche.
-	//Model pista_boliche((char*)"Modelos/Pista_Boliche.obj");
+	Model pista_boliche((char*)"Modelos/Pista_Boliche.obj");
 
 	// Dados.
-	//Model mesa_dados((char*)"Modelos/Mesa_Dados.obj");
+	Model mesa_dados((char*)"Modelos/Mesa_Dados.obj");
 
 	// Dardos.
-	//Model puesto_dardos((char*)"Modelos/Puesto_Dardos.obj");
+	Model puesto_dardos((char*)"Modelos/Puesto_Dardos.obj");
 
 	// Harley.
 	Model harley_cuerpo((char*)"Modelos/Harley_Cuerpo.obj");
@@ -87,6 +88,17 @@ int main()
 	Model harley_pierna_l_2((char*)"Modelos/Harley_Pierna_L_2.obj");
 	Model harley_pierna_r_1((char*)"Modelos/Harley_Pierna_R_1.obj");
 	Model harley_pierna_r_2((char*)"Modelos/Harley_Pierna_R_2.obj");
+
+	// Puro Hueso.
+	Model purohueso_cuerpo((char*)"Modelos/PuroHueso_Cuerpo.obj");
+	Model purohueso_cabeza((char*)"Modelos/PuroHueso_Cabeza.obj");
+	Model purohueso_brazo_l_1((char*)"Modelos/PuroHueso_Brazo_L_1.obj");
+	Model purohueso_brazo_l_2((char*)"Modelos/PuroHueso_Brazo_L_2.obj");
+	Model purohueso_brazo_r_1((char*)"Modelos/PuroHueso_Brazo_R_1.obj");
+	Model purohueso_brazo_r_2((char*)"Modelos/PuroHueso_Brazo_R_2.obj");
+
+	purohueso.posicion = posicionStandTopos + glm::vec3(0.0f, 0.92f, 0.0f);
+	purohueso.rotacion.y = -90.0f;
 
 	// Set texture units.
 	lightingShader.Use();
@@ -104,6 +116,7 @@ int main()
 		// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions.
 		glfwPollEvents();
 		CicloDiaNoche(deltaTime);
+		RevisarHora();
 		AnimarHarley();
 
 		// Cambiar el color del cielo.
@@ -148,6 +161,7 @@ int main()
 		glUniform4f(glGetUniformLocation(lightingShader.Program, "colorAlpha"), 1.0f, 1.0f, 1.0f, 1.0f);
 
 		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(0.0f, -0.01f, 6.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		suelo.Draw(lightingShader);
 		
@@ -168,68 +182,72 @@ int main()
 		//glDisable(GL_BLEND); // Desactiva el canal alfa.
 
 		// Juego de Topos.
-		//model = glm::mat4(1);
-		//model = glm::translate(model, posicionStandTopos);
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//stand_tickets.Draw(lightingShader);
+		model = glm::mat4(1);
+		model = glm::translate(model, posicionStandTopos);
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		stand_tickets.Draw(lightingShader);
 
-		//model = glm::mat4(1);
-		//model = glm::translate(model, posicionMaquinaTopos);
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//maquina_topos.Draw(lightingShader);
+		model = glm::mat4(1);
+		model = glm::translate(model, posicionMaquinaTopos);
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		maquina_topos.Draw(lightingShader);
 
 		// Juego de Hachas.
-		//model = glm::mat4(1);
-		//model = glm::translate(model, posicionStandHachas);
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//stand_tickets.Draw(lightingShader);
-
-		//model = glm::mat4(1);
-		//model = glm::translate(model, posicionCabinaHachas);
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//cabina_hachas.Draw(lightingShader);
+		model = glm::mat4(1);
+		model = glm::translate(model, posicionStandHachas);
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		stand_tickets.Draw(lightingShader);
+		
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTransparencia"), 1);
+		model = glm::mat4(1);
+		model = glm::translate(model, posicionCabinaHachas);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		cabina_hachas.Draw(lightingShader);
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTransparencia"), 0);
 
 		// Juego de Boliche.
-		//model = glm::mat4(1);
-		//model = glm::translate(model, posicionStandBoliche);
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//stand_tickets.Draw(lightingShader);
+		model = glm::mat4(1);
+		model = glm::translate(model, posicionStandBoliche);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		stand_tickets.Draw(lightingShader);
 
-		//model = glm::mat4(1);
-		//model = glm::translate(model, posicionPistaBoliche);
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//pista_boliche.Draw(lightingShader);
+		model = glm::mat4(1);
+		model = glm::translate(model, posicionPistaBoliche);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pista_boliche.Draw(lightingShader);
 
 		// Juego de Dados.
-		//model = glm::mat4(1);
-		//model = glm::translate(model, posicionStandDados);
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//stand_tickets.Draw(lightingShader);
+		model = glm::mat4(1);
+		model = glm::translate(model, posicionStandDados);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		stand_tickets.Draw(lightingShader);
 
-		//model = glm::mat4(1);
-		//model = glm::translate(model, posicionMesaDados);
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//mesa_dados.Draw(lightingShader);
+		model = glm::mat4(1);
+		model = glm::translate(model, posicionMesaDados);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		mesa_dados.Draw(lightingShader);
 
 		// Juego de Dardos.
-		//model = glm::mat4(1);
-		//model = glm::translate(model, posicionStandDardos);
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//stand_tickets.Draw(lightingShader);
+		model = glm::mat4(1);
+		model = glm::translate(model, posicionStandDardos);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		stand_tickets.Draw(lightingShader);
 
-		//model = glm::mat4(1);
-		//model = glm::translate(model, posicionPuestoDardos);
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//puesto_dardos.Draw(lightingShader);
+		model = glm::mat4(1);
+		model = glm::translate(model, posicionPuestoDardos);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		puesto_dardos.Draw(lightingShader);
 
 		// Dibuja a Harley
 		harley.Dibujar(modelLoc, lightingShader, harley_cuerpo, harley_cabeza, harley_brazo_l_1, harley_brazo_l_2, harley_brazo_r_1, harley_brazo_r_2, harley_pierna_l_1, harley_pierna_l_2, harley_pierna_r_1, harley_pierna_r_2);
 		if (jugando) {
-			harley.DibujarAccesorio(modelLoc, lightingShader, bate);
+			harley.DibujarAccesorio(modelLoc, lightingShader, juegoActivo, bate);
 		}
 
-		test.Dibujar(modelLoc, lightingShader, harley_cuerpo, harley_cabeza, harley_brazo_l_1, harley_brazo_l_2, harley_brazo_r_1, harley_brazo_r_2, harley_pierna_l_1, harley_pierna_l_2, harley_pierna_r_1, harley_pierna_r_2);
-		test.Caminar(deltaTime);
+		purohueso.Dibujar(modelLoc, lightingShader, purohueso_cuerpo, purohueso_cabeza, purohueso_brazo_l_1, purohueso_brazo_l_2, purohueso_brazo_r_1, purohueso_brazo_r_2, vacio, vacio, vacio, vacio);
 
 		// Resetea transparencia como prevención.
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTransparencia"), 0);

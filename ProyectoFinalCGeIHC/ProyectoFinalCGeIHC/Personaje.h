@@ -27,8 +27,6 @@ private:
 	float tiempoAnim = 0.0f;
 	float cicloAnim = 1.0f;
 
-	int accesorio = 0;
-
 public:
 	glm::vec3 posicion = glm::vec3(0.0f, 0.92f, 0.0f);
 	glm::vec3 posicionAnterior = glm::vec3(0.0f, 0.92f, 0.0f);
@@ -141,7 +139,7 @@ public:
 		pierna_r_2.Draw(lightingShader);
 	}
 
-	void DibujarAccesorio(GLuint modelLoc, Shader& lightingShader, Model bate) {
+	void DibujarAccesorio(GLuint modelLoc, Shader& lightingShader, int juegoActivo, Model bate) {
 		glm::mat4 model = glm::mat4(1.0f);
 		// Transformaciones Brazo_R_1.
 		model = glm::mat4(1);
@@ -165,10 +163,27 @@ public:
 		// Accesorio.
 		model = glm::translate(model, glm::vec3(-0.35, 0.0, 0.0));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		switch (this->accesorio)
+		switch (juegoActivo)
 		{
 		case 1:
 			bate.Draw(lightingShader);
+			break;
+		case 2:
+			//martillo.Draw(lightingShader);
+			bate.Draw(lightingShader);
+			break;
+		case 3:
+			//hacha.Draw(lightingShader);
+			break;
+		case 4:
+			//bola.Draw(lightingShader);
+			break;
+		case 5:
+			//dados.Draw(lightingShader);
+			break;
+		case 6:
+			//dardos.Draw(lightingShader);
+			break;
 		default:
 			break;
 		}
@@ -273,70 +288,139 @@ public:
 	{
 		ReiniciarPose();
 
-		this->rotacionBrazoL1.z = -70.0f;
+		this->rotacionBrazoL1.z = -75.0f;
 
-		this->rotacionBrazoR1.x = -180.0f;
+		this->rotacionBrazoR1.y = 90.0f;
+		this->rotacionBrazoR2.y = 120.0f;
 	}
 
 	void Batear(float deltaTime)
 	{
 		this->tiempoAnim += deltaTime;
-
-		this->rotacion.y += 20.0f * cicloAnim * deltaTime;
-		this->rotacionBrazoR1.y += -50.0f * cicloAnim * deltaTime;
-
-		if (this->tiempoAnim >= 2.0f) {
+		if (rotacionBrazoR1.y >= -20.0f)
+		{
+			this->rotacionBrazoR1.y -= 300.0f * deltaTime;
+			this->rotacionBrazoR2.y -= 300.0f * deltaTime;
+		}
+		if (this->tiempoAnim >= 3.0f) {
 			TerminarJuego();
 		}
 	}
 
 	void ComenzarTopos()
 	{
+		ReiniciarPose();
 
+		this->rotacionBrazoL1.z = -75.0f;
+
+		this->rotacionBrazoR1.x = -180.0f;
+		this->rotacionBrazoR1.z = 90.0f;
+		this->rotacionBrazoR2.y = 45.0f;
 	}
 
 	void GolpearTopos(float deltaTime)
 	{
+		this->tiempoAnim += deltaTime;
+		this->rotacionBrazoR1.x += 300.0f * cicloAnim * deltaTime;
 
+		if (rotacionBrazoR1.x <= -180.0f || rotacionBrazoR1.x >= 0.0f)
+		{
+			this->cicloAnim = cicloAnim * -1.0f;
+		}
+		if (this->tiempoAnim >= 7.5f) {
+			TerminarJuego();
+		}
 	}
 
 	void ComenzarHachas()
 	{
+		ReiniciarPose();
 
+		this->rotacionBrazoL1.z = -75.0f;
+
+		this->rotacionBrazoR1.x = -180.0f;
+		this->rotacionBrazoR1.z = 90.0f;
+		this->rotacionBrazoR2.y = 90.0f;
 	}
 
 	void LanzarHachas(float deltaTime)
 	{
-
+		this->tiempoAnim += deltaTime;
+		if (rotacionBrazoR1.x <= 45.0f)
+		{
+			this->rotacionBrazoR1.x += 800.0f * deltaTime;
+		}
+		if (this->tiempoAnim >= 3.0f) {
+			TerminarJuego();
+		}
 	}
 
 	void ComenzarBoliche()
 	{
+		ReiniciarPose();
 
+		this->rotacionBrazoL1.z = -75.0f;
+
+		this->rotacionBrazoR1.x = 75.0f;
+		this->rotacionBrazoR1.z = 75.0f;
+		this->rotacionBrazoR2.y = 20.0f;
 	}
 
 	void JugarBoliche(float deltaTime)
 	{
-
+		this->tiempoAnim += deltaTime;
+		if (rotacionBrazoR1.x >= -110.0f)
+		{
+			this->rotacionBrazoR1.x -= 400.0f * deltaTime;
+		}
+		if (this->tiempoAnim >= 3.0f) {
+			TerminarJuego();
+		}
 	}
 
 	void ComenzarDados()
 	{
+		ReiniciarPose();
 
+		this->rotacionBrazoL1.z = -75.0f;
+
+		this->rotacionBrazoR1.y = 90.0f;
+		this->rotacionBrazoR2.y = 120.0f;
 	}
 
 	void LanzarDados(float deltaTime)
 	{
-
+		this->tiempoAnim += deltaTime;
+		if (rotacionBrazoR1.y >= -20.0f)
+		{
+			this->rotacionBrazoR1.y -= 400.0f * deltaTime;
+			this->rotacionBrazoR2.y -= 400.0f * deltaTime;
+		}
+		if (this->tiempoAnim >= 3.0f) {
+			TerminarJuego();
+		}
 	}
 
 	void ComenzarDardos()
 	{
+		ReiniciarPose();
 
+		this->rotacionBrazoL1.z = -75.0f;
+
+		this->rotacionBrazoR1.y = 90.0f;
+		this->rotacionBrazoR2.y = 120.0f;
 	}
 
 	void LanzarDardos(float deltaTime)
 	{
-
+		this->tiempoAnim += deltaTime;
+		if (rotacionBrazoR1.y >= -20.0f)
+		{
+			this->rotacionBrazoR1.y -= 400.0f * deltaTime;
+			this->rotacionBrazoR2.y -= 400.0f * deltaTime;
+		}
+		if (this->tiempoAnim >= 3.0f) {
+			TerminarJuego();
+		}
 	}
 };
