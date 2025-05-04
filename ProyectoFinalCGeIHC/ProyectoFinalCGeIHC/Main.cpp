@@ -1,8 +1,6 @@
 // Other includes.
 #include "Main.h"
 
-Personaje purohueso;
-
 int main()
 {
 	// Init GLFW.

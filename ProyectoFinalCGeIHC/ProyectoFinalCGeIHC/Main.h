@@ -87,6 +87,7 @@ float luzPrendida = 1.0f;
 
 // Personajes.
 Personaje harley;
+Personaje purohueso;
 
 // Elementos Interactivos.
 bool jugando = false;
