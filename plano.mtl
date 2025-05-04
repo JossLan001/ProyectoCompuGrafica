@@ -1,0 +1,72 @@
+#
+## Alias OBJ Material File
+# Exported from SketchUp, (c) 2000-2012 Trimble Navigation Limited
+
+newmtl Blacktop_New
+Ka 0.000000 0.000000 0.000000
+Kd 0.117647 0.117647 0.117647
+Ks 0.330000 0.330000 0.330000
+map_Kd plano/Blacktop_New.jpg
+
+newmtl FrontColor
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.330000 0.330000 0.330000
+
+newmtl Tile_Travertine_2_inch
+Ka 0.000000 0.000000 0.000000
+Kd 0.709804 0.698039 0.674510
+Ks 0.330000 0.330000 0.330000
+map_Kd plano/Tile_Travertine_2_inch.jpg
+
+newmtl Grass_Dark_Green
+Ka 0.000000 0.000000 0.000000
+Kd 0.415686 0.615686 0.215686
+Ks 0.330000 0.330000 0.330000
+map_Kd plano/Grass_Dark_Green.jpg
+
+newmtl Groundcover_Rock_Crushed_2_inch
+Ka 0.000000 0.000000 0.000000
+Kd 0.509804 0.498039 0.501961
+Ks 0.330000 0.330000 0.330000
+map_Kd plano/Groundcover_Rock_Crushed_2_inch.jpg
+
+newmtl Blacktop_Old_02
+Ka 0.000000 0.000000 0.000000
+Kd 0.560784 0.568627 0.568627
+Ks 0.330000 0.330000 0.330000
+map_Kd plano/Blacktop_Old_02.jpg
+
+newmtl _1
+Ka 0.000000 0.000000 0.000000
+Kd 0.172549 0.172549 0.172549
+Ks 0.330000 0.330000 0.330000
+map_Kd plano/_1.jpg
+
+newmtl Granite_Dark_Gray
+Ka 0.000000 0.000000 0.000000
+Kd 0.270588 0.266667 0.266667
+Ks 0.330000 0.330000 0.330000
+map_Kd plano/Granite_Dark_Gray.jpg
+
+newmtl Steel_Brushed_Stainless
+Ka 0.000000 0.000000 0.000000
+Kd 0.717647 0.733333 0.745098
+Ks 0.330000 0.330000 0.330000
+map_Kd plano/Steel_Brushed_Stainless.jpg
+
+newmtl _
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.330000 0.330000 0.330000
+
+newmtl Color_M09
+Ka 0.000000 0.000000 0.000000
+Kd 0.000000 0.000000 0.000000
+Ks 0.330000 0.330000 0.330000
+
+newmtl ForegroundColor
+Ka 0.000000 0.000000 0.000000
+Kd 0.000000 0.000000 0.000000
+Ks 0.330000 0.330000 0.330000
+
