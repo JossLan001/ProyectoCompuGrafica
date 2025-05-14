@@ -1,7 +1,7 @@
 # Blender 3.6.0
 # www.blender.org
 mtllib PuroHueso_Cabeza.mtl
-o Cabeza_PuroHueso
+o PuroHueso_Cabeza
 v -0.106561 -0.133492 0.018761
 v -0.104514 -0.133492 0.055053
 v -0.098450 -0.133492 0.089951

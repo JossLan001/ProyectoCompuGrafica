@@ -1,4 +1,4 @@
-# Blender 3.6.0 MTL File: 'Fachada.blend'
+# Blender 3.6.0 MTL File: 'Proyecto.blend'
 # www.blender.org
 
 newmtl Imagen_Maquina_Topos
@@ -14,22 +14,22 @@ map_Kd Texturas/Test.jpg
 newmtl Luces_Maquina_Topos
 Ns 250.000000
 Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
 map_Kd Texturas/Maquina_Topos/Luces_Maquina_Topos.png
-map_Ks Texturas/Specular_0.png
 
 newmtl Madera_Roja
 Ns 250.000000
 Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
 map_Kd Texturas/Stand_Tickets/Madera_Roja.png
-map_Ks Texturas/Specular_0.png
 
 newmtl Naranja
 Ns 250.000000
@@ -44,19 +44,19 @@ map_Kd Texturas/Maquina_Topos/Naranja.png
 newmtl Pasto_Máquina_Topos
 Ns 250.000000
 Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
 map_Kd Texturas/Maquina_Topos/default_rainforest_litter.png
-map_Ks Texturas/Specular_0.png
 
 newmtl Rayas_Maquina_Topos
 Ns 250.000000
 Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
 map_Kd Texturas/Maquina_Topos/Rayas_Maquina_Topos.png
-map_Ks Texturas/Specular_0.png
