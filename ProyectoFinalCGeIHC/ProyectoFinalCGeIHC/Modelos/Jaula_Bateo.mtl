@@ -1,4 +1,4 @@
-# Blender 3.6.0 MTL File: 'Fachada.blend'
+# Blender 3.6.0 MTL File: 'Proyecto.blend'
 # www.blender.org
 
 newmtl Hielo
@@ -28,5 +28,5 @@ Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 illum 2
-map_Kd Texturas/Jaula_Bateo/xpanes_bar.png
-map_d Texturas/Jaula_Bateo/xpanes_bar.png
+map_Kd Texturas/Jaula_Bateo/grate_g.png
+map_d Texturas/Jaula_Bateo/grate_g.png

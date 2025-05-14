@@ -1,4 +1,4 @@
-# Blender 3.6.0 MTL File: 'Fachada.blend'
+# Blender 3.6.0 MTL File: 'Proyecto.blend'
 # www.blender.org
 
 newmtl Blancos
@@ -41,6 +41,16 @@ illum 2
 map_Kd Texturas/Cabina_Hachas/default_junglewood.png
 map_Ks Texturas/Specular_0.png
 
+newmtl Metal
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd Texturas/Jaula_Bateo/default_silver_sandstone.png
+
 newmtl Paja
 Ns 250.000000
 Ka 1.000000 1.000000 1.000000
@@ -58,5 +68,5 @@ Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 illum 2
-map_Kd Texturas/Jaula_Bateo/xpanes_bar.png
-map_d Texturas/Jaula_Bateo/xpanes_bar.png
+map_Kd Texturas/Jaula_Bateo/grate_g.png
+map_d Texturas/Jaula_Bateo/grate_g.png
