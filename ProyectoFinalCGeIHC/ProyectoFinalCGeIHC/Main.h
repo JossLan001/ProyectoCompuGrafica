@@ -54,6 +54,9 @@ void MouseCallback(GLFWwindow* window, double xPos, double yPos);
 // Modo de Camara.
 glm::mat4 ModoCamara();
 
+//Dibujo de Estructuras
+void DibujarEstructura(GLuint modelLoc, Shader& lightingShader, Model estructura, glm::vec3 posicionEstructura, float rotacionEstructura);
+
 // Iluminación.
 void DibujarLuces(Shader& lightingShader);
 void CicloDiaNoche(float deltaTime);
@@ -64,9 +67,22 @@ void MoverHarley();
 
 // Controladores de Animación.
 void ChecarMovimiento();
-void AnimarHarley();
-void AnimarJuego();
+
+//Control de Interacciones
+void ComenzarJuego();
+void AnimarJuego(GLuint modelLoc, Shader& lightingShader, Model objetos[]);
 void TerminarJuego();
+
+bool caminando = false;
+
+// Lanzamiento de Objetos.
+void ReiniciarObjeto();
+void LanzarObjeto(glm::vec3 direccionLanzamiento, float velocidadLanzamiento, float gradosRotacion, float tiempoVueloMaximo);
+void DibujarObjeto(GLuint modelLoc, Shader& lightingShader, Model objeto);
+
+glm::vec3 posicionObjeto = glm::vec3(0.0f);
+glm::vec3 rotacionObjeto = glm::vec3(0.0f);
+float tiempoVuelo;
 
 // Ciclo día y noche.
 glm::vec3 direccionLuz = glm::vec3(0.0f, -1.0f, 0.0f); // Dirección de la luz.
@@ -90,8 +106,11 @@ Personaje harley;
 Personaje purohueso;
 
 // Elementos Interactivos.
+float tiempoInteraccion = 0.0f;
+float maxTiempoInteraccion = 5.0f;
 bool jugando = false;
 int juegoActivo = 0;
+int accesorioActivo = 0;
 
 glm::vec3 posicionStandBateo = glm::vec3(11.0f, 0.0f, -7.0f); // Puesto donde el jugador inicia la interacción de bateo.
 glm::vec3 posicionJaulaBateo = glm::vec3(9.0f, 0.0f, -20.5f); // Posición de la jaula de bateo.
@@ -110,6 +129,8 @@ glm::vec3 posicionMesaDados = glm::vec3(0.0f, 0.0f, -11.0f); // Posición de la m
 
 glm::vec3 posicionStandDardos = glm::vec3(22.0f, 0.0f, -7.0f); // Puesto donde el jugador inicia la interacción de dardos.
 glm::vec3 posicionPuestoDardos = glm::vec3(24.0f, 0.0f, -12.0f); // Posición del puesto de dardos.
+
+float apotema = 2.0f; // Rango en el que se puede interactuar con un puesto de tickets.
 
 glm::vec3 posicionInteraccion = glm::vec3(0.0f); // Guarda la posición donde el personaje insertó el ticket para regresar al terminar la interacción.
 
@@ -149,91 +170,40 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 
 	if (keys[GLFW_KEY_E])
 	{
-		float apotema = 2.0f; // Rango en el que se puede interactuar con un puesto de tickets.
-
 		// Bateo.
 		if (harley.posicion.x > posicionStandBateo.x - apotema && harley.posicion.x < posicionStandBateo.x + apotema && harley.posicion.z > posicionStandBateo.z - apotema && harley.posicion.z < posicionStandBateo.z + apotema) {
-			
-			posicionInteraccion = harley.posicion;
-			harley.posicion = posicionJaulaBateo + glm::vec3(0.0f, 1.02f, 6.0f);
-			harley.rotacion = glm::vec3(0.0f, 180.0f, 0.0f);
-			harley.ComenzarBateo();
 			juegoActivo = 1;
-			
-			jugando = true;
-			posicionCamara = harley.posicion + glm::vec3(-1.0f, 0.5f, 3.0f);;
-			objetivoCamara = harley.posicion;
-			camaraEstatica = !camaraEstatica;
+			ComenzarJuego();
 		}
 		// Topos.
 		else if (harley.posicion.x > posicionStandTopos.x - apotema && harley.posicion.x < posicionStandTopos.x + apotema && harley.posicion.z > posicionStandTopos.z - apotema && harley.posicion.z < posicionStandTopos.z + apotema)
 		{
-			posicionInteraccion = harley.posicion;
-			harley.posicion = posicionMaquinaTopos + glm::vec3(-1.0f, 0.92f, 0.0f);
-			harley.rotacion = glm::vec3(0.0f, 90.0f, 0.0f);
-			harley.ComenzarTopos();
 			juegoActivo = 2;
-
-			jugando = true;
-			posicionCamara = harley.posicion + glm::vec3(0.0f, 0.6f, -1.5f);
-			objetivoCamara = posicionMaquinaTopos + glm::vec3(0.0f, 0.9f, 0.0f);
-			camaraEstatica = !camaraEstatica;
+			ComenzarJuego();
 		}
 		// Hachas.
 		else if (harley.posicion.x > posicionStandHachas.x - apotema && harley.posicion.x < posicionStandHachas.x + apotema && harley.posicion.z > posicionStandHachas.z - apotema && harley.posicion.z < posicionStandHachas.z + apotema)
 		{
-			posicionInteraccion = harley.posicion;
-			harley.posicion = posicionCabinaHachas + glm::vec3(0.0f, 0.92f, 0.0f);
-			harley.rotacion = glm::vec3(0.0f, 0.0f, 0.0f);
-			harley.ComenzarHachas();
 			juegoActivo = 3;
-
-			jugando = true;
-			posicionCamara = harley.posicion + glm::vec3(0.5f, 0.6f, -1.5f);
-			objetivoCamara = posicionCabinaHachas + glm::vec3(0.3f, 1.5f, 0.0f);
-			camaraEstatica = !camaraEstatica;
+			ComenzarJuego();
 		}
 		// Boliche.
 		else if (harley.posicion.x > posicionStandBoliche.x - apotema && harley.posicion.x < posicionStandBoliche.x + apotema && harley.posicion.z > posicionStandBoliche.z - apotema && harley.posicion.z < posicionStandBoliche.z + apotema)
 		{
-			posicionInteraccion = harley.posicion;
-			harley.posicion = posicionPistaBoliche + glm::vec3(0.95f, 2.5f, 6.4f);
-			harley.rotacion = glm::vec3(0.0f, 180.0f, 0.0f);
-			harley.ComenzarBoliche();
 			juegoActivo = 4;
-
-			jugando = true;
-			posicionCamara = harley.posicion + glm::vec3(-1.0f, 0.6f, 3.0f);
-			objetivoCamara = harley.posicion + glm::vec3(3.0f, -0.5f, -16.0f);
-			camaraEstatica = !camaraEstatica;
+			ComenzarJuego();
 		}
 		// Dados.
 		else if (harley.posicion.x > posicionStandDados.x - apotema && harley.posicion.x < posicionStandDados.x + apotema && harley.posicion.z > posicionStandDados.z - apotema && harley.posicion.z < posicionStandDados.z + apotema)
 		{
-			posicionInteraccion = harley.posicion;
-			harley.posicion = posicionMesaDados + glm::vec3(0.0f, 0.92f, 1.5f);
-			harley.rotacion = glm::vec3(0.0f, 180.0f, 0.0f);
-			harley.ComenzarDados();
 			juegoActivo = 5;
-
-			jugando = true;
-			posicionCamara = harley.posicion + glm::vec3(-0.8f, 0.7f, 0.4f);
-			objetivoCamara = posicionMesaDados + glm::vec3(0.0f, 1.0f, 0.0f);
-			camaraEstatica = !camaraEstatica;
+			ComenzarJuego();
 		}
 		// Dardos.
 		else if (harley.posicion.x > posicionStandDardos.x - apotema && harley.posicion.x < posicionStandDardos.x + apotema && harley.posicion.z > posicionStandDardos.z - apotema && harley.posicion.z < posicionStandDardos.z + apotema)
 		{
-			posicionInteraccion = harley.posicion;
-			harley.posicion = posicionPuestoDardos + glm::vec3(0.0f, 0.92f, 1.5f);
-			harley.rotacion = glm::vec3(0.0f, 180.0f, 0.0f);
-			harley.ComenzarDardos();
 			juegoActivo = 6;
-
-			jugando = true;
-			posicionCamara = harley.posicion + glm::vec3(-0.35f, 0.5f, 0.5f);
-			objetivoCamara = posicionPuestoDardos + glm::vec3(0.0f, 1.5f, 0.0f);
-			camaraEstatica = !camaraEstatica;
+			ComenzarJuego();
 		}
 	}
 
@@ -285,6 +255,15 @@ glm::mat4 ModoCamara()
 	{
 		return camera.GetViewMatrix();  // Modo Tercera Persona.
 	}
+}
+
+void DibujarEstructura(GLuint modelLoc, Shader& lightingShader, Model estructura, glm::vec3 posicionEstructura, float rotacionEstructura)
+{
+	glm::mat4 model = glm::mat4(1.0f);
+	model = glm::translate(model, posicionEstructura);
+	model = glm::rotate(model, glm::radians(rotacionEstructura), glm::vec3(0.0f, 1.0f, 0.0f));
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+	estructura.Draw(lightingShader);
 }
 
 void DibujarLuces(Shader& lightingShader)
@@ -419,7 +398,7 @@ void MoverHarley()
 		harley.rotacion.y = angle;
 	}
 
-	if (harley.caminando)
+	if (caminando)
 	{
 		harley.Caminar(deltaTime);
 	}
@@ -431,36 +410,96 @@ void ChecarMovimiento()
 	if (harley.posicion != harley.posicionAnterior)
 	{
 		// Está caminando.
-		if (not harley.caminando && not jugando)
+		if (not caminando && not jugando)
 		{
 			harley.ComenzarCaminata();
+			caminando = true;
 		}
 	}
 	else
 	{
 		// Está quieta.
-		if (harley.caminando && not jugando)
+		if (caminando && not jugando)
 		{
 			harley.PoseIdle();
-			harley.caminando = false;
+			caminando = false;
 		}
 	}
 	harley.posicionAnterior = harley.posicion;
 }
 
-void AnimarHarley()
+void ComenzarJuego()
 {
-	if (not jugando) {
-		ChecarMovimiento();
-		MoverHarley();
+	posicionInteraccion = harley.posicion;	// Guarda la posicion de Harley en el stand de tickets para regresar al final de la interacción.
+	accesorioActivo = juegoActivo;
+	tiempoInteraccion = 0.0f;
+	switch (juegoActivo)
+	{
+	case 1:	//Bateo
+		maxTiempoInteraccion = 3.0f;
+		harley.posicion = posicionJaulaBateo + glm::vec3(0.0f, 1.02f, 6.0f);
+		harley.rotacion = glm::vec3(0.0f, 180.0f, 0.0f);
+		harley.ComenzarBateo();
+
+		posicionCamara = harley.posicion + glm::vec3(-1.0f, 0.5f, 3.0f);
+		objetivoCamara = harley.posicion;
+		break;
+	case 2:	//Topos
+		maxTiempoInteraccion = 7.5f;
+		harley.posicion = posicionMaquinaTopos + glm::vec3(-1.0f, 0.92f, 0.0f);
+		harley.rotacion = glm::vec3(0.0f, 90.0f, 0.0f);
+		harley.ComenzarTopos();
+
+		posicionCamara = harley.posicion + glm::vec3(0.0f, 0.6f, -1.5f);
+		objetivoCamara = posicionMaquinaTopos + glm::vec3(0.0f, 0.9f, 0.0f);
+		break;
+	case 3:	//Hachas
+		maxTiempoInteraccion = 3.0f;
+		harley.posicion = posicionCabinaHachas + glm::vec3(0.0f, 0.92f, 0.0f);
+		harley.rotacion = glm::vec3(0.0f, 0.0f, 0.0f);
+		harley.ComenzarHachas();
+
+		posicionCamara = harley.posicion + glm::vec3(0.5f, 0.6f, -1.5f);
+		objetivoCamara = posicionCabinaHachas + glm::vec3(0.3f, 1.5f, 0.0f);
+		break;
+	case 4:	//Boliche
+		maxTiempoInteraccion = 3.0f;
+		harley.posicion = posicionPistaBoliche + glm::vec3(0.95f, 2.5f, 6.4f);
+		harley.rotacion = glm::vec3(0.0f, 180.0f, 0.0f);
+		harley.ComenzarBoliche();
+
+		posicionCamara = harley.posicion + glm::vec3(-1.0f, 0.6f, 3.0f);
+		objetivoCamara = harley.posicion + glm::vec3(3.0f, -0.5f, -16.0f);
+		break;
+	case 5:	//Dados
+		maxTiempoInteraccion = 3.0f;
+		harley.posicion = posicionMesaDados + glm::vec3(0.0f, 0.92f, 1.5f);
+		harley.rotacion = glm::vec3(0.0f, 180.0f, 0.0f);
+		harley.ComenzarDados();
+
+		posicionCamara = harley.posicion + glm::vec3(-0.8f, 0.7f, 0.4f);
+		objetivoCamara = posicionMesaDados + glm::vec3(0.0f, 1.0f, 0.0f);
+		break;
+	case 6:	//Dardos
+		maxTiempoInteraccion = 3.0f;
+		harley.posicion = posicionPuestoDardos + glm::vec3(0.0f, 0.92f, 1.5f);
+		harley.rotacion = glm::vec3(0.0f, 180.0f, 0.0f);
+		harley.ComenzarDardos();
+
+		posicionCamara = harley.posicion + glm::vec3(-0.35f, 0.5f, 0.5f);
+		objetivoCamara = posicionPuestoDardos + glm::vec3(0.0f, 1.5f, 0.0f);
+		break;
+	default:
+		break;
 	}
-	else {
-		AnimarJuego();
-	}
+	jugando = true;
+	camaraEstatica = true;
+	ReiniciarObjeto();
 }
 
-void AnimarJuego()
+void AnimarJuego(GLuint modelLoc, Shader& lightingShader, Model objetos[])
 {
+	tiempoInteraccion += deltaTime;
 	switch (juegoActivo)
 	{
 	case 1:
@@ -470,7 +509,16 @@ void AnimarJuego()
 		harley.GolpearTopos(deltaTime);
 		break;
 	case 3:
-		harley.LanzarHachas(deltaTime);
+		if (tiempoInteraccion >= 0.5f)
+		{
+			harley.LanzarHachas(deltaTime);
+		}
+		if (tiempoInteraccion >= 0.75f)
+		{
+			accesorioActivo = 0;
+			LanzarObjeto(glm::vec3(0.0f, 0.0f, 1.0f), 6.0f, 840.f, 0.9f);
+			DibujarObjeto(modelLoc, lightingShader, objetos[3]);
+		}
 		break;
 	case 4:
 		harley.JugarBoliche(deltaTime);
@@ -484,12 +532,47 @@ void AnimarJuego()
 	default:
 		break;
 	}
+	if (tiempoInteraccion >= maxTiempoInteraccion) {
+		TerminarJuego();
+	}
 }
 
 void TerminarJuego()
 {
+	accesorioActivo = 0;
 	camaraEstatica = false;
 	jugando = false;
 	harley.PoseIdle();
 	harley.posicion = posicionInteraccion;
+}
+
+void ReiniciarObjeto()
+{
+	posicionObjeto = harley.posicion + glm::vec3(0.0f, 0.5f, 0.0f);
+	rotacionObjeto = harley.rotacion;
+	tiempoVuelo = 0.0f;
+}
+
+void LanzarObjeto(glm::vec3 direccionLanzamiento, float velocidadLanzamiento, float gradosRotacion, float tiempoVueloMaximo)
+{
+	tiempoVuelo += deltaTime;
+	if (tiempoVuelo < tiempoVueloMaximo)
+	{
+		posicionObjeto.x += direccionLanzamiento.x * velocidadLanzamiento * deltaTime;
+		posicionObjeto.y += direccionLanzamiento.y * velocidadLanzamiento * deltaTime;
+		posicionObjeto.z += direccionLanzamiento.z * velocidadLanzamiento * deltaTime;
+
+		rotacionObjeto.x += gradosRotacion * deltaTime;
+	}
+}
+
+void DibujarObjeto(GLuint modelLoc, Shader& lightingShader, Model objeto)
+{
+	glm::mat4 model = glm::mat4(1.0f);
+	model = glm::translate(model, posicionObjeto);
+	model = glm::rotate(model, glm::radians(rotacionObjeto.x), glm::vec3(1.0f, 0.0f, 0.0f));
+	model = glm::rotate(model, glm::radians(rotacionObjeto.y), glm::vec3(0.0f, 1.0f, 0.0f));
+	model = glm::rotate(model, glm::radians(rotacionObjeto.z), glm::vec3(0.0f, 0.0f, 1.0f));
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+	objeto.Draw(lightingShader);
 }
