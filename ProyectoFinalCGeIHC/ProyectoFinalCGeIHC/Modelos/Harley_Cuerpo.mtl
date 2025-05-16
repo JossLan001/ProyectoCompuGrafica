@@ -1,4 +1,4 @@
-# Blender 3.6.0 MTL File: 'Proyecto.blend'
+# Blender 3.6.0 MTL File: 'Fachada.blend'
 # www.blender.org
 
 newmtl Harley_Cuerpo
@@ -8,5 +8,5 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 1
-map_Kd Texturas/Harley/Harley_Cuerpo.png
-map_Ks Texturas/Specular_33.png
+map_Kd Texturas/Harley_Cuerpo.png
+map_Ks Texturas/Harley_Cuerpo_Specular.png

@@ -1,4 +1,4 @@
-# Blender 3.6.0 MTL File: 'Proyecto.blend'
+# Blender 3.6.0 MTL File: 'Fachada.blend'
 # www.blender.org
 
 newmtl Huecos
@@ -14,22 +14,22 @@ map_Kd Texturas/Pista_Boliche/Morado.png
 newmtl Ladrillo
 Ns 250.000000
 Ka 1.000000 1.000000 1.000000
-Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
 map_Kd Texturas/Pista_Boliche/default_furnace_side.png
+map_Ks Texturas/Specular_33.png
 
 newmtl Ladrillo_Oscuro
 Ns 250.000000
 Ka 1.000000 1.000000 1.000000
-Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_Kd Texturas/Pista_Boliche/Ladrillo_Oscuro.png
+map_Kd Texturas/Pista_Boliche/ladrillo_oscuro.png
+map_Ks Texturas/Specular_33.png
 
 newmtl Luz_Azul
 Ns 250.000000
@@ -54,22 +54,22 @@ map_Kd Texturas/Pista_Boliche/Morado_Oscuro.png
 newmtl Piso
 Ns 250.000000
 Ka 1.000000 1.000000 1.000000
-Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_Kd Texturas/Pista_Boliche/Rosa.png
+map_Kd Texturas/Pista_Boliche/Madera_Rosa.png
+map_Ks Texturas/Specular_33.png
 
 newmtl Puerta
 Ns 250.000000
 Ka 1.000000 1.000000 1.000000
-Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
 map_Kd Texturas/Pista_Boliche/Puerta.png
+map_Ks Texturas/Specular_0.png
 
 newmtl Techo
 Ns 250.000000

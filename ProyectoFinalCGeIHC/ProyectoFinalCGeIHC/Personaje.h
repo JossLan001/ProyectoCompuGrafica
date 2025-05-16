@@ -7,8 +7,6 @@
 
 #include "Model.h"
 
-void TerminarJuego();
-
 class Personaje
 {
 private:
@@ -26,15 +24,14 @@ private:
 	float velocidadAnim = 100.0f;
 	float tiempoAnim = 0.0f;
 	float cicloAnim = 1.0f;
+	float tiempoCiclo = 0.0f;
 
 public:
 	glm::vec3 posicion = glm::vec3(0.0f, 0.92f, 0.0f);
 	glm::vec3 posicionAnterior = glm::vec3(0.0f, 0.92f, 0.0f);
 	glm::vec3 rotacion = glm::vec3(0.0f);
 
-	bool caminando = false;
-
-	void Dibujar(GLuint modelLoc, Shader& lightingShader, Model cuerpo, Model cabeza, Model brazo_l_1, Model brazo_l_2, Model brazo_r_1, Model brazo_r_2, Model pierna_l_1, Model pierna_l_2, Model pierna_r_1, Model pierna_r_2)
+	void Dibujar(GLuint modelLoc, Shader& lightingShader, Model piezas[10], Model accesorio)
 	{
 		// Cuerpo.
 		glm::mat4 model = glm::mat4(1.0f);
@@ -43,7 +40,7 @@ public:
 		model = glm::rotate(model, glm::radians(this->rotacion.y), glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::rotate(model, glm::radians(this->rotacion.z), glm::vec3(0.0f, 0.0f, 1.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		cuerpo.Draw(lightingShader);
+		piezas[0].Draw(lightingShader);
 
 		// Cabeza.
 		model = glm::translate(model, glm::vec3(0.0f, 0.507119f, -0.005981f));
@@ -51,7 +48,7 @@ public:
 		model = glm::rotate(model, glm::radians(this->rotacionCabeza.y), glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::rotate(model, glm::radians(this->rotacionCabeza.z), glm::vec3(0.0f, 0.0f, 1.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		cabeza.Draw(lightingShader);
+		piezas[1].Draw(lightingShader);
 
 		// Brazo_L_1.
 		model = glm::mat4(1);
@@ -65,14 +62,14 @@ public:
 		model = glm::rotate(model, glm::radians(this->rotacionBrazoL1.y), glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::rotate(model, glm::radians(this->rotacionBrazoL1.z), glm::vec3(0.0f, 0.0f, 1.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		brazo_l_1.Draw(lightingShader);
+		piezas[2].Draw(lightingShader);
 
 		// Brazo_L_2.
 		model = glm::translate(model, glm::vec3(0.249121f, 0.015555f, 0.000215f));
 		model = glm::rotate(model, glm::radians(this->rotacionBrazoL2.x), glm::vec3(1.0f, 0.0f, 0.0f));
 		model = glm::rotate(model, glm::radians(this->rotacionBrazoL2.y), glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		brazo_l_2.Draw(lightingShader);
+		piezas[3].Draw(lightingShader);
 
 		// Brazo_R_1.
 		model = glm::mat4(1);
@@ -86,14 +83,22 @@ public:
 		model = glm::rotate(model, glm::radians(this->rotacionBrazoR1.y), glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::rotate(model, glm::radians(this->rotacionBrazoR1.z), glm::vec3(0.0f, 0.0f, 1.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		brazo_r_1.Draw(lightingShader);
+		piezas[4].Draw(lightingShader);
 
 		// Brazo_R_2.
 		model = glm::translate(model, glm::vec3(-0.249121, 0.015555, 0.000215));
 		model = glm::rotate(model, glm::radians(this->rotacionBrazoR2.x), glm::vec3(1.0f, 0.0f, 0.0f));
 		model = glm::rotate(model, glm::radians(this->rotacionBrazoR2.y), glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		brazo_r_2.Draw(lightingShader);
+		piezas[5].Draw(lightingShader);
+
+		// Accesorio.
+		model = glm::translate(model, glm::vec3(-0.35, 0.0, 0.0));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
+		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		accesorio.Draw(lightingShader);
 
 		// Pierna_L_1.
 		model = glm::mat4(1);
@@ -108,14 +113,14 @@ public:
 		model = glm::rotate(model, glm::radians(this->rotacionPiernaL1.z), glm::vec3(0.0f, 0.0f, 1.0f));
 		
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		pierna_l_1.Draw(lightingShader);
+		piezas[6].Draw(lightingShader);
 
 		// Pierna_L_2.
 		model = glm::translate(model, glm::vec3(0.076131f - 0.06f, -0.413235f, 0.007457f));
 		model = glm::rotate(model, glm::radians(this->rotacionPiernaL2.x), glm::vec3(1.0f, 0.0f, 0.0f));
 		model = glm::rotate(model, glm::radians(this->rotacionPiernaL2.y), glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		pierna_l_2.Draw(lightingShader);
+		piezas[7].Draw(lightingShader);
 
 		// Pierna_R_1.
 		model = glm::mat4(1);
@@ -129,64 +134,14 @@ public:
 		model = glm::rotate(model, glm::radians(this->rotacionPiernaR1.y), glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::rotate(model, glm::radians(this->rotacionPiernaR1.z), glm::vec3(0.0f, 0.0f, 1.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		pierna_r_1.Draw(lightingShader);
+		piezas[8].Draw(lightingShader);
 
 		// Pierna_R_2.
 		model = glm::translate(model, glm::vec3(-0.086131f + 0.06f, -0.413235f, 0.007457f));
 		model = glm::rotate(model, glm::radians(this->rotacionPiernaR2.x), glm::vec3(1.0f, 0.0f, 0.0f));
 		model = glm::rotate(model, glm::radians(this->rotacionPiernaR2.y), glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		pierna_r_2.Draw(lightingShader);
-	}
-
-	void DibujarAccesorio(GLuint modelLoc, Shader& lightingShader, int juegoActivo, Model bate) {
-		glm::mat4 model = glm::mat4(1.0f);
-		// Transformaciones Brazo_R_1.
-		model = glm::mat4(1);
-		model = glm::translate(model, this->posicion);
-		model = glm::rotate(model, glm::radians(this->rotacion.x), glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(this->rotacion.y), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(this->rotacion.z), glm::vec3(0.0f, 0.0f, 1.0f));
-
-		model = glm::translate(model, glm::vec3(-0.107058, 0.389674, -0.020696));
-		model = glm::rotate(model, glm::radians(this->rotacionBrazoR1.x), glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(this->rotacionBrazoR1.y), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(this->rotacionBrazoR1.z), glm::vec3(0.0f, 0.0f, 1.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-
-		// Transformaciones Brazo_R_2.
-		model = glm::translate(model, glm::vec3(-0.249121, 0.015555, 0.000215));
-		model = glm::rotate(model, glm::radians(this->rotacionBrazoR2.x), glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(this->rotacionBrazoR2.y), glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-
-		// Accesorio.
-		model = glm::translate(model, glm::vec3(-0.35, 0.0, 0.0));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		switch (juegoActivo)
-		{
-		case 1:
-			bate.Draw(lightingShader);
-			break;
-		case 2:
-			//martillo.Draw(lightingShader);
-			bate.Draw(lightingShader);
-			break;
-		case 3:
-			//hacha.Draw(lightingShader);
-			break;
-		case 4:
-			//bola.Draw(lightingShader);
-			break;
-		case 5:
-			//dados.Draw(lightingShader);
-			break;
-		case 6:
-			//dardos.Draw(lightingShader);
-			break;
-		default:
-			break;
-		}
+		piezas[9].Draw(lightingShader);
 	}
 
 	void ReiniciarPose()
@@ -246,27 +201,26 @@ public:
 
 		this->rotacionPiernaR2.x = 35.0f;
 
-		this->caminando = true;
-
+		this->tiempoCiclo = 0.5f;
 	}
 
 	void Caminar(float deltaTime)
 	{
 		this->tiempoAnim += deltaTime;
 
-		this->rotacionBrazoL1.x += -50.0f * cicloAnim * deltaTime;
-		rotacionBrazoL2.y += 30.0f * cicloAnim * deltaTime;
+		this->rotacionBrazoL1.x += -25.0f / tiempoCiclo * cicloAnim * deltaTime;
+		rotacionBrazoL2.y += 15.0f / tiempoCiclo * cicloAnim * deltaTime;
 
-		this->rotacionBrazoR1.x += 50.0f * cicloAnim * deltaTime;
-		rotacionBrazoR2.y += 30.0f * cicloAnim * deltaTime;
+		this->rotacionBrazoR1.x += 25.0f / tiempoCiclo * cicloAnim * deltaTime;
+		rotacionBrazoR2.y += 15.0f * cicloAnim * deltaTime;
 
-		this->rotacionPiernaL1.x += 80.0f * cicloAnim * deltaTime;
-		rotacionPiernaL2.x += 40.0f * cicloAnim * deltaTime;
+		this->rotacionPiernaL1.x += 40.0f / tiempoCiclo * cicloAnim * deltaTime;
+		rotacionPiernaL2.x += 20.0f * cicloAnim * deltaTime;
 
-		this->rotacionPiernaR1.x += -80.0f * cicloAnim * deltaTime;
-		rotacionPiernaR2.x += -40.0f * cicloAnim * deltaTime;
+		this->rotacionPiernaR1.x += -40.0f / tiempoCiclo * cicloAnim * deltaTime;
+		rotacionPiernaR2.x += -20.0f / tiempoCiclo * cicloAnim * deltaTime;
 
-		if (this->tiempoAnim >= 0.5f)
+		if (this->tiempoAnim >= this->tiempoCiclo)
 		{
 			this->cicloAnim = cicloAnim * -1.0f;
 			this->tiempoAnim = 0.0f;
@@ -302,9 +256,6 @@ public:
 			this->rotacionBrazoR1.y -= 300.0f * deltaTime;
 			this->rotacionBrazoR2.y -= 300.0f * deltaTime;
 		}
-		if (this->tiempoAnim >= 3.0f) {
-			TerminarJuego();
-		}
 	}
 
 	void ComenzarTopos()
@@ -327,9 +278,6 @@ public:
 		{
 			this->cicloAnim = cicloAnim * -1.0f;
 		}
-		if (this->tiempoAnim >= 7.5f) {
-			TerminarJuego();
-		}
 	}
 
 	void ComenzarHachas()
@@ -349,9 +297,6 @@ public:
 		if (rotacionBrazoR1.x <= 45.0f)
 		{
 			this->rotacionBrazoR1.x += 800.0f * deltaTime;
-		}
-		if (this->tiempoAnim >= 3.0f) {
-			TerminarJuego();
 		}
 	}
 
@@ -373,9 +318,6 @@ public:
 		{
 			this->rotacionBrazoR1.x -= 400.0f * deltaTime;
 		}
-		if (this->tiempoAnim >= 3.0f) {
-			TerminarJuego();
-		}
 	}
 
 	void ComenzarDados()
@@ -395,9 +337,6 @@ public:
 		{
 			this->rotacionBrazoR1.y -= 400.0f * deltaTime;
 			this->rotacionBrazoR2.y -= 400.0f * deltaTime;
-		}
-		if (this->tiempoAnim >= 3.0f) {
-			TerminarJuego();
 		}
 	}
 
@@ -419,8 +358,6 @@ public:
 			this->rotacionBrazoR1.y -= 400.0f * deltaTime;
 			this->rotacionBrazoR2.y -= 400.0f * deltaTime;
 		}
-		if (this->tiempoAnim >= 3.0f) {
-			TerminarJuego();
-		}
 	}
+
 };

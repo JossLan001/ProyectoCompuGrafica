@@ -1,7 +1,7 @@
 # Blender 3.6.0
 # www.blender.org
 mtllib PuroHueso_Cuerpo.mtl
-o PuroHueso_Cuerpo
+o Cuerpo_PueroHueso
 v 0.000000 -0.920000 -0.081720
 v 0.000000 0.472482 -0.023905
 v 0.015943 -0.920000 -0.080150
