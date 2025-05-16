@@ -69,7 +69,8 @@ void MoverHarley();
 void ChecarMovimiento();
 
 //Control de Interacciones
-void ComenzarJuego();
+void PagarJuego(int juego);
+void ComenzarJuego(int juego);
 void AnimarJuego(GLuint modelLoc, Shader& lightingShader, Model objetos[]);
 void TerminarJuego();
 
@@ -108,31 +109,30 @@ Personaje purohueso;
 // Elementos Interactivos.
 float tiempoInteraccion = 0.0f;
 float maxTiempoInteraccion = 5.0f;
+bool pagando = false;
 bool jugando = false;
 int juegoActivo = 0;
 int accesorioActivo = 0;
+glm::vec3 posicionInteraccion = glm::vec3(0.0f); // Guarda la posición donde el personaje insertó el ticket para regresar al terminar la interacción.
+glm::vec3 rotacionInteraccion = glm::vec3(0.0f);
 
 glm::vec3 posicionStandBateo = glm::vec3(11.0f, 0.0f, -7.0f); // Puesto donde el jugador inicia la interacción de bateo.
-glm::vec3 posicionJaulaBateo = glm::vec3(9.0f, 0.0f, -20.5f); // Posición de la jaula de bateo.
-
 glm::vec3 posicionStandTopos = glm::vec3(25.0f, 0.0f, 2.0f); // Puesto donde el jugador inicia la interacción de topos.
-glm::vec3 posicionMaquinaTopos = glm::vec3(30.0f, 0.0f, 3.0f); // Posición de la maquina de topos.
-
 glm::vec3 posicionStandHachas = glm::vec3(-14.0f, 0.0f, 5.0f); // Puesto donde el jugador inicia la interacción de hachas.
-glm::vec3 posicionCabinaHachas = glm::vec3(-18.0f, 0.0f, 12.0f); // Posición de la cabina de hachas.
-
 glm::vec3 posicionStandBoliche = glm::vec3(-12.0f, 0.0f, -7.0f); // Puesto donde el jugador inicia la interacción de boliche.
-glm::vec3 posicionPistaBoliche = glm::vec3(-22.0f, 0.0f, -29.0f); // Posición de la pista de boliche.
-
 glm::vec3 posicionStandDados = glm::vec3(-2.0f, 0.0f, -8.0f); // Puesto donde el jugador inicia la interacción de dados.
-glm::vec3 posicionMesaDados = glm::vec3(0.0f, 0.0f, -11.0f); // Posición de la mesa de dados.
-
 glm::vec3 posicionStandDardos = glm::vec3(22.0f, 0.0f, -7.0f); // Puesto donde el jugador inicia la interacción de dardos.
+
+glm::vec3 posicionesStands[6] = { posicionStandBateo, posicionStandTopos, posicionStandHachas, posicionStandBoliche, posicionStandDados, posicionStandDardos };
+
+glm::vec3 posicionJaulaBateo = glm::vec3(9.0f, 0.0f, -20.5f); // Posición de la jaula de bateo.
+glm::vec3 posicionMaquinaTopos = glm::vec3(30.0f, 0.0f, 3.0f); // Posición de la maquina de topos.
+glm::vec3 posicionCabinaHachas = glm::vec3(-18.0f, 0.0f, 12.0f); // Posición de la cabina de hachas.
+glm::vec3 posicionPistaBoliche = glm::vec3(-22.0f, 0.0f, -29.0f); // Posición de la pista de boliche.
+glm::vec3 posicionMesaDados = glm::vec3(0.0f, 0.0f, -11.0f); // Posición de la mesa de dados.
 glm::vec3 posicionPuestoDardos = glm::vec3(24.0f, 0.0f, -12.0f); // Posición del puesto de dardos.
 
 float apotema = 2.0f; // Rango en el que se puede interactuar con un puesto de tickets.
-
-glm::vec3 posicionInteraccion = glm::vec3(0.0f); // Guarda la posición donde el personaje insertó el ticket para regresar al terminar la interacción.
 
 // Is called whenever a key is pressed/released via GLFW.
 void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode)
@@ -172,38 +172,32 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 	{
 		// Bateo.
 		if (harley.posicion.x > posicionStandBateo.x - apotema && harley.posicion.x < posicionStandBateo.x + apotema && harley.posicion.z > posicionStandBateo.z - apotema && harley.posicion.z < posicionStandBateo.z + apotema) {
-			juegoActivo = 1;
-			ComenzarJuego();
+			PagarJuego(1);
 		}
 		// Topos.
 		else if (harley.posicion.x > posicionStandTopos.x - apotema && harley.posicion.x < posicionStandTopos.x + apotema && harley.posicion.z > posicionStandTopos.z - apotema && harley.posicion.z < posicionStandTopos.z + apotema)
 		{
-			juegoActivo = 2;
-			ComenzarJuego();
+			PagarJuego(2);
 		}
 		// Hachas.
 		else if (harley.posicion.x > posicionStandHachas.x - apotema && harley.posicion.x < posicionStandHachas.x + apotema && harley.posicion.z > posicionStandHachas.z - apotema && harley.posicion.z < posicionStandHachas.z + apotema)
 		{
-			juegoActivo = 3;
-			ComenzarJuego();
+			PagarJuego(3);
 		}
 		// Boliche.
 		else if (harley.posicion.x > posicionStandBoliche.x - apotema && harley.posicion.x < posicionStandBoliche.x + apotema && harley.posicion.z > posicionStandBoliche.z - apotema && harley.posicion.z < posicionStandBoliche.z + apotema)
 		{
-			juegoActivo = 4;
-			ComenzarJuego();
+			PagarJuego(4);
 		}
 		// Dados.
 		else if (harley.posicion.x > posicionStandDados.x - apotema && harley.posicion.x < posicionStandDados.x + apotema && harley.posicion.z > posicionStandDados.z - apotema && harley.posicion.z < posicionStandDados.z + apotema)
 		{
-			juegoActivo = 5;
-			ComenzarJuego();
+			PagarJuego(5);
 		}
 		// Dardos.
 		else if (harley.posicion.x > posicionStandDardos.x - apotema && harley.posicion.x < posicionStandDardos.x + apotema && harley.posicion.z > posicionStandDardos.z - apotema && harley.posicion.z < posicionStandDardos.z + apotema)
 		{
-			juegoActivo = 6;
-			ComenzarJuego();
+			PagarJuego(6);
 		}
 	}
 
@@ -428,12 +422,84 @@ void ChecarMovimiento()
 	harley.posicionAnterior = harley.posicion;
 }
 
-void ComenzarJuego()
+void PagarJuego(int juego)
 {
-	posicionInteraccion = harley.posicion;	// Guarda la posicion de Harley en el stand de tickets para regresar al final de la interacción.
-	accesorioActivo = juegoActivo;
+	posicionInteraccion = harley.posicion;
+	rotacionInteraccion = harley.rotacion;
+	camaraEstatica = true;
+	pagando = true;
 	tiempoInteraccion = 0.0f;
-	switch (juegoActivo)
+	juegoActivo = juego;
+
+	switch (juego)
+	{
+	case 1:	//Bateo
+		harley.posicion = posicionStandBateo + glm::vec3(0.0f, 0.92f, 1.0f);
+		harley.rotacion = glm::vec3(0.0f, 180.0f, 0.0f);
+
+		posicionCamara = harley.posicion + glm::vec3(1.5f, 0.8f, 1.0f);
+		objetivoCamara = posicionStandBateo + glm::vec3(0.0f, 1.4f, 0.0f);
+		break;
+	case 2:	//Topos
+		harley.posicion = posicionStandTopos + glm::vec3(-1.0f, 0.92f, 0.0f);
+		harley.rotacion = glm::vec3(0.0f, 90.0f, 0.0f);
+
+		posicionCamara = harley.posicion + glm::vec3(-1.0f, 0.8f, 1.5f);
+		objetivoCamara = posicionStandTopos + glm::vec3(0.0f, 1.4f, 0.0f);
+		break;
+	case 3:	//Hachas
+		harley.posicion = posicionStandHachas + glm::vec3(0.0f, 0.92f, -1.0f);
+		harley.rotacion = glm::vec3(0.0f, 0.0f, 0.0f);
+
+		posicionCamara = harley.posicion + glm::vec3(1.5f, 0.8f, -1.0f);
+		objetivoCamara = posicionStandHachas + glm::vec3(0.0f, 1.4f, 0.0f);
+		break;
+	case 4:	//Boliche
+		harley.posicion = posicionStandBoliche + glm::vec3(0.0f, 0.92f, 1.0f);
+		harley.rotacion = glm::vec3(0.0f, 180.0f, 0.0f);
+
+		posicionCamara = harley.posicion + glm::vec3(1.5f, 0.8f, 1.0f);
+		objetivoCamara = posicionStandBoliche + glm::vec3(0.0f, 1.4f, 0.0f);
+		break;
+	case 5:	//Dados
+		harley.posicion = posicionStandDados + glm::vec3(0.0f, 0.92f, 1.0f);
+		harley.rotacion = glm::vec3(0.0f, 180.0f, 0.0f);
+
+		posicionCamara = harley.posicion + glm::vec3(1.5f, 0.8f, 1.0f);
+		objetivoCamara = posicionStandDados + glm::vec3(0.0f, 1.4f, 0.0f);
+		break;
+	case 6:	//Dardos
+		harley.posicion = posicionStandDardos + glm::vec3(0.0f, 0.92f, 1.0f);
+		harley.rotacion = glm::vec3(0.0f, 180.0f, 0.0f);
+
+		posicionCamara = harley.posicion + glm::vec3(1.5f, 0.8f, 1.0f);
+		objetivoCamara = posicionStandDardos + glm::vec3(0.0f, 1.4f, 0.0f);
+		break;
+	default:
+		break;
+	harley.ComenzarPago();
+	}
+}
+
+void AnimarPago()
+{
+	tiempoInteraccion += deltaTime;
+	harley.PagarBoleto(deltaTime);
+
+	if (tiempoInteraccion >= 2.0f)
+	{
+		jugando = true;
+		pagando = false;
+		ComenzarJuego(juegoActivo);
+	}
+}
+
+void ComenzarJuego(int juego)
+{
+	tiempoInteraccion = 0.0f;
+	jugando = true;
+	accesorioActivo = juegoActivo;
+	switch (juego)
 	{
 	case 1:	//Bateo
 		maxTiempoInteraccion = 3.0f;
@@ -492,8 +558,6 @@ void ComenzarJuego()
 	default:
 		break;
 	}
-	jugando = true;
-	camaraEstatica = true;
 	ReiniciarObjeto();
 }
 
@@ -542,8 +606,9 @@ void TerminarJuego()
 	accesorioActivo = 0;
 	camaraEstatica = false;
 	jugando = false;
-	harley.PoseIdle();
 	harley.posicion = posicionInteraccion;
+	harley.rotacion = rotacionInteraccion;
+	harley.PoseIdle();
 }
 
 void ReiniciarObjeto()

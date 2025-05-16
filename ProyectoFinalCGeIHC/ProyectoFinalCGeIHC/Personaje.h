@@ -238,6 +238,26 @@ public:
 		this->rotacionPiernaR2.x = 90.0f;
 	}
 
+	void ComenzarPago()
+	{
+		ReiniciarPose();
+
+		this->rotacionBrazoL1.z = -75.0f;
+
+		this->rotacionBrazoR1.x = 75.0f;
+		this->rotacionBrazoR1.z = 75.0f;
+		this->rotacionBrazoR2.y = 20.0f;
+	}
+
+	void PagarBoleto(float deltaTime)
+	{
+		this->tiempoAnim += deltaTime;
+		if (rotacionBrazoR1.x >= -65.0f)
+		{
+			this->rotacionBrazoR1.x -= 400.0f * deltaTime;
+		}
+	}
+
 	void ComenzarBateo()
 	{
 		ReiniciarPose();

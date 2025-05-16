@@ -109,7 +109,7 @@ int main()
 
 	Model piezas_purohueso[10] = { purohueso_cuerpo, purohueso_cabeza, purohueso_brazo_l_1, purohueso_brazo_l_2, purohueso_brazo_r_1, purohueso_brazo_r_2, vacio, vacio, vacio, vacio };
 
-	purohueso.posicion = posicionMaquinaTopos + glm::vec3(-1.0f, 0.92f, 0.0f);
+	purohueso.posicion = posicionMaquinaTopos + glm::vec3(-2.0f, 0.92f, 1.0f);
 	purohueso.rotacion.y = 90.0f;
 	purohueso.ComenzarBateo();
 
@@ -204,19 +204,23 @@ int main()
 		// Dibuja a Harley.
 		harley.Dibujar(modelLoc, lightingShader, piezas_harley, objetos[accesorioActivo]);
 		// Anima a Harley.
-		if (not jugando)
+		if (not jugando && not pagando)
 		{
 			MoverHarley();
 			ChecarMovimiento();
 		}
-		else
+		else if (jugando)
 		{
 			AnimarJuego(modelLoc, lightingShader, objetos);
+		}
+		else if (pagando)
+		{
+			AnimarPago();
 		}
 
 		// Dibuja a Puro Hueso.
 		purohueso.Dibujar(modelLoc, lightingShader, piezas_purohueso, vacio);
-		purohueso.Batear(deltaTime);
+		//purohueso.Batear(deltaTime);
 
 		// Resetea transparencia como prevención.
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTransparencia"), 0);
