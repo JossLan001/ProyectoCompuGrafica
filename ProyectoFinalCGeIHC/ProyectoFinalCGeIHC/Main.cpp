@@ -51,10 +51,19 @@ int main()
 	Shader lampShader("Shaders/lamp.vs", "Shaders/lamp.frag");
 
 	Model vacio((char*)"Modelos/Vacio.obj");
+
+	// Elementos de Entorno.
 	Model suelo((char*)"Modelos/Suelo.obj");
+	Model reja((char*)"Modelos/Reja.obj");
+
+	// Comida.
+	Model puesto_comida((char*)"Modelos/Puesto_Comida.obj");
+	Model mesa_picnic((char*)"Modelos/Mesa_Picnic.obj");
 
 	// Stand Tickets.
 	Model stand_tickets((char*)"Modelos/Stand_Tickets.obj");
+	Model token((char*)"Modelos/Token.obj");
+	Model ticket((char*)"Modelos/Ticket.obj");
 
 	// Jaula Bateo.
 	Model jaula_bateo((char*)"Modelos/Jaula_Bateo.obj");
@@ -83,7 +92,7 @@ int main()
 	Model globo((char*)"Modelos/Vacio.obj"); //
 
 	//Objetos Lanzables
-	Model objetos[7] = { vacio, bate, martillo, hacha, bola, dado, dardo };
+	Model objetos[] = { vacio, bate, martillo, hacha, bola, dado, dardo, token };
 
 	// Harley.
 	Model harley_cuerpo((char*)"Modelos/Harley_Cuerpo.obj");
@@ -109,8 +118,8 @@ int main()
 
 	Model piezas_purohueso[10] = { purohueso_cuerpo, purohueso_cabeza, purohueso_brazo_l_1, purohueso_brazo_l_2, purohueso_brazo_r_1, purohueso_brazo_r_2, vacio, vacio, vacio, vacio };
 
-	purohueso.posicion = posicionMaquinaTopos + glm::vec3(-2.0f, 0.92f, 1.0f);
-	purohueso.rotacion.y = 90.0f;
+	purohueso.posicion = posicionMaquinaTopos + glm::vec3(1.0f, 0.92f, 6.0f);
+	purohueso.rotacion.y = rotacionMaquinaTopos + 180.f;
 	purohueso.ComenzarBateo();
 
 	// Set texture units.
@@ -179,26 +188,51 @@ int main()
 
 		// Suelo.
 		model = glm::mat4(1);
-		model = glm::translate(model, glm::vec3(0.0f, -0.01f, 0.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		suelo.Draw(lightingShader);
 
-		//Puestos de Interacción
-		DibujarEstructura(modelLoc, lightingShader, stand_tickets, posicionStandBateo, 0.0f);
-		DibujarEstructura(modelLoc, lightingShader, stand_tickets, posicionStandTopos, -90.0f);
-		DibujarEstructura(modelLoc, lightingShader, stand_tickets, posicionStandHachas, -180.0f);
-		DibujarEstructura(modelLoc, lightingShader, stand_tickets, posicionStandBoliche, 0.0f);
-		DibujarEstructura(modelLoc, lightingShader, stand_tickets, posicionStandDados, 0.0f);
-		DibujarEstructura(modelLoc, lightingShader, stand_tickets, posicionStandDardos, 0.0f);
+		// Comida.
+		DibujarEstructura(modelLoc, lightingShader, puesto_comida, glm::vec3(2.0f, 0.0f, 17.0f), 90.0f);
+		DibujarEstructura(modelLoc, lightingShader, puesto_comida, glm::vec3(2.0f, 0.0f, 23.0f), 90.0f);
+		DibujarEstructura(modelLoc, lightingShader, puesto_comida, glm::vec3(2.0f, 0.0f, 90.0f), 90.0f);
+		DibujarEstructura(modelLoc, lightingShader, puesto_comida, glm::vec3(-2.0f, 0.0f, 17.0f), -90.0f);
+		DibujarEstructura(modelLoc, lightingShader, puesto_comida, glm::vec3(-2.0f, 0.0f, 23.0f), -90.0f);
+		DibujarEstructura(modelLoc, lightingShader, puesto_comida, glm::vec3(-2.0f, 0.0f, 90.0f), -90.0f);
 
-		//Juegos Interactivos
-		DibujarEstructura(modelLoc, lightingShader, maquina_topos, posicionMaquinaTopos, -90.0f); // Juego de Topos.
-		DibujarEstructura(modelLoc, lightingShader, pista_boliche, posicionPistaBoliche, 0.0f); // Juego de Boliche.
-		DibujarEstructura(modelLoc, lightingShader, mesa_dados, posicionMesaDados, 0.0f); // Juego de Dados.
-		DibujarEstructura(modelLoc, lightingShader, puesto_dardos, posicionPuestoDardos, 0.0f); // Juego de Dardos.
+		DibujarEstructura(modelLoc, lightingShader, puesto_comida, glm::vec3(17.0f, 0.0f, 30.0f), -90.0f);
+		DibujarEstructura(modelLoc, lightingShader, puesto_comida, glm::vec3(17.0f, 0.0f, 36.0f), -90.0f);
+		DibujarEstructura(modelLoc, lightingShader, puesto_comida, glm::vec3(17.0f, 0.0f, 42.0f), -90.0f);
+
+		DibujarEstructura(modelLoc, lightingShader, mesa_picnic, glm::vec3(12.0f, 0.0f, 30.0f), -90.0f);
+		DibujarEstructura(modelLoc, lightingShader, mesa_picnic, glm::vec3(12.0f, 0.0f, 33.0f), -90.0f);
+		DibujarEstructura(modelLoc, lightingShader, mesa_picnic, glm::vec3(12.0f, 0.0f, 36.0f), -90.0f);
+		DibujarEstructura(modelLoc, lightingShader, mesa_picnic, glm::vec3(12.0f, 0.0f, 39.0f), -90.0f);
+		DibujarEstructura(modelLoc, lightingShader, mesa_picnic, glm::vec3(12.0f, 0.0f, 42.0f), -90.0f);
+
+		// Puestos de Interacción.
+		DibujarEstructura(modelLoc, lightingShader, stand_tickets, posicionStandBateo, rotacionStandBateo);
+		DibujarEstructura(modelLoc, lightingShader, stand_tickets, posicionStandTopos, rotacionStandTopos);
+		DibujarEstructura(modelLoc, lightingShader, stand_tickets, posicionStandHachas, rotacionStandHachas);
+		DibujarEstructura(modelLoc, lightingShader, stand_tickets, posicionStandBoliche, rotacionStandBoliche);
+		DibujarEstructura(modelLoc, lightingShader, stand_tickets, posicionStandDados, rotacionStandDados);
+		DibujarEstructura(modelLoc, lightingShader, stand_tickets, posicionStandDardos, rotacionStandDardos);
+
+		// Juegos Interactivos.
+		DibujarEstructura(modelLoc, lightingShader, maquina_topos, posicionMaquinaTopos, rotacionMaquinaTopos); // Juego de Topos.
+		DibujarEstructura(modelLoc, lightingShader, maquina_topos, posicionMaquinaTopos + glm::vec3(0.0f, 0.0f, 1.5f), rotacionMaquinaTopos);
+		DibujarEstructura(modelLoc, lightingShader, maquina_topos, posicionMaquinaTopos + glm::vec3(0.0f, 0.0f, 3.0f), rotacionMaquinaTopos);
+		DibujarEstructura(modelLoc, lightingShader, maquina_topos, posicionMaquinaTopos + glm::vec3(0.0f, 0.0f, 4.5f), rotacionMaquinaTopos);
+		DibujarEstructura(modelLoc, lightingShader, maquina_topos, posicionMaquinaTopos + glm::vec3(0.0f, 0.0f, 6.0f), rotacionMaquinaTopos);
+
+		DibujarEstructura(modelLoc, lightingShader, pista_boliche, posicionPistaBoliche, rotacionPistaBoliche); // Juego de Boliche.
+		DibujarEstructura(modelLoc, lightingShader, mesa_dados, posicionMesaDados, rotacionMesaDados); // Juego de Dados.
+		DibujarEstructura(modelLoc, lightingShader, puesto_dardos, posicionPuestoDardos, rotacionPuestoDardos); // Juego de Dardos.
+
+		// Elementos con Transparencia.
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTransparencia"), 1);
-		DibujarEstructura(modelLoc, lightingShader, jaula_bateo, posicionJaulaBateo, 0.0f); // Juego de Bateo.
-		DibujarEstructura(modelLoc, lightingShader, cabina_hachas, posicionCabinaHachas, 0.0f); // Juego de Hachas.	
+		DibujarEstructura(modelLoc, lightingShader, reja, glm::vec3(0.0f), 0.0f);
+		DibujarEstructura(modelLoc, lightingShader, jaula_bateo, posicionJaulaBateo, rotacionJaulaBateo); // Juego de Bateo.
+		DibujarEstructura(modelLoc, lightingShader, cabina_hachas, posicionCabinaHachas, rotacionCabinaHachas); // Juego de Hachas.	
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTransparencia"), 0);
 
 		// Dibuja a Harley.

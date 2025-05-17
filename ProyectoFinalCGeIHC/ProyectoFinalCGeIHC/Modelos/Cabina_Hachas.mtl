@@ -4,69 +4,69 @@
 newmtl Blancos
 Ns 250.000000
 Ka 1.000000 1.000000 1.000000
-Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
 map_Kd Texturas/Test.jpg
+map_Ks Texturas/Specular_0.png
 
 newmtl Ladrillo
 Ns 250.000000
 Ka 1.000000 1.000000 1.000000
-Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
 map_Kd Texturas/Pista_Boliche/default_furnace_side.png
+map_Ks Texturas/Specular_25.png
 
 newmtl Lamina
 Ns 250.000000
 Ka 1.000000 1.000000 1.000000
-Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
 map_Kd Texturas/Cabina_Hachas/doortile.png
+map_Ks Texturas/Specular_50.png
 
 newmtl Madera
 Ns 250.000000
 Ka 1.000000 1.000000 1.000000
-Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
 map_Kd Texturas/Cabina_Hachas/default_wood.png
+map_Ks Texturas/Specular_0.png
 
 newmtl Madera_Oscura
 Ns 250.000000
 Ka 1.000000 1.000000 1.000000
-Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
 map_Kd Texturas/Cabina_Hachas/default_junglewood.png
+map_Ks Texturas/Specular_0.png
 
 newmtl Metal
 Ns 250.000000
 Ka 1.000000 1.000000 1.000000
-Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
 map_Kd Texturas/Jaula_Bateo/default_silver_sandstone.png
+map_Ks Texturas/Specular_100.png
 
 newmtl Rejas
 Ns 250.000000
 Ka 1.000000 1.000000 1.000000
-Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 illum 2
 map_Kd Texturas/Jaula_Bateo/grate_g.png
+map_Ks Texturas/Specular_100.png
 map_d Texturas/Jaula_Bateo/grate_g.png

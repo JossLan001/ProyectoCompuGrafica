@@ -3427,7 +3427,7 @@ vt 0.352007 0.935183
 s 1
 usemtl Imagen_Maquina_Topos
 f 29/45/2 30/46/2 32/47/2 31/48/2
-usemtl Madera_Roja
+usemtl Metal_Rojo
 f 1/1/1 26/2/1 10/3/1 3/4/1
 f 3/4/2 10/3/2 11/5/2 7/6/2
 f 7/6/3 11/5/3 25/7/3 5/8/3

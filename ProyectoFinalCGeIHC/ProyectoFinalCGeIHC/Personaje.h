@@ -21,10 +21,7 @@ private:
 	glm::vec3 rotacionPiernaR1 = glm::vec3(0.0f);
 	glm::vec3 rotacionPiernaR2 = glm::vec3(0.0f);
 
-	float velocidadAnim = 100.0f;
-	float tiempoAnim = 0.0f;
 	float cicloAnim = 1.0f;
-	float tiempoCiclo = 0.0f;
 
 public:
 	glm::vec3 posicion = glm::vec3(0.0f, 0.92f, 0.0f);
@@ -164,7 +161,6 @@ public:
 
 		this->rotacionPiernaR2 = glm::vec3(0.0f, 0.0f, 0.0f);
 
-		this->tiempoAnim = 0.0f;
 		this->cicloAnim = 1.0f;
 	}
 
@@ -200,30 +196,29 @@ public:
 		this->rotacionPiernaR1.x = 10.0f;
 
 		this->rotacionPiernaR2.x = 35.0f;
-
-		this->tiempoCiclo = 0.5f;
 	}
 
 	void Caminar(float deltaTime)
 	{
-		this->tiempoAnim += deltaTime;
+		this->rotacionBrazoL1.x += -25.0f / 0.5f * cicloAnim * deltaTime;
+		rotacionBrazoL2.y += 15.0f / 0.5f * cicloAnim * deltaTime;
 
-		this->rotacionBrazoL1.x += -25.0f / tiempoCiclo * cicloAnim * deltaTime;
-		rotacionBrazoL2.y += 15.0f / tiempoCiclo * cicloAnim * deltaTime;
-
-		this->rotacionBrazoR1.x += 25.0f / tiempoCiclo * cicloAnim * deltaTime;
+		this->rotacionBrazoR1.x += 25.0f / 0.5f * cicloAnim * deltaTime;
 		rotacionBrazoR2.y += 15.0f * cicloAnim * deltaTime;
 
-		this->rotacionPiernaL1.x += 40.0f / tiempoCiclo * cicloAnim * deltaTime;
+		this->rotacionPiernaL1.x += 40.0f / 0.5f * cicloAnim * deltaTime;
 		rotacionPiernaL2.x += 20.0f * cicloAnim * deltaTime;
 
-		this->rotacionPiernaR1.x += -40.0f / tiempoCiclo * cicloAnim * deltaTime;
-		rotacionPiernaR2.x += -20.0f / tiempoCiclo * cicloAnim * deltaTime;
+		this->rotacionPiernaR1.x += -40.0f / 0.5f * cicloAnim * deltaTime;
+		rotacionPiernaR2.x += -20.0f / 0.5f * cicloAnim * deltaTime;
 
-		if (this->tiempoAnim >= this->tiempoCiclo)
+		if (this->rotacionPiernaL1.x >= 10.0f)
 		{
-			this->cicloAnim = cicloAnim * -1.0f;
-			this->tiempoAnim = 0.0f;
+			this->cicloAnim = -1.0f;
+		}
+		if (this->rotacionPiernaL1.x <= -30.0f)
+		{
+			this->cicloAnim = 1.0f;
 		}
 	}
 
@@ -238,23 +233,12 @@ public:
 		this->rotacionPiernaR2.x = 90.0f;
 	}
 
-	void ComenzarPago()
-	{
-		ReiniciarPose();
-
-		this->rotacionBrazoL1.z = -75.0f;
-
-		this->rotacionBrazoR1.x = 75.0f;
-		this->rotacionBrazoR1.z = 75.0f;
-		this->rotacionBrazoR2.y = 20.0f;
-	}
-
 	void PagarBoleto(float deltaTime)
 	{
-		this->tiempoAnim += deltaTime;
-		if (rotacionBrazoR1.x >= -65.0f)
+		if (rotacionBrazoR1.x >= -45.0f)
 		{
-			this->rotacionBrazoR1.x -= 400.0f * deltaTime;
+			this->rotacionBrazoR1.x += -45.0f / 0.2 * deltaTime;
+			this->rotacionBrazoR2.y += 25.0f / 0.2 * deltaTime;
 		}
 	}
 
@@ -270,7 +254,6 @@ public:
 
 	void Batear(float deltaTime)
 	{
-		this->tiempoAnim += deltaTime;
 		if (rotacionBrazoR1.y >= -20.0f)
 		{
 			this->rotacionBrazoR1.y -= 300.0f * deltaTime;
@@ -291,32 +274,45 @@ public:
 
 	void GolpearTopos(float deltaTime)
 	{
-		this->tiempoAnim += deltaTime;
 		this->rotacionBrazoR1.x += 300.0f * cicloAnim * deltaTime;
 
-		if (rotacionBrazoR1.x <= -180.0f || rotacionBrazoR1.x >= 0.0f)
+		if (rotacionBrazoR1.x <= -180.0f)
 		{
-			this->cicloAnim = cicloAnim * -1.0f;
+			this->cicloAnim = 1.0f;
+		}
+		if (rotacionBrazoR1.x >= 0.0f)
+		{
+			this->cicloAnim = -1.0f;
 		}
 	}
 
-	void ComenzarHachas()
+	void AlzarHacha(float deltaTime)
 	{
-		ReiniciarPose();
+		if (this->rotacionBrazoR1.x >= -130.0f)
+		{
+			this->rotacionBrazoL1.x += 45.0f / 0.33f * deltaTime;
+			this->rotacionBrazoL2.y += -45.0f / 0.33f * deltaTime;
 
-		this->rotacionBrazoL1.z = -75.0f;
+			this->rotacionBrazoR1.x += -130.0f / 0.33f * deltaTime;
+			this->rotacionBrazoR1.z += 15.0f / 0.33f * deltaTime;
+			this->rotacionBrazoR2.y += 90.0f / 0.33f * deltaTime;
 
-		this->rotacionBrazoR1.x = -180.0f;
-		this->rotacionBrazoR1.z = 90.0f;
-		this->rotacionBrazoR2.y = 90.0f;
+			this->rotacionPiernaL1.x += -15.0f / 0.33f * deltaTime;
+			this->rotacionPiernaL2.x += 15.0f / 0.33f * deltaTime;
+
+			this->rotacionPiernaR1.x += 15.0f / 0.33f * deltaTime;
+		}
 	}
 
-	void LanzarHachas(float deltaTime)
+	void LanzarHacha(float deltaTime)
 	{
-		this->tiempoAnim += deltaTime;
-		if (rotacionBrazoR1.x <= 45.0f)
+		if (rotacionBrazoR1.x <= 50.0f)
 		{
-			this->rotacionBrazoR1.x += 800.0f * deltaTime;
+			this->rotacionBrazoR1.x += 180.0f / 0.25 * deltaTime;
+			this->rotacionBrazoR1.z += -10.0f / 0.25 * deltaTime;
+			this->rotacionBrazoR2.y += -65.0f / 0.25 * deltaTime;
+
+			this->rotacionBrazoL1.x += -55.0f / 0.25 * deltaTime;
 		}
 	}
 
@@ -333,7 +329,6 @@ public:
 
 	void JugarBoliche(float deltaTime)
 	{
-		this->tiempoAnim += deltaTime;
 		if (rotacionBrazoR1.x >= -110.0f)
 		{
 			this->rotacionBrazoR1.x -= 400.0f * deltaTime;
@@ -352,7 +347,6 @@ public:
 
 	void LanzarDados(float deltaTime)
 	{
-		this->tiempoAnim += deltaTime;
 		if (rotacionBrazoR1.y >= -20.0f)
 		{
 			this->rotacionBrazoR1.y -= 400.0f * deltaTime;
@@ -372,7 +366,6 @@ public:
 
 	void LanzarDardos(float deltaTime)
 	{
-		this->tiempoAnim += deltaTime;
 		if (rotacionBrazoR1.y >= -20.0f)
 		{
 			this->rotacionBrazoR1.y -= 400.0f * deltaTime;

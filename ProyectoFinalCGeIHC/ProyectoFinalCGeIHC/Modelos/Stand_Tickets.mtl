@@ -1,4 +1,4 @@
-# Blender 3.6.0 MTL File: 'Fachada.blend'
+# Blender 3.6.0 MTL File: 'Proyecto.blend'
 # www.blender.org
 
 newmtl Letrero
@@ -9,7 +9,7 @@ Ni 1.450000
 d 1.000000
 illum 2
 map_Kd Texturas/Stand_Tickets/Letrero.png
-map_Ks Texturas/Specular_0.png
+map_Ks Texturas/Specular_25.png
 
 newmtl Madera_Blanca_Roja
 Ns 250.000000

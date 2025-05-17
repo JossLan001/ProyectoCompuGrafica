@@ -1,15 +1,35 @@
-# Blender 3.6.0 MTL File: 'Fachada.blend'
+# Blender 3.6.0 MTL File: 'Proyecto.blend'
 # www.blender.org
 
-newmtl Huecos
+newmtl Bolo
 Ns 250.000000
 Ka 1.000000 1.000000 1.000000
-Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_Kd Texturas/Pista_Boliche/Morado.png
+map_Kd Texturas/Pista_Boliche/Bolo.png
+map_Ks Texturas/Specular_66.png
+
+newmtl Hielo
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd Texturas/Jaula_Bateo/default_ice.png
+map_Ks Texturas/Specular_66.png
+
+newmtl Huecos
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd Texturas/Pista_Boliche/Azul_Verdoso.png
+map_Ks Texturas/Specular_75.png
 
 newmtl Ladrillo
 Ns 250.000000
@@ -19,7 +39,7 @@ Ni 1.450000
 d 1.000000
 illum 2
 map_Kd Texturas/Pista_Boliche/default_furnace_side.png
-map_Ks Texturas/Specular_33.png
+map_Ks Texturas/Specular_25.png
 
 newmtl Ladrillo_Oscuro
 Ns 250.000000
@@ -28,28 +48,48 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_Kd Texturas/Pista_Boliche/ladrillo_oscuro.png
-map_Ks Texturas/Specular_33.png
+map_Kd Texturas/Pista_Boliche/Ladrillo_Oscuro.png
+map_Ks Texturas/Specular_25.png
 
 newmtl Luz_Azul
 Ns 250.000000
 Ka 1.000000 1.000000 1.000000
-Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
 map_Kd Texturas/Pista_Boliche/Luz_Azul.png
+map_Ks Texturas/Specular_100.png
 
-newmtl Pared
+newmtl Marco_Pantalla
 Ns 250.000000
 Ka 1.000000 1.000000 1.000000
-Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_Kd Texturas/Pista_Boliche/Morado_Oscuro.png
+map_Kd Texturas/Specular_0.png
+map_Ks Texturas/Specular_75.png
+
+newmtl Pantalla
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd Texturas/Pista_Boliche/Penguin2004.png
+map_Ks Texturas/Specular_75.png
+
+newmtl Pared
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd Texturas/Pista_Boliche/Azul_Oscuro.png
+map_Ks Texturas/Specular_33.png
 
 newmtl Piso
 Ns 250.000000
@@ -58,8 +98,8 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_Kd Texturas/Pista_Boliche/Madera_Rosa.png
-map_Ks Texturas/Specular_33.png
+map_Kd Texturas/Pista_Boliche/Madera_Azul.png
+map_Ks Texturas/Specular_66.png
 
 newmtl Puerta
 Ns 250.000000
@@ -71,22 +111,12 @@ illum 2
 map_Kd Texturas/Pista_Boliche/Puerta.png
 map_Ks Texturas/Specular_0.png
 
-newmtl Techo
-Ns 250.000000
-Ka 1.000000 1.000000 1.000000
-Ks 0.500000 0.500000 0.500000
-Ke 0.000000 0.000000 0.000000
-Ni 1.450000
-d 1.000000
-illum 2
-map_Kd Texturas/Pista_Boliche/Morado_Suave.png
-
 newmtl Ventana
 Ns 250.000000
 Ka 1.000000 1.000000 1.000000
-Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
 map_Kd Texturas/Pista_Boliche/Ventana.png
+map_Ks Texturas/Specular_75.png

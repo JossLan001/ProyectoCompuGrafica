@@ -1,4 +1,4 @@
-# Blender 3.6.0 MTL File: 'Fachada.blend'
+# Blender 3.6.0 MTL File: 'Proyecto.blend'
 # www.blender.org
 
 newmtl Harley_Cabeza
@@ -8,8 +8,8 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 1
-map_Kd Texturas/Harley_Cabeza.png
-map_Ks Texturas/Harley_Cabeza_Specular.png
+map_Kd Texturas/Harley/Harley_Cabeza.png
+map_Ks Texturas/Harley/Harley_Cabeza_Specular.png
 
 newmtl Harley_Ojos
 Ns 250.000000
@@ -18,5 +18,5 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_Kd Texturas/Harley_Ojos.png
-map_Ks Texturas/Harley_Ojos_Specular.png
+map_Kd Texturas/Harley/Harley_Ojos.png
+map_Ks Texturas/Specular_75.png
