@@ -543,12 +543,12 @@ void ComenzarJuego(int juego)
 		break;
 	case 4:	// Boliche.
 		maxTiempoInteraccion = 3.0f;
-		harley.posicion = posicionPistaBoliche + glm::vec3(0.95f, 2.5f, 6.4f);
-		harley.rotacion = glm::vec3(0.0f, rotacionPistaBoliche, 0.0f);
+		harley.posicion = posicionPistaBoliche + glm::vec3(0.95f, 2.5f, -6.4f);
+		harley.rotacion = glm::vec3(0.0f, rotacionPistaBoliche + 180.0f, 0.0f);
 		harley.ComenzarBoliche();
 
-		posicionCamara = harley.posicion + glm::vec3(-1.0f, 0.6f, 3.0f);
-		objetivoCamara = harley.posicion + glm::vec3(3.0f, -0.5f, -16.0f);
+		posicionCamara = harley.posicion + glm::vec3(-1.0f, 0.6f, -3.0f);
+		objetivoCamara = harley.posicion + glm::vec3(3.0f, -0.5f, 16.0f);
 		break;
 	case 5:	// Dados.
 		maxTiempoInteraccion = 3.0f;

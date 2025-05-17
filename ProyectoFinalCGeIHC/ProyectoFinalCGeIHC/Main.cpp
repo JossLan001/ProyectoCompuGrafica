@@ -68,10 +68,11 @@ int main()
 	// Jaula Bateo.
 	Model jaula_bateo((char*)"Modelos/Jaula_Bateo.obj");
 	Model bate((char*)"Modelos/Bate.obj");
+	Model pelota((char*)"Modelos/Pelota.obj");
 
 	// Maquina Topos.
 	Model maquina_topos((char*)"Modelos/Maquina_Topos.obj");
-	Model martillo((char*)"Modelos/Vacio.obj"); //
+	Model martillo((char*)"Modelos/Martillo.obj");
 
 	// Hachas.
 	Model cabina_hachas((char*)"Modelos/Cabina_Hachas.obj");
@@ -79,20 +80,20 @@ int main()
 
 	// Boliche.
 	Model pista_boliche((char*)"Modelos/Pista_Boliche.obj");
-	Model bola((char*)"Modelos/Vacio.obj"); //
-	Model bolo((char*)"Modelos/Vacio.obj"); //
+	Model bola_boliche((char*)"Modelos/Bola_Boliche.obj");
+	Model bolo((char*)"Modelos/Bolo.obj");
 
 	// Dados.
 	Model mesa_dados((char*)"Modelos/Mesa_Dados.obj");
-	Model dado((char*)"Modelos/Vacio.obj"); //
+	Model dado((char*)"Modelos/Dado.obj");
 
 	// Dardos.
 	Model puesto_dardos((char*)"Modelos/Puesto_Dardos.obj");
-	Model dardo((char*)"Modelos/Vacio.obj"); //
-	Model globo((char*)"Modelos/Vacio.obj"); //
+	Model dardo((char*)"Modelos/Dardo.obj");
+	Model globo((char*)"Modelos/Globo.obj");
 
 	//Objetos Lanzables
-	Model objetos[] = { vacio, bate, martillo, hacha, bola, dado, dardo, token };
+	Model objetos[] = { vacio, bate, martillo, hacha, bola_boliche, dado, dardo, token };
 
 	// Harley.
 	Model harley_cuerpo((char*)"Modelos/Harley_Cuerpo.obj");

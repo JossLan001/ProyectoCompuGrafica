@@ -1,12 +1,12 @@
 # Blender 3.6.0 MTL File: 'Proyecto.blend'
 # www.blender.org
 
-newmtl Ticket
+newmtl Dado
 Ns 250.000000
 Ka 1.000000 1.000000 1.000000
 Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_Kd Texturas/Stand_Tickets/Back_of_ticket_for_admission_to_the_World's_Columbian_Exposition.jpg
-map_Ks Texturas/Specular_0.png
+map_Kd Texturas/Mesa_Dados/dice_cubes_sd_bit.png
+map_Ks Texturas/Specular_66.png
