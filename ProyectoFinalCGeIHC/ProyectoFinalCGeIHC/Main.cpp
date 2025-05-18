@@ -69,6 +69,8 @@ int main()
 	Model jaula_bateo((char*)"Modelos/Jaula_Bateo.obj");
 	Model bate((char*)"Modelos/Bate.obj");
 	Model pelota((char*)"Modelos/Pelota.obj");
+	Model mr_freeze((char*)"Modelos/Mr_Freeze.obj");
+	Model mr_freeze_casco((char*)"Modelos/Mr_Freeze_Casco.obj");
 
 	// Maquina Topos.
 	Model maquina_topos((char*)"Modelos/Maquina_Topos.obj");
@@ -228,6 +230,15 @@ int main()
 		DibujarEstructura(modelLoc, lightingShader, pista_boliche, posicionPistaBoliche, rotacionPistaBoliche); // Juego de Boliche.
 		DibujarEstructura(modelLoc, lightingShader, mesa_dados, posicionMesaDados, rotacionMesaDados); // Juego de Dados.
 		DibujarEstructura(modelLoc, lightingShader, puesto_dardos, posicionPuestoDardos, rotacionPuestoDardos); // Juego de Dardos.
+
+		DibujarEstructura(modelLoc, lightingShader, mr_freeze, posicionJaulaBateo + glm::vec3(0.0f, 0.1f, -4.0f), rotacionJaulaBateo);
+
+		glEnable(GL_BLEND); // Activa la funcionalidad para trabajar el canal alfa.
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glUniform4f(glGetUniformLocation(lightingShader.Program, "colorAlpha"), 1.0f, 1.0f, 1.0f, 0.1f);
+		DibujarEstructura(modelLoc, lightingShader, mr_freeze_casco, posicionJaulaBateo + glm::vec3(0.0f, 0.1f, -4.0f), rotacionJaulaBateo);
+		glUniform4f(glGetUniformLocation(lightingShader.Program, "colorAlpha"), 1.0f, 1.0f, 1.0f, 1.0f);
+		glDisable(GL_BLEND); // Desactiva el canal alfa.
 
 		// Elementos con Transparencia.
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTransparencia"), 1);
