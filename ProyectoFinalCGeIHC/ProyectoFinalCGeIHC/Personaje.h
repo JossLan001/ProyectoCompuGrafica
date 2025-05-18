@@ -242,22 +242,48 @@ public:
 		}
 	}
 
-	void ComenzarBateo()
+	void AlzarBate(float deltaTime)
 	{
-		ReiniciarPose();
+		if (rotacionBrazoR1.x >= 0.0f)
+		{
+			this->rotacionBrazoR1.x += -15.0f / 0.33 * deltaTime;
+			this->rotacionBrazoR1.y += 90.0f / 0.33 * deltaTime;
+			this->rotacionBrazoR1.z += -75.0f / 0.33 * deltaTime;
+			this->rotacionBrazoR2.y += 65.0f / 0.33 * deltaTime;
 
-		this->rotacionBrazoL1.z = -75.0f;
+			this->rotacionBrazoL1.x += 30.0f / 0.33 * deltaTime;
+			this->rotacionBrazoL2.y += -20.0f / 0.33 * deltaTime;
 
-		this->rotacionBrazoR1.y = 90.0f;
-		this->rotacionBrazoR2.y = 120.0f;
+			this->rotacionPiernaL1.x += 15.0f / 0.33f * deltaTime;
+
+			this->rotacionPiernaR1.x += -15.0f / 0.33f * deltaTime;
+			this->rotacionPiernaR2.x += 15.0f / 0.33f * deltaTime;
+		}
 	}
 
 	void Batear(float deltaTime)
 	{
 		if (rotacionBrazoR1.y >= -20.0f)
 		{
-			this->rotacionBrazoR1.y -= 300.0f * deltaTime;
-			this->rotacionBrazoR2.y -= 300.0f * deltaTime;
+			this->rotacionBrazoR1.y += -110.0f / 0.25 * deltaTime;
+			this->rotacionBrazoR2.y += -90.0f / 0.25 * deltaTime;
+
+			this->rotacionBrazoL1.x += -55.0f / 0.25 * deltaTime;
+			this->rotacionBrazoL1.z += 25.0f / 0.25 * deltaTime;
+			this->rotacionBrazoL2.y += 25.0f / 0.25 * deltaTime;
+		}
+	}
+
+	void RegresarBate(float deltaTime)
+	{
+		if (rotacionBrazoR1.y <= 90.0f)
+		{
+			this->rotacionBrazoR1.y += 110.0f / 0.33 * deltaTime;
+			this->rotacionBrazoR2.y += 90.0f / 0.33 * deltaTime;
+
+			this->rotacionBrazoL1.x += 55.0f / 0.33 * deltaTime;
+			this->rotacionBrazoL1.z += -25.0f / 0.33 * deltaTime;
+			this->rotacionBrazoL2.y += -25.0f / 0.33 * deltaTime;
 		}
 	}
 
@@ -326,22 +352,29 @@ public:
 		}
 	}
 
-	void ComenzarBoliche()
+	void AlzarBola(float deltaTime)
 	{
-		ReiniciarPose();
+		if (this->rotacionBrazoR1.x <= 75.0f)
+		{
+			this->rotacionBrazoL1.x += -35.0f / 0.5f * deltaTime;
+			this->rotacionBrazoL2.y += -20.0f / 0.5f * deltaTime;
 
-		this->rotacionBrazoL1.z = -75.0f;
+			this->rotacionBrazoR1.x += 60.0f / 0.5f * deltaTime;
 
-		this->rotacionBrazoR1.x = 75.0f;
-		this->rotacionBrazoR1.z = 75.0f;
-		this->rotacionBrazoR2.y = 20.0f;
+			this->rotacionPiernaL1.x += 15.0f / 0.5f * deltaTime;
+
+			this->rotacionPiernaR1.x += -15.0f / 0.5f * deltaTime;
+			this->rotacionPiernaR2.x += 15.0f / 0.5f * deltaTime;
+		}
 	}
 
-	void JugarBoliche(float deltaTime)
+	void LanzarBola(float deltaTime)
 	{
-		if (rotacionBrazoR1.x >= -110.0f)
+		if (rotacionBrazoR1.x >= -130.0f)
 		{
-			this->rotacionBrazoR1.x -= 400.0f * deltaTime;
+			this->rotacionBrazoR1.x += -205.0f / 0.5f * deltaTime;
+
+			this->rotacionBrazoL1.x += 80.0f / 0.5f * deltaTime;
 		}
 	}
 

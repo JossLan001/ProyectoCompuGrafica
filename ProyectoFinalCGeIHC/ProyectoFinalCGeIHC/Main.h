@@ -116,9 +116,9 @@ int accesorioActivo = 0;
 glm::vec3 posicionInteraccion = glm::vec3(0.0f); // Guarda la posición donde el personaje insertó el ticket para regresar al terminar la interacción.
 glm::vec3 rotacionInteraccion = glm::vec3(0.0f);
 
-const glm::vec3 posicionStandBateo = glm::vec3(-10.0f, 0.0f, 20.0f); // Puesto donde el jugador inicia la interacción de bateo.
+//const glm::vec3 posicionStandBateo = glm::vec3(-10.0f, 0.0f, 20.0f); // Puesto donde el jugador inicia la interacción de bateo.
 const float rotacionStandBateo = 0.0f;
-//const glm::vec3 posicionStandTopos = glm::vec3(-16.0f, 0.0f, 23.5f); // Puesto donde el jugador inicia la interacción de topos.
+const glm::vec3 posicionStandTopos = glm::vec3(-16.0f, 0.0f, 23.5f); // Puesto donde el jugador inicia la interacción de topos.
 const float rotacionStandTopos = 90.0f;
 const glm::vec3 posicionStandHachas = glm::vec3(17.0f, 0.0f, 8.0f); // Puesto donde el jugador inicia la interacción de hachas.
 const float rotacionStandHachas = -90.0f;
@@ -129,7 +129,7 @@ const float rotacionStandDados = -90.0f;
 const glm::vec3 posicionStandDardos = glm::vec3(-14.0f, 0.0f, 40.0f); // Puesto donde el jugador inicia la interacción de dardos.
 const float rotacionStandDardos = 90.0f;
 
-const glm::vec3 posicionStandTopos = glm::vec3(0.0f, 0.0f, 0.0f);
+const glm::vec3 posicionStandBateo = glm::vec3(0.0f, 0.0f, 0.0f);
 
 const glm::vec3 posicionesStands[6] = { posicionStandBateo, posicionStandTopos, posicionStandHachas, posicionStandBoliche, posicionStandDados, posicionStandDardos };
 
@@ -517,10 +517,10 @@ void ComenzarJuego(int juego)
 	switch (juego)
 	{
 	case 1:	// Bateo.
-		maxTiempoInteraccion = 3.0f;
+		maxTiempoInteraccion = 10.0f;
 		harley.posicion = posicionJaulaBateo + glm::vec3(0.0f, 1.02f, 6.0f);
 		harley.rotacion = glm::vec3(0.0f, rotacionJaulaBateo + 180.0f, 0.0f);
-		harley.ComenzarBateo();
+		harley.PoseIdle();
 
 		posicionCamara = harley.posicion + glm::vec3(-1.0f, 0.5f, 3.0f);
 		objetivoCamara = harley.posicion;
@@ -547,7 +547,7 @@ void ComenzarJuego(int juego)
 		maxTiempoInteraccion = 3.0f;
 		harley.posicion = posicionPistaBoliche + glm::vec3(0.95f, 2.5f, -6.4f);
 		harley.rotacion = glm::vec3(0.0f, rotacionPistaBoliche + 180.0f, 0.0f);
-		harley.ComenzarBoliche();
+		harley.PoseIdle();
 
 		posicionCamara = harley.posicion + glm::vec3(-1.0f, 0.6f, -3.0f);
 		objetivoCamara = harley.posicion + glm::vec3(3.0f, -0.5f, 16.0f);
@@ -582,7 +582,38 @@ void AnimarJuego(GLuint modelLoc, Shader& lightingShader, Model objetos[])
 	switch (juegoActivo)
 	{
 	case 1:
-		harley.Batear(deltaTime);
+		if (tiempoInteraccion >= 0.0f && tiempoInteraccion < 1.0f)
+		{
+			harley.AlzarBate(deltaTime);
+		}
+		if (tiempoInteraccion >= 1.0f && tiempoInteraccion < 2.5f)
+		{
+			harley.Batear(deltaTime);
+		}
+		if (tiempoInteraccion >= 2.5f && tiempoInteraccion < 3.5f)
+		{
+			harley.RegresarBate(deltaTime);
+		}
+		if (tiempoInteraccion >= 3.5f && tiempoInteraccion < 5.0f)
+		{
+			harley.Batear(deltaTime);
+		}
+		if (tiempoInteraccion >= 5.0f && tiempoInteraccion < 6.0f)
+		{
+			harley.RegresarBate(deltaTime);
+		}
+		if (tiempoInteraccion >= 6.0f && tiempoInteraccion < 7.5f)
+		{
+			harley.Batear(deltaTime);
+		}
+		if (tiempoInteraccion >= 7.5f && tiempoInteraccion < 8.5f)
+		{
+			harley.RegresarBate(deltaTime);
+		}
+		if (tiempoInteraccion >= 8.5f && tiempoInteraccion < 10.0f)
+		{
+			harley.Batear(deltaTime);
+		}
 		break;
 	case 2:
 		if (tiempoInteraccion >= 0.0f && tiempoInteraccion < 0.75f)
@@ -627,7 +658,14 @@ void AnimarJuego(GLuint modelLoc, Shader& lightingShader, Model objetos[])
 		}
 		break;
 	case 4:
-		harley.JugarBoliche(deltaTime);
+		if (tiempoInteraccion < 0.5f)
+		{
+			harley.AlzarBola(deltaTime);
+		}
+		if (tiempoInteraccion >= 1.25f)
+		{
+			harley.LanzarBola(deltaTime);
+		}
 		break;
 	case 5:
 		harley.LanzarDados(deltaTime);

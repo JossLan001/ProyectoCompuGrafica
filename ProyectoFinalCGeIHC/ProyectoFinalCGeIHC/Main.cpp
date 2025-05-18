@@ -123,7 +123,6 @@ int main()
 
 	purohueso.posicion = posicionMaquinaTopos + glm::vec3(1.0f, 0.92f, 6.0f);
 	purohueso.rotacion.y = rotacionMaquinaTopos + 180.f;
-	purohueso.ComenzarBateo();
 
 	// Set texture units.
 	lightingShader.Use();
