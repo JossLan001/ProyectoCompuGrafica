@@ -265,24 +265,34 @@ public:
 	{
 		ReiniciarPose();
 
-		this->rotacionBrazoL1.z = -75.0f;
+		this->rotacionCabeza.x = 15.0f;
 
-		this->rotacionBrazoR1.x = -180.0f;
+		this->rotacionBrazoL1 = glm::vec3(15.0f, 0.0f, -75.0f);
+		this->rotacionBrazoL2.y = -25.0f;
+
+		this->rotacionBrazoR1.x = -30.0f;
+		this->rotacionBrazoR1.y = 15.0f;
 		this->rotacionBrazoR1.z = 90.0f;
-		this->rotacionBrazoR2.y = 45.0f;
 	}
 
-	void GolpearTopos(float deltaTime)
+	void AlzarMartillo(float deltaTime)
 	{
-		this->rotacionBrazoR1.x += 300.0f * cicloAnim * deltaTime;
-
-		if (rotacionBrazoR1.x <= -180.0f)
+		if (this->rotacionBrazoR1.x >= -100.0f)
 		{
-			this->cicloAnim = 1.0f;
+			this->rotacionBrazoR1.x += -70.0f / 0.5f * deltaTime;
+			this->rotacionBrazoR1.y += -15.0f / 0.5f * deltaTime;
+			this->rotacionBrazoR2.y += 90.0f / 0.5f * deltaTime;
 		}
-		if (rotacionBrazoR1.x >= 0.0f)
+	}
+
+	void GolpearTopo(float deltaTime)
+	{
+		if (rotacionBrazoR1.x <= -30.0f)
 		{
-			this->cicloAnim = -1.0f;
+			this->rotacionBrazoR1.x += 70.0f / 0.33f * deltaTime;
+			this->rotacionBrazoR1.y += 15.0f / 0.33f * deltaTime;
+
+			this->rotacionBrazoR2.y += -90.0f / 0.33f * deltaTime;
 		}
 	}
 

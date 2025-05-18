@@ -118,7 +118,7 @@ glm::vec3 rotacionInteraccion = glm::vec3(0.0f);
 
 const glm::vec3 posicionStandBateo = glm::vec3(-10.0f, 0.0f, 20.0f); // Puesto donde el jugador inicia la interacción de bateo.
 const float rotacionStandBateo = 0.0f;
-const glm::vec3 posicionStandTopos = glm::vec3(-16.0f, 0.0f, 23.5f); // Puesto donde el jugador inicia la interacción de topos.
+//const glm::vec3 posicionStandTopos = glm::vec3(-16.0f, 0.0f, 23.5f); // Puesto donde el jugador inicia la interacción de topos.
 const float rotacionStandTopos = 90.0f;
 const glm::vec3 posicionStandHachas = glm::vec3(17.0f, 0.0f, 8.0f); // Puesto donde el jugador inicia la interacción de hachas.
 const float rotacionStandHachas = -90.0f;
@@ -128,6 +128,8 @@ const glm::vec3 posicionStandDados = glm::vec3(15.0f, 0.0f, 23.5f); // Puesto do
 const float rotacionStandDados = -90.0f;
 const glm::vec3 posicionStandDardos = glm::vec3(-14.0f, 0.0f, 40.0f); // Puesto donde el jugador inicia la interacción de dardos.
 const float rotacionStandDardos = 90.0f;
+
+const glm::vec3 posicionStandTopos = glm::vec3(0.0f, 0.0f, 0.0f);
 
 const glm::vec3 posicionesStands[6] = { posicionStandBateo, posicionStandTopos, posicionStandHachas, posicionStandBoliche, posicionStandDados, posicionStandDardos };
 
@@ -524,7 +526,7 @@ void ComenzarJuego(int juego)
 		objetivoCamara = harley.posicion;
 		break;
 	case 2:	// Topos.
-		maxTiempoInteraccion = 7.5f;
+		maxTiempoInteraccion = 8.0f;
 		harley.posicion = posicionMaquinaTopos + glm::vec3(1.0f, 0.92f, 0.0f);
 		harley.rotacion = glm::vec3(0.0f, rotacionMaquinaTopos + 180.0f, 0.0f);
 		harley.ComenzarTopos();
@@ -583,7 +585,30 @@ void AnimarJuego(GLuint modelLoc, Shader& lightingShader, Model objetos[])
 		harley.Batear(deltaTime);
 		break;
 	case 2:
-		harley.GolpearTopos(deltaTime);
+		if (tiempoInteraccion >= 0.0f && tiempoInteraccion < 0.75f)
+		{
+			harley.AlzarMartillo(deltaTime);
+		}
+		if (tiempoInteraccion >= 1.25f && tiempoInteraccion < 1.75f)
+		{
+			harley.GolpearTopo(deltaTime);
+		}
+		if (tiempoInteraccion >= 2.75f && tiempoInteraccion < 3.5f)
+		{
+			harley.AlzarMartillo(deltaTime);
+		}
+		if (tiempoInteraccion >= 4.0f && tiempoInteraccion < 4.5f)
+		{
+			harley.GolpearTopo(deltaTime);
+		}
+		if (tiempoInteraccion >= 5.5f && tiempoInteraccion < 6.25f)
+		{
+			harley.AlzarMartillo(deltaTime);
+		}
+		if (tiempoInteraccion >= 6.75f && tiempoInteraccion < 7.25f)
+		{
+			harley.GolpearTopo(deltaTime);
+		}
 		break;
 	case 3:
 		if (tiempoInteraccion < 0.75f)
