@@ -1,0 +1,37 @@
+#
+## Alias OBJ Material File
+# Exported from SketchUp, (c) 2000-2012 Trimble Navigation Limited
+
+newmtl Color_M04
+Ka 0.000000 0.000000 0.000000
+Kd 0.556863 0.556863 0.556863
+Ks 0.330000 0.330000 0.330000
+
+newmtl FrontColor
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.330000 0.330000 0.330000
+
+newmtl rojo
+Ka 0.000000 0.000000 0.000000
+Kd 0.890196 0.003922 0.098039
+Ks 0.330000 0.330000 0.330000
+map_Kd Puestocomida/rojo.jpg
+
+newmtl blanco
+Ka 0.000000 0.000000 0.000000
+Kd 0.976471 0.976471 0.976471
+Ks 0.330000 0.330000 0.330000
+map_Kd Puestocomida/blanco.jpg
+
+newmtl Dorado
+Ka 0.000000 0.000000 0.000000
+Kd 0.925490 0.717647 0.058824
+Ks 0.330000 0.330000 0.330000
+map_Kd Puestocomida/Dorado.jpg
+
+newmtl ForegroundColor
+Ka 0.000000 0.000000 0.000000
+Kd 0.000000 0.000000 0.000000
+Ks 0.330000 0.330000 0.330000
+
