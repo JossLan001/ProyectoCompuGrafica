@@ -378,22 +378,35 @@ public:
 		}
 	}
 
-	void ComenzarDados()
+	void ComenzaDados()
 	{
 		ReiniciarPose();
 
-		this->rotacionBrazoL1.z = -75.0f;
+		this->rotacionBrazoL1 = glm::vec3(15.0f, 0.0f, -75.0f);
+		this->rotacionBrazoL2.y = -25.0f;
 
-		this->rotacionBrazoR1.y = 90.0f;
+		this->rotacionBrazoR1 = glm::vec3(-70.0f, 0.0f, 75.0f);
 		this->rotacionBrazoR2.y = 120.0f;
+	}
+
+	void AgitarDados(float deltaTime)
+	{
+		this->rotacionBrazoR2.y += -50.0f / 0.25f * cicloAnim * deltaTime;
+		if (this->rotacionBrazoR2.y <= 70.0f)
+		{
+			cicloAnim = -1.0f;
+		}
+		if (this->rotacionBrazoR2.y >= 120.0f)
+		{
+			cicloAnim = 1.0f;
+		}
 	}
 
 	void LanzarDados(float deltaTime)
 	{
-		if (rotacionBrazoR1.y >= -20.0f)
+		if (this->rotacionBrazoR2.y >= 5.0f)
 		{
-			this->rotacionBrazoR1.y -= 400.0f * deltaTime;
-			this->rotacionBrazoR2.y -= 400.0f * deltaTime;
+			this->rotacionBrazoR2.y += -70.0f / 0.15f * deltaTime;
 		}
 	}
 
@@ -401,7 +414,8 @@ public:
 	{
 		ReiniciarPose();
 
-		this->rotacionBrazoL1.z = -75.0f;
+		this->rotacionBrazoL1 = glm::vec3(15.0f, 0.0f, -75.0f);
+		this->rotacionBrazoL2.y = -25.0f;
 
 		this->rotacionBrazoR1.y = 90.0f;
 		this->rotacionBrazoR2.y = 120.0f;
@@ -409,11 +423,16 @@ public:
 
 	void LanzarDardos(float deltaTime)
 	{
-		if (rotacionBrazoR1.y >= -20.0f)
+		if (rotacionBrazoR1.y <= -20.0f)
 		{
-			this->rotacionBrazoR1.y -= 400.0f * deltaTime;
-			this->rotacionBrazoR2.y -= 400.0f * deltaTime;
+			cicloAnim = -1.0f;
 		}
+		if (rotacionBrazoR1.y >= 90.0f)
+		{
+			cicloAnim = 1.0f;
+		}
+		this->rotacionBrazoR1.y += -110.0f / 0.33 * cicloAnim * deltaTime;
+		this->rotacionBrazoR2.y += -90.0f / 0.33 * cicloAnim * deltaTime;
 	}
 
 };

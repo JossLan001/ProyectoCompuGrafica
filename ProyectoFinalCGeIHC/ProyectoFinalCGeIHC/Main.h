@@ -116,7 +116,7 @@ int accesorioActivo = 0;
 glm::vec3 posicionInteraccion = glm::vec3(0.0f); // Guarda la posición donde el personaje insertó el ticket para regresar al terminar la interacción.
 glm::vec3 rotacionInteraccion = glm::vec3(0.0f);
 
-//const glm::vec3 posicionStandBateo = glm::vec3(-10.0f, 0.0f, 20.0f); // Puesto donde el jugador inicia la interacción de bateo.
+const glm::vec3 posicionStandBateo = glm::vec3(-10.0f, 0.0f, 20.0f); // Puesto donde el jugador inicia la interacción de bateo.
 const float rotacionStandBateo = 0.0f;
 const glm::vec3 posicionStandTopos = glm::vec3(-16.0f, 0.0f, 23.5f); // Puesto donde el jugador inicia la interacción de topos.
 const float rotacionStandTopos = 90.0f;
@@ -129,7 +129,7 @@ const float rotacionStandDados = -90.0f;
 const glm::vec3 posicionStandDardos = glm::vec3(-14.0f, 0.0f, 40.0f); // Puesto donde el jugador inicia la interacción de dardos.
 const float rotacionStandDardos = 90.0f;
 
-const glm::vec3 posicionStandBateo = glm::vec3(0.0f, 0.0f, 0.0f);
+//const glm::vec3 posicionStand = glm::vec3(0.0f, 0.0f, 0.0f);
 
 const glm::vec3 posicionesStands[6] = { posicionStandBateo, posicionStandTopos, posicionStandHachas, posicionStandBoliche, posicionStandDados, posicionStandDardos };
 
@@ -553,16 +553,16 @@ void ComenzarJuego(int juego)
 		objetivoCamara = harley.posicion + glm::vec3(3.0f, -0.5f, 16.0f);
 		break;
 	case 5:	// Dados.
-		maxTiempoInteraccion = 3.0f;
+		maxTiempoInteraccion = 4.0f;
 		harley.posicion = posicionMesaDados + glm::vec3(-1.5f, 0.92f, 0.0f);
 		harley.rotacion = glm::vec3(0.0f, rotacionMesaDados + 180.0f, 0.0f);
-		harley.ComenzarDados();
+		harley.ComenzaDados();
 
 		posicionCamara = harley.posicion + glm::vec3(-0.8f, 0.7f, 0.4f);
 		objetivoCamara = posicionMesaDados + glm::vec3(0.0f, 1.0f, 0.0f);
 		break;
 	case 6:	// Dardos.
-		maxTiempoInteraccion = 3.0f;
+		maxTiempoInteraccion = 6.0f;
 		harley.posicion = posicionPuestoDardos + glm::vec3(1.5f, 0.92f, 0.0f);
 		harley.rotacion = glm::vec3(0.0f, rotacionPuestoDardos + 180.0f, 0.0f);
 		harley.ComenzarDardos();
@@ -668,10 +668,20 @@ void AnimarJuego(GLuint modelLoc, Shader& lightingShader, Model objetos[])
 		}
 		break;
 	case 5:
-		harley.LanzarDados(deltaTime);
+		if (tiempoInteraccion >= 0.0f && tiempoInteraccion < 1.75f)
+		{
+			harley.AgitarDados(deltaTime);
+		}
+		if (tiempoInteraccion >= 1.75f)
+		{
+			harley.LanzarDados(deltaTime);
+		}
 		break;
 	case 6:
-		harley.LanzarDardos(deltaTime);
+		if (tiempoInteraccion >= 1.0f && tiempoInteraccion <= 2.7f )
+		{
+			harley.LanzarDardos(deltaTime);
+		}
 		break;
 	default:
 		break;
