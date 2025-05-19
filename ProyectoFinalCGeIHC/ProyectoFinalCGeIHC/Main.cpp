@@ -100,7 +100,7 @@ int main()
 	Model globo((char*)"Modelos/Globo.obj");
 
 	// Objetos Lanzables.
-	Model objetos[] = { vacio, vacio, vacio, hacha, bola_boliche, dado, dardo };
+	Model objetos[] = { vacio, pelota, vacio, hacha, bola_boliche, dado, dardo };
 
 	// Objetos en Mano.
 	Model accesorios[] = { vacio, bate_mano, martillo_mano, hacha_mano, bola_boliche_mano, dados_mano, dardos_mano, token_mano };
@@ -257,7 +257,7 @@ int main()
 		glEnable(GL_BLEND); // Activa la funcionalidad para trabajar el canal alfa.
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glUniform4f(glGetUniformLocation(lightingShader.Program, "colorAlpha"), 1.0f, 1.0f, 1.0f, 0.1f);
-		DibujarEstructura(modelLoc, lightingShader, mr_freeze_casco, posicionJaulaBateo + glm::vec3(0.0f, 0.1f, -4.0f), rotacionJaulaBateo);
+		DibujarEstructura(modelLoc, lightingShader, mr_freeze_casco, posicionMrFreeze, rotacionMrFreeze);
 		glUniform4f(glGetUniformLocation(lightingShader.Program, "colorAlpha"), 1.0f, 1.0f, 1.0f, 1.0f);
 		glDisable(GL_BLEND); // Desactiva el canal alfa.
 

@@ -77,7 +77,7 @@ void TerminarJuego();
 bool caminando = false;
 
 // Lanzamiento de Objetos.
-void ReiniciarObjeto();
+void ReiniciarObjeto(glm::vec3 posicion, glm::vec3 offset, float rotacion);
 void LanzarObjeto(glm::vec3 direccionLanzamiento, float velocidadLanzamiento, float gradosRotacion, float tiempoVueloMaximo);
 void DibujarObjeto(GLuint modelLoc, Shader& lightingShader, Model objeto);
 
@@ -129,6 +129,8 @@ const float rotacionStandDados = -90.0f;
 const glm::vec3 posicionStandDardos = glm::vec3(-14.0f, 0.0f, 40.0f); // Puesto donde el jugador inicia la interacción de dardos.
 const float rotacionStandDardos = 90.0f;
 
+float apotema = 2.0f; // Rango en el que se puede interactuar con un puesto de tickets.
+
 //const glm::vec3 posicionStand = glm::vec3(0.0f, 0.0f, 0.0f);
 
 const glm::vec3 posicionJaulaBateo = glm::vec3(-13.0f, 0.0f, 9.0f); // Posición de la jaula de bateo.
@@ -144,7 +146,8 @@ const float rotacionMesaDados = -90.0f;
 const glm::vec3 posicionPuestoDardos = glm::vec3(-17.0f, 0.0f, 37.0f); // Posición del puesto de dardos.
 const float rotacionPuestoDardos = 90.0f;
 
-float apotema = 2.0f; // Rango en el que se puede interactuar con un puesto de tickets.
+const glm::vec3 posicionMrFreeze = posicionJaulaBateo + glm::vec3(0.0f, 0.1f, -4.0f);
+const float rotacionMrFreeze = rotacionJaulaBateo;
 
 glm::vec3 escalaDados = glm::vec3(0.0f);
 
@@ -524,6 +527,8 @@ void ComenzarJuego()
 
 		posicionCamara = harley.posicion + glm::vec3(-1.0f, 0.5f, 3.0f);
 		objetivoCamara = harley.posicion;
+
+		ReiniciarObjeto(posicionMrFreeze, glm::vec3(0.0f, 1.15f, 0.0f), rotacionMrFreeze);
 		break;
 	case 2:	// Topos.
 		maxTiempoInteraccion = 8.0f;
@@ -542,6 +547,8 @@ void ComenzarJuego()
 
 		posicionCamara = harley.posicion + glm::vec3(-0.5f, 0.6f, 1.5f);
 		objetivoCamara = posicionCabinaHachas + glm::vec3(-0.3f, 1.5f, 0.0f);
+
+		ReiniciarObjeto(harley.posicion, glm::vec3(0.0f, 0.5f, 0.0f), harley.rotacion.y);
 		break;
 	case 4:	// Boliche.
 		maxTiempoInteraccion = 3.0f;
@@ -575,7 +582,6 @@ void ComenzarJuego()
 	default:
 		break;
 	}
-	ReiniciarObjeto();
 }
 
 void AnimarJuego(GLuint modelLoc, Shader& lightingShader, Model objetos[])
@@ -584,6 +590,8 @@ void AnimarJuego(GLuint modelLoc, Shader& lightingShader, Model objetos[])
 	switch (juegoActivo)
 	{
 	case 1:	// Bateo.
+		// Control de animación;
+		DibujarObjeto(modelLoc, lightingShader, objetos[juegoActivo]);
 		if (tiempoInteraccion >= 0.0f && tiempoInteraccion < 1.0f)
 		{
 			harley.AlzarBate(deltaTime);
@@ -616,6 +624,53 @@ void AnimarJuego(GLuint modelLoc, Shader& lightingShader, Model objetos[])
 		{
 			harley.Batear(deltaTime);
 		}
+
+		// Control de Pelota.
+		if (tiempoInteraccion >= 0.0f && tiempoInteraccion < 1.0f)
+		{
+			LanzarObjeto(glm::vec3(0.0f, 0.0f, 1.0f), 8.0f, 840.0f, 2.25f);
+		}
+		if (tiempoInteraccion >= 1.0f && tiempoInteraccion < 2.25f)
+		{
+			LanzarObjeto(glm::vec3(1.0f, 1.0f, -1.0f), 8.0f, 840.0f, 2.25f);
+		}
+		if (tiempoInteraccion >= 2.25f && tiempoInteraccion < 2.5f)
+		{
+			ReiniciarObjeto(posicionMrFreeze, glm::vec3(0.0f, 1.15f, 0.0f), rotacionMrFreeze);
+		}
+		if (tiempoInteraccion >= 2.5f && tiempoInteraccion < 3.5f)
+		{
+			LanzarObjeto(glm::vec3(0.0f, 0.0f, 1.0f), 8.0f, 840.0f, 2.25f);
+		}
+		if (tiempoInteraccion >= 3.5f && tiempoInteraccion < 4.75f)
+		{
+			LanzarObjeto(glm::vec3(1.0f, 1.0f, -1.0f), 8.0f, 840.0f, 2.25f);
+		}
+		if (tiempoInteraccion >= 4.75f && tiempoInteraccion < 5.0f)
+		{
+			ReiniciarObjeto(posicionMrFreeze, glm::vec3(0.0f, 1.15f, 0.0f), rotacionMrFreeze);
+		}
+		if (tiempoInteraccion >= 5.0f && tiempoInteraccion < 6.0f)
+		{
+			LanzarObjeto(glm::vec3(0.0f, 0.0f, 1.0f), 8.0f, 840.0f, 2.25f);
+		}
+		if (tiempoInteraccion >= 6.0f && tiempoInteraccion < 7.25f)
+		{
+			LanzarObjeto(glm::vec3(1.0f, 1.0f, -1.0f), 8.0f, 840.0f, 2.25f);
+		}
+		if (tiempoInteraccion >= 7.25f && tiempoInteraccion < 7.5f)
+		{
+			ReiniciarObjeto(posicionMrFreeze, glm::vec3(0.0f, 1.15f, 0.0f), rotacionMrFreeze);
+		}
+		if (tiempoInteraccion >= 7.5f && tiempoInteraccion < 8.5f)
+		{
+			LanzarObjeto(glm::vec3(0.0f, 0.0f, 1.0f), 8.0f, 840.0f, 2.25f);
+		}
+		if (tiempoInteraccion >= 8.5f && tiempoInteraccion < 10.0f)
+		{
+			LanzarObjeto(glm::vec3(1.0f, 1.0f, -1.0f), 8.0f, 840.0f, 2.25f);
+		}
+
 		break;
 	case 2:	// Topos.
 		if (tiempoInteraccion >= 0.0f && tiempoInteraccion < 0.75f)
@@ -708,10 +763,10 @@ void TerminarJuego()
 	harley.PoseIdle();
 }
 
-void ReiniciarObjeto()
+void ReiniciarObjeto(glm::vec3 posicion, glm::vec3 offset, float rotacion)
 {
-	posicionObjeto = harley.posicion + glm::vec3(0.0f, 0.5f, 0.0f);
-	rotacionObjeto = harley.rotacion;
+	posicionObjeto = posicion + offset;
+	rotacionObjeto = glm::vec3(0.0f, rotacion, 0.0f);
 	tiempoVuelo = 0.0f;
 }
 

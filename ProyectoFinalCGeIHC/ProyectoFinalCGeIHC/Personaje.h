@@ -377,6 +377,8 @@ public:
 	{
 		ReiniciarPose();
 
+		this->rotacionCabeza.x = 15.0f;
+
 		this->rotacionBrazoL1 = glm::vec3(15.0f, 0.0f, -75.0f);
 		this->rotacionBrazoL2.y = -25.0f;
 
