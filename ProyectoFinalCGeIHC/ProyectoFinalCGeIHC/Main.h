@@ -131,8 +131,6 @@ const float rotacionStandDardos = 90.0f;
 
 float apotema = 2.0f; // Rango en el que se puede interactuar con un puesto de tickets.
 
-//const glm::vec3 posicionStand = glm::vec3(0.0f, 0.0f, 0.0f);
-
 const glm::vec3 posicionJaulaBateo = glm::vec3(-13.0f, 0.0f, 9.0f); // Posición de la jaula de bateo.
 const float rotacionJaulaBateo = 0.0f;
 const glm::vec3 posicionMaquinaTopos = glm::vec3(-18.0f, 0.0f, 25.5f); // Posición de la maquina de topos.
@@ -162,6 +160,12 @@ glm::vec3 posicionBolo9 = glm::vec3(0.0f);
 glm::vec3 posicionBolo10 = glm::vec3(0.0f);
 
 glm::vec3 escalaDados = glm::vec3(0.0f);
+
+glm::vec3 escalaGlobo1 = glm::vec3(1.0f);
+glm::vec3 escalaGlobo2 = glm::vec3(1.0f);
+glm::vec3 escalaGlobo3 = glm::vec3(1.0f);
+glm::vec3 escalaGlobo4 = glm::vec3(1.0f);
+glm::vec3 escalaGlobo5 = glm::vec3(1.0f);
 
 // Is called whenever a key is pressed/released via GLFW.
 void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode)
@@ -596,13 +600,20 @@ void ComenzarJuego()
 		escalaDados = glm::vec3(0.0f);
 		break;
 	case 6:	// Dardos.
-		maxTiempoInteraccion = 6.0f;
+		maxTiempoInteraccion = 5.0f;
 		harley.posicion = posicionPuestoDardos + glm::vec3(1.5f, 0.92f, 0.0f);
 		harley.rotacion = glm::vec3(0.0f, rotacionPuestoDardos + 180.0f, 0.0f);
 		harley.ComenzarDardos();
 
+		escalaGlobo1 = glm::vec3(1.0f);
+		escalaGlobo2 = glm::vec3(1.0f);
+		escalaGlobo3 = glm::vec3(1.0f);
+		escalaGlobo4 = glm::vec3(1.0f);
+		escalaGlobo5 = glm::vec3(1.0f);
+
 		posicionCamara = harley.posicion + glm::vec3(0.5f, 0.5f, -0.35f);
 		objetivoCamara = posicionPuestoDardos + glm::vec3(0.0f, 1.5f, 0.0f);
+		ReiniciarObjeto(harley.posicion, glm::vec3(-0.5f, 0.39f, 0.0f), harley.rotacion.y);
 		break;
 	default:
 		break;
@@ -785,9 +796,91 @@ void AnimarJuego(GLuint modelLoc, Shader& lightingShader, Model objetos[])
 		}
 		break;
 	case 6:	// Dardos.
-		if (tiempoInteraccion >= 1.0f && tiempoInteraccion <= 2.7f )
+		// Control de Animaciones.
+		if (tiempoInteraccion >= 0.75f && tiempoInteraccion <= 1.08f )
 		{
-			harley.LanzarDardos(deltaTime);
+			harley.LanzarDardo1(deltaTime);
+		}
+		if (tiempoInteraccion >= 1.08f && tiempoInteraccion <= 1.41f)
+		{
+			harley.LanzarDardo2(deltaTime);
+		}
+		if (tiempoInteraccion >= 1.41f && tiempoInteraccion <= 1.74)
+		{
+			harley.LanzarDardo1(deltaTime);
+		}
+		if (tiempoInteraccion >= 1.74f && tiempoInteraccion <= 2.07f)
+		{
+			harley.LanzarDardo2(deltaTime);
+		}
+		if (tiempoInteraccion >= 2.07 && tiempoInteraccion <= 2.4)
+		{
+			harley.LanzarDardo1(deltaTime);
+		}
+
+		// Control de Dardos.
+		if (tiempoInteraccion >= 0.86f && tiempoInteraccion <= 1.08f)
+		{
+			DibujarObjeto(modelLoc, lightingShader, objetos[juegoActivo]);
+			LanzarObjeto(glm::vec3(-1.0f, 0.0f, 0.0f), 10.0f, 0.0f, 0.175f);
+		}
+		if (tiempoInteraccion >= 1.08f && tiempoInteraccion <= 1.19f)
+		{
+			ReiniciarObjeto(harley.posicion, glm::vec3(-0.5f, 0.39f, 0.0f), harley.rotacion.y);
+		}
+		if (tiempoInteraccion >= 1.19f && tiempoInteraccion <= 1.41f)
+		{
+			DibujarObjeto(modelLoc, lightingShader, objetos[juegoActivo]);
+			LanzarObjeto(glm::vec3(-1.0f, 0.0f, 0.1875f), 10.0f, 0.0f, 0.175f);
+		}
+		if (tiempoInteraccion >= 1.41f && tiempoInteraccion <= 1.52f)
+		{
+			ReiniciarObjeto(harley.posicion, glm::vec3(-0.5f, 0.39f, 0.0f), harley.rotacion.y);
+		}
+		if (tiempoInteraccion >= 1.52f && tiempoInteraccion <= 1.74f)
+		{
+			DibujarObjeto(modelLoc, lightingShader, objetos[juegoActivo]);
+			LanzarObjeto(glm::vec3(-1.0f, 0.0f, -0.1875f), 10.0f, 0.0f, 0.175f);
+		}
+		if (tiempoInteraccion >= 1.74f && tiempoInteraccion <= 1.85f)
+		{
+			ReiniciarObjeto(harley.posicion, glm::vec3(-0.5f, 0.39f, 0.0f), harley.rotacion.y);
+		}
+		if (tiempoInteraccion >= 1.85f && tiempoInteraccion <= 2.07f)
+		{
+			DibujarObjeto(modelLoc, lightingShader, objetos[juegoActivo]);
+			LanzarObjeto(glm::vec3(-1.0f, 0.0f, 0.4f), 10.0f, 0.0f, 0.175f);
+		}
+		if (tiempoInteraccion >= 2.07f && tiempoInteraccion <= 2.18f)
+		{
+			ReiniciarObjeto(harley.posicion, glm::vec3(-0.5f, 0.39f, 0.0f), harley.rotacion.y);
+		}
+		if (tiempoInteraccion >= 2.18f)
+		{
+			DibujarObjeto(modelLoc, lightingShader, objetos[juegoActivo]);
+			LanzarObjeto(glm::vec3(-1.0f, 0.0f, -0.4f), 10.0f, 0.0f, 0.175f);
+		}
+
+		// Control de Globos.
+		if (tiempoInteraccion >= 1.0f && tiempoInteraccion <= 1.08f)
+		{
+			escalaGlobo1 = glm::vec3(0.1f);
+		}
+		if (tiempoInteraccion >= 1.33f && tiempoInteraccion <= 1.41f)
+		{
+			escalaGlobo2 = glm::vec3(0.1f);
+		}
+		if (tiempoInteraccion >= 1.66f && tiempoInteraccion <= 1.74f)
+		{
+			escalaGlobo3 = glm::vec3(0.1f);
+		}
+		if (tiempoInteraccion >= 1.99f && tiempoInteraccion <= 2.07f)
+		{
+			escalaGlobo4 = glm::vec3(0.1f);
+		}
+		if (tiempoInteraccion >= 2.32f)
+		{
+			escalaGlobo5 = glm::vec3(0.1f);
 		}
 		break;
 	default:

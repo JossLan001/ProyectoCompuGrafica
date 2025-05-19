@@ -205,10 +205,10 @@ int main()
 		// Comida.
 		DibujarEstructura(modelLoc, lightingShader, puesto_comida, glm::vec3(2.0f, 0.0f, 17.0f), 90.0f);
 		DibujarEstructura(modelLoc, lightingShader, puesto_comida, glm::vec3(2.0f, 0.0f, 23.0f), 90.0f);
-		DibujarEstructura(modelLoc, lightingShader, puesto_comida, glm::vec3(2.0f, 0.0f, 90.0f), 90.0f);
+		DibujarEstructura(modelLoc, lightingShader, puesto_comida, glm::vec3(2.0f, 0.0f, 29.0f), 90.0f);
 		DibujarEstructura(modelLoc, lightingShader, puesto_comida, glm::vec3(-2.0f, 0.0f, 17.0f), -90.0f);
 		DibujarEstructura(modelLoc, lightingShader, puesto_comida, glm::vec3(-2.0f, 0.0f, 23.0f), -90.0f);
-		DibujarEstructura(modelLoc, lightingShader, puesto_comida, glm::vec3(-2.0f, 0.0f, 90.0f), -90.0f);
+		DibujarEstructura(modelLoc, lightingShader, puesto_comida, glm::vec3(-2.0f, 0.0f, 29.0f), -90.0f);
 
 		DibujarEstructura(modelLoc, lightingShader, puesto_comida, glm::vec3(17.0f, 0.0f, 30.0f), -90.0f);
 		DibujarEstructura(modelLoc, lightingShader, puesto_comida, glm::vec3(17.0f, 0.0f, 36.0f), -90.0f);
@@ -347,7 +347,56 @@ int main()
 		dados.Draw(lightingShader);
 
 		// Puesto Dardos.
-		DibujarEstructura(modelLoc, lightingShader, puesto_dardos, posicionPuestoDardos, rotacionPuestoDardos); // Juego de Dardos.
+		model = glm::mat4(1);
+		model = glm::translate(model, posicionPuestoDardos);
+		model = glm::rotate(model, glm::radians(rotacionPuestoDardos), glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		puesto_dardos.Draw(lightingShader);
+
+		// Globo 1.
+		model = glm::mat4(1);
+		model = glm::translate(model, posicionPuestoDardos);
+		model = glm::rotate(model, glm::radians(rotacionPuestoDardos), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(0.0f, 1.3f, -0.9f));
+		model = glm::scale(model, escalaGlobo1);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		globo.Draw(lightingShader);
+
+		// Globo 2.
+		model = glm::mat4(1);
+		model = glm::translate(model, posicionPuestoDardos);
+		model = glm::rotate(model, glm::radians(rotacionPuestoDardos), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(-0.375f, 1.3f, -0.9f));
+		model = glm::scale(model, escalaGlobo2);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		globo.Draw(lightingShader);
+
+		// Globo 3.
+		model = glm::mat4(1);
+		model = glm::translate(model, posicionPuestoDardos);
+		model = glm::rotate(model, glm::radians(rotacionPuestoDardos), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(0.375f, 1.3f, -0.9f));
+		model = glm::scale(model, escalaGlobo3);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		globo.Draw(lightingShader);
+
+		// Globo 4.
+		model = glm::mat4(1);
+		model = glm::translate(model, posicionPuestoDardos);
+		model = glm::rotate(model, glm::radians(rotacionPuestoDardos), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(-0.75f, 1.3f, -0.9f));
+		model = glm::scale(model, escalaGlobo4);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		globo.Draw(lightingShader);
+
+		// Globo 5.
+		model = glm::mat4(1);
+		model = glm::translate(model, posicionPuestoDardos);
+		model = glm::rotate(model, glm::radians(rotacionPuestoDardos), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(0.75f, 1.3f, -0.9f));
+		model = glm::scale(model, escalaGlobo5);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		globo.Draw(lightingShader);
 
 		// Mr Freeze.
 		DibujarEstructura(modelLoc, lightingShader, mr_freeze, posicionJaulaBateo + glm::vec3(0.0f, 0.1f, -4.0f), rotacionJaulaBateo);
@@ -362,9 +411,9 @@ int main()
 
 		// Elementos con Transparencia.
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTransparencia"), 1);
-		DibujarEstructura(modelLoc, lightingShader, reja, glm::vec3(0.0f), 0.0f);
+		DibujarEstructura(modelLoc, lightingShader, reja, glm::vec3(0.0f), 0.0f);	// Reja.
 		DibujarEstructura(modelLoc, lightingShader, jaula_bateo, posicionJaulaBateo, rotacionJaulaBateo); // Juego de Bateo.
-		DibujarEstructura(modelLoc, lightingShader, cabina_hachas, posicionCabinaHachas, rotacionCabinaHachas); // Juego de Hachas.	
+		DibujarEstructura(modelLoc, lightingShader, cabina_hachas, posicionCabinaHachas, rotacionCabinaHachas); // Cabina de Hachas.	
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTransparencia"), 0);
 
 		// Dibuja a Harley.

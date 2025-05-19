@@ -418,6 +418,24 @@ public:
 		this->rotacionBrazoR2.y = 120.0f;
 	}
 
+	void LanzarDardo1(float deltaTime)
+	{
+		if (rotacionBrazoR1.y >= -20.0f)
+		{
+			this->rotacionBrazoR1.y += -110.0f / 0.33 * deltaTime;
+			this->rotacionBrazoR2.y += -90.0f / 0.33 * deltaTime;
+		}
+	}
+
+	void LanzarDardo2(float deltaTime)
+	{
+		if (rotacionBrazoR1.y <= 90.0f)
+		{
+			this->rotacionBrazoR1.y += 110.0f / 0.33 * deltaTime;
+			this->rotacionBrazoR2.y += 90.0f / 0.33 * deltaTime;
+		}
+	}
+
 	void LanzarDardos(float deltaTime)
 	{
 		if (rotacionBrazoR1.y <= -20.0f)
@@ -428,8 +446,8 @@ public:
 		{
 			cicloAnim = 1.0f;
 		}
-		this->rotacionBrazoR1.y += -110.0f / 0.33 * cicloAnim * deltaTime;
-		this->rotacionBrazoR2.y += -90.0f / 0.33 * cicloAnim * deltaTime;
+		this->rotacionBrazoR1.y += -110.0f / 0.5 * cicloAnim * deltaTime;
+		this->rotacionBrazoR2.y += -90.0f / 0.5 * cicloAnim * deltaTime;
 	}
 
 };
