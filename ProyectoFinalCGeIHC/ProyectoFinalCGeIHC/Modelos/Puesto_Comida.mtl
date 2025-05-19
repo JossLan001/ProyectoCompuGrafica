@@ -1,37 +1,32 @@
-#
-## Alias OBJ Material File
-# Exported from SketchUp, (c) 2000-2012 Trimble Navigation Limited
+# Blender 3.6.0 MTL File: 'Proyecto.blend'
+# www.blender.org
 
-newmtl Color_M04
-Ka 0.000000 0.000000 0.000000
-Kd 0.556863 0.556863 0.556863
-Ks 0.330000 0.330000 0.330000
+newmtl Imagen
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd Texturas/Test.jpg
+map_Ks Texturas/Specular_25.png
 
-newmtl FrontColor
-Ka 0.000000 0.000000 0.000000
-Kd 1.000000 1.000000 1.000000
-Ks 0.330000 0.330000 0.330000
+newmtl Imagen_2
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd Texturas/Test.jpg
+map_Ks Texturas/Specular_25.png
 
-newmtl rojo
-Ka 0.000000 0.000000 0.000000
-Kd 0.890196 0.003922 0.098039
-Ks 0.330000 0.330000 0.330000
-map_Kd Texturas/rojo.jpg
-
-newmtl blanco
-Ka 0.000000 0.000000 0.000000
-Kd 0.976471 0.976471 0.976471
-Ks 0.330000 0.330000 0.330000
-map_Kd Texturas/blanco.jpg
-
-newmtl Dorado
-Ka 0.000000 0.000000 0.000000
-Kd 0.925490 0.717647 0.058824
-Ks 0.330000 0.330000 0.330000
-map_Kd Texturas/Dorado.jpg
-
-newmtl ForegroundColor
-Ka 0.000000 0.000000 0.000000
-Kd 0.000000 0.000000 0.000000
-Ks 0.330000 0.330000 0.330000
-
+newmtl Lamina
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd Texturas/Cabina_Hachas/doortile.png
+map_Ks Texturas/Specular_50.png

@@ -1,7 +1,7 @@
 # Blender 3.6.0 MTL File: 'Proyecto.blend'
 # www.blender.org
 
-newmtl Cactus.001
+newmtl Cactus
 Ns 250.000000
 Ka 1.000000 1.000000 1.000000
 Ke 0.000000 0.000000 0.000000
@@ -11,7 +11,7 @@ illum 2
 map_Kd Texturas/Escenario/default_cactus_side.png
 map_Ks Texturas/Specular_0.png
 
-newmtl Pasto.001
+newmtl Pasto
 Ns 250.000000
 Ka 1.000000 1.000000 1.000000
 Ke 0.000000 0.000000 0.000000
@@ -21,7 +21,7 @@ illum 2
 map_Kd Texturas/Escenario/default_dry_grass.png
 map_Ks Texturas/Specular_0.png
 
-newmtl Piedra.001
+newmtl Piedra
 Ns 250.000000
 Ka 1.000000 1.000000 1.000000
 Ke 0.000000 0.000000 0.000000
@@ -31,7 +31,7 @@ illum 2
 map_Kd Texturas/Escenario/default_sandstone.png
 map_Ks Texturas/Specular_0.png
 
-newmtl Tierra.001
+newmtl Tierra
 Ns 250.000000
 Ka 1.000000 1.000000 1.000000
 Ke 0.000000 0.000000 0.000000
