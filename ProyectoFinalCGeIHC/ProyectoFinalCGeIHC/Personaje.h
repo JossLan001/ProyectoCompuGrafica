@@ -436,7 +436,19 @@ public:
 		}
 	}
 
-	void LanzarDardos(float deltaTime)
+	void ComenzarToposGuadania()
+	{
+		ReiniciarPose();
+
+		this->rotacionBrazoL1 = glm::vec3(15.0f, 0.0f, -75.0f);
+		this->rotacionBrazoL2.y = -25.0f;
+
+		this->rotacionBrazoR1.x = 15.0f;
+		this->rotacionBrazoR1.y = 90.0f;
+		this->rotacionBrazoR2.y = 120.0f;
+	}
+
+	void UsarGuadania(float deltaTime)
 	{
 		if (rotacionBrazoR1.y <= -20.0f)
 		{
@@ -446,8 +458,8 @@ public:
 		{
 			cicloAnim = 1.0f;
 		}
-		this->rotacionBrazoR1.y += -110.0f / 0.5 * cicloAnim * deltaTime;
-		this->rotacionBrazoR2.y += -90.0f / 0.5 * cicloAnim * deltaTime;
+		this->rotacionBrazoR1.y += -110.0f / 0.666 * cicloAnim * deltaTime;
+		this->rotacionBrazoR2.y += -110.0f / 0.666 * cicloAnim * deltaTime;
 	}
 
 };

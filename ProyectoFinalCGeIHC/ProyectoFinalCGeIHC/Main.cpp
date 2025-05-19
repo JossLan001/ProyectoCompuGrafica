@@ -54,6 +54,7 @@ int main()
 
 	// Elementos de Entorno.
 	Model suelo((char*)"Modelos/Suelo.obj");
+	Model skydome((char*)"Modelos/Skydome.obj");
 	Model reja((char*)"Modelos/Reja.obj");
 
 	// Comida.
@@ -131,12 +132,12 @@ int main()
 
 	purohueso.posicion = posicionMaquinaTopos + glm::vec3(1.0f, 0.92f, 6.0f);
 	purohueso.rotacion.y = rotacionMaquinaTopos + 180.f;
-	purohueso.ComenzarDardos();
+	purohueso.ComenzarToposGuadania();
 
 	// Set texture units.
 	lightingShader.Use();
 
-	glm::mat4 projection = glm::perspective(camera.GetZoom(), (GLfloat)SCREEN_WIDTH / (GLfloat)SCREEN_HEIGHT, 0.1f, 1000.0f);
+	glm::mat4 projection = glm::perspective(camera.GetZoom(), (GLfloat)SCREEN_WIDTH / (GLfloat)SCREEN_HEIGHT, 0.1f, 5000.0f);
 
 	// Game loop.
 	while (!glfwWindowShouldClose(window))
@@ -201,6 +202,12 @@ int main()
 		model = glm::mat4(1);
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		suelo.Draw(lightingShader);
+
+		// Cielo.
+		glUniform4f(glGetUniformLocation(lightingShader.Program, "colorAlpha"), colorCielo.r, colorCielo.g, colorCielo.b, 1.0f);
+		skydome.Draw(lightingShader);
+
+		glUniform4f(glGetUniformLocation(lightingShader.Program, "colorAlpha"), 1.0f, 1.0f, 1.0f, 1.0f);
 
 		// Comida.
 		DibujarEstructura(modelLoc, lightingShader, puesto_comida, glm::vec3(2.0f, 0.0f, 17.0f), 90.0f);
@@ -435,7 +442,7 @@ int main()
 
 		// Dibuja a Puro Hueso.
 		purohueso.Dibujar(modelLoc, lightingShader, piezas_purohueso, vacio);
-		purohueso.LanzarDardos(deltaTime);
+		purohueso.UsarGuadania(deltaTime);
 
 		// Resetea transparencia como prevención.
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTransparencia"), 0);
