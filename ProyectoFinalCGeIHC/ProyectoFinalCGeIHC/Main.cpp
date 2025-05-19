@@ -62,40 +62,48 @@ int main()
 
 	// Stand Tickets.
 	Model stand_tickets((char*)"Modelos/Stand_Tickets.obj");
-	Model token((char*)"Modelos/Token.obj");
+	Model token_mano((char*)"Modelos/Token_Mano.obj");
 	Model ticket((char*)"Modelos/Ticket.obj");
 
 	// Jaula Bateo.
 	Model jaula_bateo((char*)"Modelos/Jaula_Bateo.obj");
-	Model bate((char*)"Modelos/Bate.obj");
+	Model bate_mano((char*)"Modelos/Bate_Mano.obj");
 	Model pelota((char*)"Modelos/Pelota.obj");
 	Model mr_freeze((char*)"Modelos/Mr_Freeze.obj");
 	Model mr_freeze_casco((char*)"Modelos/Mr_Freeze_Casco.obj");
 
 	// Maquina Topos.
 	Model maquina_topos((char*)"Modelos/Maquina_Topos.obj");
-	Model martillo((char*)"Modelos/Martillo.obj");
+	Model martillo_mano((char*)"Modelos/Martillo_Mano.obj");
 
 	// Hachas.
 	Model cabina_hachas((char*)"Modelos/Cabina_Hachas.obj");
+	Model hacha_mano((char*)"Modelos/Hacha_Mano.obj");
 	Model hacha((char*)"Modelos/Hacha.obj");
 
 	// Boliche.
 	Model pista_boliche((char*)"Modelos/Pista_Boliche.obj");
+	Model bola_boliche_mano((char*)"Modelos/Bola_Boliche_Mano.obj");
 	Model bola_boliche((char*)"Modelos/Bola_Boliche.obj");
 	Model bolo((char*)"Modelos/Bolo.obj");
 
 	// Dados.
 	Model mesa_dados((char*)"Modelos/Mesa_Dados.obj");
+	Model dados_mano((char*)"Modelos/Dados_Mano.obj");
 	Model dado((char*)"Modelos/Dado.obj");
+	Model dados((char*)"Modelos/Dados.obj");
 
 	// Dardos.
 	Model puesto_dardos((char*)"Modelos/Puesto_Dardos.obj");
+	Model dardos_mano((char*)"Modelos/Dardos_Mano.obj");
 	Model dardo((char*)"Modelos/Dardo.obj");
 	Model globo((char*)"Modelos/Globo.obj");
 
-	//Objetos Lanzables
-	Model objetos[] = { vacio, bate, martillo, hacha, bola_boliche, dado, dardo, token };
+	// Objetos Lanzables.
+	Model objetos[] = { vacio, vacio, vacio, hacha, bola_boliche, dado, dardo };
+
+	// Objetos en Mano.
+	Model accesorios[] = { vacio, bate_mano, martillo_mano, hacha_mano, bola_boliche_mano, dados_mano, dardos_mano, token_mano };
 
 	// Harley.
 	Model harley_cuerpo((char*)"Modelos/Harley_Cuerpo.obj");
@@ -123,6 +131,7 @@ int main()
 
 	purohueso.posicion = posicionMaquinaTopos + glm::vec3(1.0f, 0.92f, 6.0f);
 	purohueso.rotacion.y = rotacionMaquinaTopos + 180.f;
+	purohueso.ComenzarDardos();
 
 	// Set texture units.
 	lightingShader.Use();
@@ -227,7 +236,20 @@ int main()
 		DibujarEstructura(modelLoc, lightingShader, maquina_topos, posicionMaquinaTopos + glm::vec3(0.0f, 0.0f, 6.0f), rotacionMaquinaTopos);
 
 		DibujarEstructura(modelLoc, lightingShader, pista_boliche, posicionPistaBoliche, rotacionPistaBoliche); // Juego de Boliche.
-		DibujarEstructura(modelLoc, lightingShader, mesa_dados, posicionMesaDados, rotacionMesaDados); // Juego de Dados.
+
+
+		model = glm::mat4(1);
+		model = glm::translate(model, posicionMesaDados);
+		model = glm::rotate(model, glm::radians(rotacionMesaDados), glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		mesa_dados.Draw(lightingShader);
+
+		model = glm::translate(model, glm::vec3(0.0f, 0.85f, 0.0f));
+		model = glm::scale(model, escalaDados);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		dados.Draw(lightingShader);
+
+
 		DibujarEstructura(modelLoc, lightingShader, puesto_dardos, posicionPuestoDardos, rotacionPuestoDardos); // Juego de Dardos.
 
 		DibujarEstructura(modelLoc, lightingShader, mr_freeze, posicionJaulaBateo + glm::vec3(0.0f, 0.1f, -4.0f), rotacionJaulaBateo);
@@ -247,7 +269,7 @@ int main()
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTransparencia"), 0);
 
 		// Dibuja a Harley.
-		harley.Dibujar(modelLoc, lightingShader, piezas_harley, objetos[accesorioActivo]);
+		harley.Dibujar(modelLoc, lightingShader, piezas_harley, accesorios[accesorioActivo]);
 		// Anima a Harley.
 		if (not jugando && not pagando)
 		{
@@ -265,7 +287,7 @@ int main()
 
 		// Dibuja a Puro Hueso.
 		purohueso.Dibujar(modelLoc, lightingShader, piezas_purohueso, vacio);
-		//purohueso.Batear(deltaTime);
+		purohueso.LanzarDardos(deltaTime);
 
 		// Resetea transparencia como prevención.
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTransparencia"), 0);

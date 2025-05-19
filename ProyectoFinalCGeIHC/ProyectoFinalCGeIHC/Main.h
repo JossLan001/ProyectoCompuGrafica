@@ -70,7 +70,7 @@ void ChecarMovimiento();
 
 //Control de Interacciones
 void PagarJuego(int juego);
-void ComenzarJuego(int juego);
+void ComenzarJuego();
 void AnimarJuego(GLuint modelLoc, Shader& lightingShader, Model objetos[]);
 void TerminarJuego();
 
@@ -131,8 +131,6 @@ const float rotacionStandDardos = 90.0f;
 
 //const glm::vec3 posicionStand = glm::vec3(0.0f, 0.0f, 0.0f);
 
-const glm::vec3 posicionesStands[6] = { posicionStandBateo, posicionStandTopos, posicionStandHachas, posicionStandBoliche, posicionStandDados, posicionStandDardos };
-
 const glm::vec3 posicionJaulaBateo = glm::vec3(-13.0f, 0.0f, 9.0f); // Posición de la jaula de bateo.
 const float rotacionJaulaBateo = 0.0f;
 const glm::vec3 posicionMaquinaTopos = glm::vec3(-18.0f, 0.0f, 25.5f); // Posición de la maquina de topos.
@@ -147,6 +145,8 @@ const glm::vec3 posicionPuestoDardos = glm::vec3(-17.0f, 0.0f, 37.0f); // Posici
 const float rotacionPuestoDardos = 90.0f;
 
 float apotema = 2.0f; // Rango en el que se puede interactuar con un puesto de tickets.
+
+glm::vec3 escalaDados = glm::vec3(0.0f);
 
 // Is called whenever a key is pressed/released via GLFW.
 void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode)
@@ -444,9 +444,9 @@ void PagarJuego(int juego)
 	pagando = true;
 	tiempoInteraccion = 0.0f;
 	juegoActivo = juego;
-	accesorioActivo = 7;
+	accesorioActivo = 7;	// Token de Pago.
 
-	switch (juego)
+	switch (juegoActivo)
 	{
 	case 1:	// Bateo.
 		harley.posicion = posicionStandBateo + glm::vec3(0.0f, 0.92f, 1.0f);
@@ -505,16 +505,16 @@ void AnimarPago()
 	{
 		jugando = true;
 		pagando = false;
-		ComenzarJuego(juegoActivo);
+		ComenzarJuego();
 	}
 }
 
-void ComenzarJuego(int juego)
+void ComenzarJuego()
 {
 	tiempoInteraccion = 0.0f;
 	jugando = true;
 	accesorioActivo = juegoActivo;
-	switch (juego)
+	switch (juegoActivo)
 	{
 	case 1:	// Bateo.
 		maxTiempoInteraccion = 10.0f;
@@ -560,6 +560,8 @@ void ComenzarJuego(int juego)
 
 		posicionCamara = harley.posicion + glm::vec3(-0.8f, 0.7f, 0.4f);
 		objetivoCamara = posicionMesaDados + glm::vec3(0.0f, 1.0f, 0.0f);
+
+		escalaDados = glm::vec3(0.0f);
 		break;
 	case 6:	// Dardos.
 		maxTiempoInteraccion = 6.0f;
@@ -581,7 +583,7 @@ void AnimarJuego(GLuint modelLoc, Shader& lightingShader, Model objetos[])
 	tiempoInteraccion += deltaTime;
 	switch (juegoActivo)
 	{
-	case 1:
+	case 1:	// Bateo.
 		if (tiempoInteraccion >= 0.0f && tiempoInteraccion < 1.0f)
 		{
 			harley.AlzarBate(deltaTime);
@@ -615,7 +617,7 @@ void AnimarJuego(GLuint modelLoc, Shader& lightingShader, Model objetos[])
 			harley.Batear(deltaTime);
 		}
 		break;
-	case 2:
+	case 2:	// Topos.
 		if (tiempoInteraccion >= 0.0f && tiempoInteraccion < 0.75f)
 		{
 			harley.AlzarMartillo(deltaTime);
@@ -641,7 +643,7 @@ void AnimarJuego(GLuint modelLoc, Shader& lightingShader, Model objetos[])
 			harley.GolpearTopo(deltaTime);
 		}
 		break;
-	case 3:
+	case 3:	// Hachas.
 		if (tiempoInteraccion < 0.75f)
 		{
 			harley.AlzarHacha(deltaTime);
@@ -654,10 +656,10 @@ void AnimarJuego(GLuint modelLoc, Shader& lightingShader, Model objetos[])
 		{
 			accesorioActivo = 0;
 			LanzarObjeto(glm::vec3(0.0f, 0.0f, -1.0f), 6.0f, -840.f, 0.9f);
-			DibujarObjeto(modelLoc, lightingShader, objetos[3]);
+			DibujarObjeto(modelLoc, lightingShader, objetos[juegoActivo]);
 		}
 		break;
-	case 4:
+	case 4:	// Boliche.
 		if (tiempoInteraccion < 0.5f)
 		{
 			harley.AlzarBola(deltaTime);
@@ -667,7 +669,7 @@ void AnimarJuego(GLuint modelLoc, Shader& lightingShader, Model objetos[])
 			harley.LanzarBola(deltaTime);
 		}
 		break;
-	case 5:
+	case 5:	// Dados.
 		if (tiempoInteraccion >= 0.0f && tiempoInteraccion < 1.75f)
 		{
 			harley.AgitarDados(deltaTime);
@@ -676,8 +678,13 @@ void AnimarJuego(GLuint modelLoc, Shader& lightingShader, Model objetos[])
 		{
 			harley.LanzarDados(deltaTime);
 		}
+		if (tiempoInteraccion >= 2.0f)
+		{
+			accesorioActivo = 0;
+			escalaDados = glm::vec3(1.0f);
+		}
 		break;
-	case 6:
+	case 6:	// Dardos.
 		if (tiempoInteraccion >= 1.0f && tiempoInteraccion <= 2.7f )
 		{
 			harley.LanzarDardos(deltaTime);

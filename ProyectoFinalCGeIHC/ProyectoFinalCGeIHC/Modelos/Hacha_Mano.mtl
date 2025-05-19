@@ -1,0 +1,22 @@
+# Blender 3.6.0 MTL File: 'Proyecto.blend'
+# www.blender.org
+
+newmtl Madera_Lisa
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd Texturas/Cabina_Hachas/Wood 21 - 512x512.png
+map_Ks Texturas/Specular_0.png
+
+newmtl Metal_2
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd Texturas/Cabina_Hachas/Metal_19-512x512.png
+map_Ks Texturas/Specular_100.png

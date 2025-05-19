@@ -90,11 +90,6 @@ public:
 		piezas[5].Draw(lightingShader);
 
 		// Accesorio.
-		model = glm::translate(model, glm::vec3(-0.35, 0.0, 0.0));
-		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
-		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		accesorio.Draw(lightingShader);
 
 		// Pierna_L_1.
