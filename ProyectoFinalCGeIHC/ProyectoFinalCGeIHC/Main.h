@@ -149,6 +149,18 @@ const float rotacionPuestoDardos = 90.0f;
 const glm::vec3 posicionMrFreeze = posicionJaulaBateo + glm::vec3(0.0f, 0.1f, -4.0f);
 const float rotacionMrFreeze = rotacionJaulaBateo;
 
+float rotacionBolos = 0.0f;
+glm::vec3 posicionBolo1 = glm::vec3(0.0f);
+glm::vec3 posicionBolo2 = glm::vec3(0.0f);
+glm::vec3 posicionBolo3 = glm::vec3(0.0f);
+glm::vec3 posicionBolo4 = glm::vec3(0.0f);
+glm::vec3 posicionBolo5 = glm::vec3(0.0f);
+glm::vec3 posicionBolo6 = glm::vec3(0.0f);
+glm::vec3 posicionBolo7 = glm::vec3(0.0f);
+glm::vec3 posicionBolo8 = glm::vec3(0.0f);
+glm::vec3 posicionBolo9 = glm::vec3(0.0f);
+glm::vec3 posicionBolo10 = glm::vec3(0.0f);
+
 glm::vec3 escalaDados = glm::vec3(0.0f);
 
 // Is called whenever a key is pressed/released via GLFW.
@@ -528,7 +540,7 @@ void ComenzarJuego()
 		posicionCamara = harley.posicion + glm::vec3(-1.0f, 0.5f, 3.0f);
 		objetivoCamara = harley.posicion;
 
-		ReiniciarObjeto(posicionMrFreeze, glm::vec3(0.0f, 1.15f, 0.0f), rotacionMrFreeze);
+		ReiniciarObjeto(posicionMrFreeze, glm::vec3(0.0f, 1.25f, 0.0f), rotacionMrFreeze);
 		break;
 	case 2:	// Topos.
 		maxTiempoInteraccion = 8.0f;
@@ -551,13 +563,26 @@ void ComenzarJuego()
 		ReiniciarObjeto(harley.posicion, glm::vec3(0.0f, 0.5f, 0.0f), harley.rotacion.y);
 		break;
 	case 4:	// Boliche.
-		maxTiempoInteraccion = 3.0f;
+		maxTiempoInteraccion = 6.0f;
 		harley.posicion = posicionPistaBoliche + glm::vec3(0.95f, 2.5f, -6.4f);
 		harley.rotacion = glm::vec3(0.0f, rotacionPistaBoliche + 180.0f, 0.0f);
 		harley.PoseIdle();
 
+		rotacionBolos = 0.0;
+		posicionBolo1 = glm::vec3(0.0f);
+		posicionBolo2 = glm::vec3(0.0f);
+		posicionBolo3 = glm::vec3(0.0f);
+		posicionBolo4 = glm::vec3(0.0f);
+		posicionBolo5 = glm::vec3(0.0f);
+		posicionBolo6 = glm::vec3(0.0f);
+		posicionBolo7 = glm::vec3(0.0f);
+		posicionBolo8 = glm::vec3(0.0f);
+		posicionBolo9 = glm::vec3(0.0f);
+		posicionBolo10 = glm::vec3(0.0f);
+
 		posicionCamara = harley.posicion + glm::vec3(-1.0f, 0.6f, -3.0f);
 		objetivoCamara = harley.posicion + glm::vec3(3.0f, -0.5f, 16.0f);
+		ReiniciarObjeto(harley.posicion, glm::vec3(0.0f, -0.8f, 1.25f), harley.rotacion.y);
 		break;
 	case 5:	// Dados.
 		maxTiempoInteraccion = 4.0f;
@@ -636,7 +661,7 @@ void AnimarJuego(GLuint modelLoc, Shader& lightingShader, Model objetos[])
 		}
 		if (tiempoInteraccion >= 2.25f && tiempoInteraccion < 2.5f)
 		{
-			ReiniciarObjeto(posicionMrFreeze, glm::vec3(0.0f, 1.15f, 0.0f), rotacionMrFreeze);
+			ReiniciarObjeto(posicionMrFreeze, glm::vec3(0.0f, 1.25f, 0.0f), rotacionMrFreeze);
 		}
 		if (tiempoInteraccion >= 2.5f && tiempoInteraccion < 3.5f)
 		{
@@ -648,7 +673,7 @@ void AnimarJuego(GLuint modelLoc, Shader& lightingShader, Model objetos[])
 		}
 		if (tiempoInteraccion >= 4.75f && tiempoInteraccion < 5.0f)
 		{
-			ReiniciarObjeto(posicionMrFreeze, glm::vec3(0.0f, 1.15f, 0.0f), rotacionMrFreeze);
+			ReiniciarObjeto(posicionMrFreeze, glm::vec3(0.0f, 1.25f, 0.0f), rotacionMrFreeze);
 		}
 		if (tiempoInteraccion >= 5.0f && tiempoInteraccion < 6.0f)
 		{
@@ -660,7 +685,7 @@ void AnimarJuego(GLuint modelLoc, Shader& lightingShader, Model objetos[])
 		}
 		if (tiempoInteraccion >= 7.25f && tiempoInteraccion < 7.5f)
 		{
-			ReiniciarObjeto(posicionMrFreeze, glm::vec3(0.0f, 1.15f, 0.0f), rotacionMrFreeze);
+			ReiniciarObjeto(posicionMrFreeze, glm::vec3(0.0f, 1.25f, 0.0f), rotacionMrFreeze);
 		}
 		if (tiempoInteraccion >= 7.5f && tiempoInteraccion < 8.5f)
 		{
@@ -722,6 +747,26 @@ void AnimarJuego(GLuint modelLoc, Shader& lightingShader, Model objetos[])
 		if (tiempoInteraccion >= 1.25f)
 		{
 			harley.LanzarBola(deltaTime);
+		}
+		if (tiempoInteraccion >= 1.5f)
+		{
+			accesorioActivo = 0;
+			LanzarObjeto(glm::vec3(0.0f, 0.0f, 1.0f), 9.0f, 840.f, 1.65f);
+			DibujarObjeto(modelLoc, lightingShader, objetos[juegoActivo]);
+		}
+		if (tiempoInteraccion >= 3.0f)
+		{
+			rotacionBolos += 450.0 * deltaTime;
+			posicionBolo1 += glm::vec3(0.0f, 2.0f, 5.0f) * deltaTime;
+			posicionBolo2 += glm::vec3(-1.0f, 1.75f, 4.5f) * deltaTime;
+			posicionBolo3 += glm::vec3(1.0f, 1.75f, 4.5f) * deltaTime;
+			posicionBolo4 += glm::vec3(0.0f, 1.5f, 4.0f) * deltaTime;
+			posicionBolo5 += glm::vec3(-0.75f, 1.5f, 4.0f) * deltaTime;
+			posicionBolo6 += glm::vec3(0.75f, 1.5f, 4.0f) * deltaTime;
+			posicionBolo7 += glm::vec3(-0.5f, 1.25f, 3.5f) * deltaTime;
+			posicionBolo8 += glm::vec3(0.5f, 1.25f, 3.5f) * deltaTime;
+			posicionBolo9 += glm::vec3(-0.5f, 1.25f, 3.5f) * deltaTime;
+			posicionBolo10 += glm::vec3(0.5f, 1.25f, 3.5f) * deltaTime;
 		}
 		break;
 	case 5:	// Dados.

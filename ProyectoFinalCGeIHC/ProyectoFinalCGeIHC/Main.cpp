@@ -235,25 +235,124 @@ int main()
 		DibujarEstructura(modelLoc, lightingShader, maquina_topos, posicionMaquinaTopos + glm::vec3(0.0f, 0.0f, 4.5f), rotacionMaquinaTopos);
 		DibujarEstructura(modelLoc, lightingShader, maquina_topos, posicionMaquinaTopos + glm::vec3(0.0f, 0.0f, 6.0f), rotacionMaquinaTopos);
 
-		DibujarEstructura(modelLoc, lightingShader, pista_boliche, posicionPistaBoliche, rotacionPistaBoliche); // Juego de Boliche.
+		// Pista de Boliche.
+		model = glm::mat4(1);
+		model = glm::translate(model, posicionPistaBoliche);
+		model = glm::rotate(model, glm::radians(rotacionPistaBoliche), glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		pista_boliche.Draw(lightingShader);
 
+		// Bolos.
+		// Bolo 1.
+		model = glm::mat4(1);
+		model = glm::translate(model, posicionPistaBoliche);
+		model = glm::rotate(model, glm::radians(rotacionPistaBoliche), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(-0.9f, 1.62f, -8.95f) + posicionBolo1);
+		model = glm::rotate(model, glm::radians(rotacionBolos), glm::vec3(1.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		bolo.Draw(lightingShader);
 
+		// Bolo 2.
+		model = glm::mat4(1);
+		model = glm::translate(model, posicionPistaBoliche);
+		model = glm::rotate(model, glm::radians(rotacionPistaBoliche), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(-1.05f, 1.62f, -9.1f) + posicionBolo2);
+		model = glm::rotate(model, glm::radians(rotacionBolos), glm::vec3(1.0f, 0.0f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		bolo.Draw(lightingShader);
+
+		// Bolo 3.
+		model = glm::mat4(1);
+		model = glm::translate(model, posicionPistaBoliche);
+		model = glm::rotate(model, glm::radians(rotacionPistaBoliche), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(-0.75f, 1.62f, -9.1f) + posicionBolo3);
+		model = glm::rotate(model, glm::radians(rotacionBolos), glm::vec3(1.0f, 0.0f, -1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		bolo.Draw(lightingShader);
+
+		// Bolo 4.
+		model = glm::mat4(1);
+		model = glm::translate(model, posicionPistaBoliche);
+		model = glm::rotate(model, glm::radians(rotacionPistaBoliche), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(-0.9f, 1.62f, -9.25f) + posicionBolo4);
+		model = glm::rotate(model, glm::radians(rotacionBolos), glm::vec3(1.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		bolo.Draw(lightingShader);
+
+		// Bolo 5.
+		model = glm::mat4(1);
+		model = glm::translate(model, posicionPistaBoliche);
+		model = glm::rotate(model, glm::radians(rotacionPistaBoliche), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(-1.20f, 1.62f, -9.25f) + posicionBolo5);
+		model = glm::rotate(model, glm::radians(rotacionBolos), glm::vec3(1.0f, 0.0f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		bolo.Draw(lightingShader);
+
+		// Bolo 6.
+		model = glm::mat4(1);
+		model = glm::translate(model, posicionPistaBoliche);
+		model = glm::rotate(model, glm::radians(rotacionPistaBoliche), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(-0.6f, 1.62f, -9.25f) + posicionBolo6);
+		model = glm::rotate(model, glm::radians(rotacionBolos), glm::vec3(1.0f, 0.0f, -1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		bolo.Draw(lightingShader);
+
+		// Bolo 7.
+		model = glm::mat4(1);
+		model = glm::translate(model, posicionPistaBoliche);
+		model = glm::rotate(model, glm::radians(rotacionPistaBoliche), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(-1.05f, 1.62f, -9.4f) + posicionBolo7);
+		model = glm::rotate(model, glm::radians(rotacionBolos), glm::vec3(1.0f, 0.0f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		bolo.Draw(lightingShader);
+
+		// Bolo 8.
+		model = glm::mat4(1);
+		model = glm::translate(model, posicionPistaBoliche);
+		model = glm::rotate(model, glm::radians(rotacionPistaBoliche), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(-0.75f, 1.62f, -9.4f) + posicionBolo8);
+		model = glm::rotate(model, glm::radians(rotacionBolos), glm::vec3(1.0f, 0.0f, -1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		bolo.Draw(lightingShader);
+
+		// Bolo 9.
+		model = glm::mat4(1);
+		model = glm::translate(model, posicionPistaBoliche);
+		model = glm::rotate(model, glm::radians(rotacionPistaBoliche), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(-1.35f, 1.62f, -9.4f) + posicionBolo9);
+		model = glm::rotate(model, glm::radians(rotacionBolos), glm::vec3(1.0f, 0.0f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		bolo.Draw(lightingShader);
+
+		// Bolo 10.
+		model = glm::mat4(1);
+		model = glm::translate(model, posicionPistaBoliche);
+		model = glm::rotate(model, glm::radians(rotacionPistaBoliche), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(-0.45f, 1.62f, -9.4f) + posicionBolo10);
+		model = glm::rotate(model, glm::radians(rotacionBolos), glm::vec3(1.0f, 0.0f, -1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		bolo.Draw(lightingShader);
+
+		// Mesa de Dados.
 		model = glm::mat4(1);
 		model = glm::translate(model, posicionMesaDados);
 		model = glm::rotate(model, glm::radians(rotacionMesaDados), glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		mesa_dados.Draw(lightingShader);
 
+		// Dados en la mesa.
 		model = glm::translate(model, glm::vec3(0.0f, 0.85f, 0.0f));
 		model = glm::scale(model, escalaDados);
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		dados.Draw(lightingShader);
 
-
+		// Puesto Dardos.
 		DibujarEstructura(modelLoc, lightingShader, puesto_dardos, posicionPuestoDardos, rotacionPuestoDardos); // Juego de Dardos.
 
+		// Mr Freeze.
 		DibujarEstructura(modelLoc, lightingShader, mr_freeze, posicionJaulaBateo + glm::vec3(0.0f, 0.1f, -4.0f), rotacionJaulaBateo);
 
+		// Casco Mr Freeze.
 		glEnable(GL_BLEND); // Activa la funcionalidad para trabajar el canal alfa.
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glUniform4f(glGetUniformLocation(lightingShader.Program, "colorAlpha"), 1.0f, 1.0f, 1.0f, 0.1f);
