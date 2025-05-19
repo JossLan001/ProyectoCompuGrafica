@@ -75,6 +75,7 @@ int main()
 
 	// Maquina Topos.
 	Model maquina_topos((char*)"Modelos/Maquina_Topos.obj");
+	Model topo((char*)"Modelos/Topo.obj");
 	Model martillo_mano((char*)"Modelos/Martillo_Mano.obj");
 
 	// Hachas.
@@ -236,11 +237,12 @@ int main()
 		DibujarEstructura(modelLoc, lightingShader, stand_tickets, posicionStandDardos, rotacionStandDardos);
 
 		// Juegos Interactivos.
-		DibujarEstructura(modelLoc, lightingShader, maquina_topos, posicionMaquinaTopos, rotacionMaquinaTopos); // Juego de Topos.
-		DibujarEstructura(modelLoc, lightingShader, maquina_topos, posicionMaquinaTopos + glm::vec3(0.0f, 0.0f, 1.5f), rotacionMaquinaTopos);
-		DibujarEstructura(modelLoc, lightingShader, maquina_topos, posicionMaquinaTopos + glm::vec3(0.0f, 0.0f, 3.0f), rotacionMaquinaTopos);
-		DibujarEstructura(modelLoc, lightingShader, maquina_topos, posicionMaquinaTopos + glm::vec3(0.0f, 0.0f, 4.5f), rotacionMaquinaTopos);
-		DibujarEstructura(modelLoc, lightingShader, maquina_topos, posicionMaquinaTopos + glm::vec3(0.0f, 0.0f, 6.0f), rotacionMaquinaTopos);
+		DibujarMaquinaTopos(modelLoc, lightingShader, maquina_topos, topo, posicionMaquinaTopos, rotacionMaquinaTopos); // Juego de Topos.
+		DibujarMaquinaTopos(modelLoc, lightingShader, maquina_topos, topo, posicionMaquinaTopos + glm::vec3(0.0f, 0.0f, 1.5f), rotacionMaquinaTopos);
+		DibujarMaquinaTopos(modelLoc, lightingShader, maquina_topos, topo, posicionMaquinaTopos + glm::vec3(0.0f, 0.0f, 3.0f), rotacionMaquinaTopos);
+		DibujarMaquinaTopos(modelLoc, lightingShader, maquina_topos, topo, posicionMaquinaTopos + glm::vec3(0.0f, 0.0f, 4.5f), rotacionMaquinaTopos);
+		DibujarMaquinaTopos(modelLoc, lightingShader, maquina_topos, topo, posicionMaquinaTopos + glm::vec3(0.0f, 0.0f, 6.0f), rotacionMaquinaTopos);
+		AnimarTopos();
 
 		// Pista de Boliche.
 		model = glm::mat4(1);

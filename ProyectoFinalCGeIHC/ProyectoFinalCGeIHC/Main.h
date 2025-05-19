@@ -56,6 +56,8 @@ glm::mat4 ModoCamara();
 
 //Dibujo de Estructuras
 void DibujarEstructura(GLuint modelLoc, Shader& lightingShader, Model estructura, glm::vec3 posicionEstructura, float rotacionEstructura);
+void DibujarMaquinaTopos(GLuint modelLoc, Shader& lightingShader, Model maquina, Model topo, glm::vec3 posicionEstructura, float rotacionEstructura);
+void AnimarTopos();
 
 // Iluminación.
 void DibujarLuces(Shader& lightingShader);
@@ -146,6 +148,16 @@ const float rotacionPuestoDardos = 90.0f;
 
 const glm::vec3 posicionMrFreeze = posicionJaulaBateo + glm::vec3(0.0f, 0.1f, -4.0f);
 const float rotacionMrFreeze = rotacionJaulaBateo;
+
+float timerTopos = 0.0f;
+float offsetTopo1 = 0.0f;
+float offsetTopo2 = 0.0f;
+float offsetTopo3 = 0.0f;
+float offsetTopo4 = 0.0f;
+float offsetTopo5 = 0.0f;
+float offsetTopo6 = 0.0f;
+float offsetTopo7 = 0.0f;
+float offsetTopo8 = 0.0f;
 
 float rotacionBolos = 0.0f;
 glm::vec3 posicionBolo1 = glm::vec3(0.0f);
@@ -291,6 +303,145 @@ void DibujarEstructura(GLuint modelLoc, Shader& lightingShader, Model estructura
 	model = glm::rotate(model, glm::radians(rotacionEstructura), glm::vec3(0.0f, 1.0f, 0.0f));
 	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 	estructura.Draw(lightingShader);
+}
+
+void DibujarMaquinaTopos(GLuint modelLoc, Shader& lightingShader, Model maquina, Model topo, glm::vec3 posicionEstructura, float rotacionEstructura)
+{
+	glm::mat4 model = glm::mat4(1.0f);
+	model = glm::translate(model, posicionEstructura);
+	model = glm::rotate(model, glm::radians(rotacionEstructura), glm::vec3(0.0f, 1.0f, 0.0f));
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+	maquina.Draw(lightingShader);
+
+	model = glm::mat4(1);
+	model = glm::translate(model, posicionEstructura);
+	model = glm::rotate(model, glm::radians(rotacionEstructura), glm::vec3(0.0f, 1.0f, 0.0f));
+	model = glm::translate(model, glm::vec3(-0.115f, offsetTopo1, -0.015f));
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+	topo.Draw(lightingShader);
+
+	model = glm::mat4(1);
+	model = glm::translate(model, posicionEstructura);
+	model = glm::rotate(model, glm::radians(rotacionEstructura), glm::vec3(0.0f, 1.0f, 0.0f));
+	model = glm::translate(model, glm::vec3(0.115f, offsetTopo2, -0.015f));
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+	topo.Draw(lightingShader);
+
+	model = glm::mat4(1);
+	model = glm::translate(model, posicionEstructura);
+	model = glm::rotate(model, glm::radians(rotacionEstructura), glm::vec3(0.0f, 1.0f, 0.0f));
+	model = glm::translate(model, glm::vec3(-0.115f, offsetTopo3, -0.2f));
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+	topo.Draw(lightingShader);
+
+	model = glm::mat4(1);
+	model = glm::translate(model, posicionEstructura);
+	model = glm::rotate(model, glm::radians(rotacionEstructura), glm::vec3(0.0f, 1.0f, 0.0f));
+	model = glm::translate(model, glm::vec3(0.115f, offsetTopo4, -0.2f));
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+	topo.Draw(lightingShader);
+
+	model = glm::mat4(1);
+	model = glm::translate(model, posicionEstructura);
+	model = glm::rotate(model, glm::radians(rotacionEstructura), glm::vec3(0.0f, 1.0f, 0.0f));
+	model = glm::translate(model, glm::vec3(-0.115f, offsetTopo5, -0.39f));
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+	topo.Draw(lightingShader);
+
+	model = glm::mat4(1);
+	model = glm::translate(model, posicionEstructura);
+	model = glm::rotate(model, glm::radians(rotacionEstructura), glm::vec3(0.0f, 1.0f, 0.0f));
+	model = glm::translate(model, glm::vec3(0.115f, offsetTopo6, -0.39f));
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+	topo.Draw(lightingShader);
+
+	model = glm::mat4(1);
+	model = glm::translate(model, posicionEstructura);
+	model = glm::rotate(model, glm::radians(rotacionEstructura), glm::vec3(0.0f, 1.0f, 0.0f));
+	model = glm::translate(model, glm::vec3(-0.115f, offsetTopo7, -0.57f));
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+	topo.Draw(lightingShader);
+
+	model = glm::mat4(1);
+	model = glm::translate(model, posicionEstructura);
+	model = glm::rotate(model, glm::radians(rotacionEstructura), glm::vec3(0.0f, 1.0f, 0.0f));
+	model = glm::translate(model, glm::vec3(0.115f, offsetTopo8, -0.57f));
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+	topo.Draw(lightingShader);
+}
+
+void AnimarTopos()
+{
+	timerTopos += deltaTime;
+	if (timerTopos >= 0.0f && timerTopos < 1.0f)
+	{
+		offsetTopo1 += 0.075 * deltaTime;
+	}
+	if (timerTopos >= 1.5f && timerTopos < 2.5f)
+	{
+		offsetTopo1 -= 0.075 * deltaTime;
+	}
+	if (timerTopos >= 3.0f && timerTopos < 4.0f)
+	{
+		offsetTopo2 += 0.075 * deltaTime;
+	}
+	if (timerTopos >= 4.5f && timerTopos < 5.5f)
+	{
+		offsetTopo2 -= 0.075 * deltaTime;
+	}
+	if (timerTopos >= 6.0f && timerTopos < 7.0f)
+	{
+		offsetTopo3 += 0.075 * deltaTime;
+	}
+	if (timerTopos >= 7.5f && timerTopos < 8.5f)
+	{
+		offsetTopo3 -= 0.075 * deltaTime;
+	}
+	if (timerTopos >= 9.0f && timerTopos < 10.0f)
+	{
+		offsetTopo4 += 0.075 * deltaTime;
+	}
+	if (timerTopos >= 10.5f && timerTopos < 11.5f)
+	{
+		offsetTopo4 -= 0.075 * deltaTime;
+	}
+	if (timerTopos >= 12.0f && timerTopos < 13.0f)
+	{
+		offsetTopo5 += 0.075 * deltaTime;
+	}
+	if (timerTopos >= 13.5f && timerTopos < 14.5f)
+	{
+		offsetTopo5 -= 0.075 * deltaTime;
+	}
+	if (timerTopos >= 15.0f && timerTopos < 16.0f)
+	{
+		offsetTopo6 += 0.075 * deltaTime;
+	}
+	if (timerTopos >= 16.5f && timerTopos < 17.5f)
+	{
+		offsetTopo6 -= 0.075 * deltaTime;
+	}
+	if (timerTopos >= 18.0f && timerTopos < 19.0f)
+	{
+		offsetTopo7 += 0.075 * deltaTime;
+	}
+	if (timerTopos >= 19.5f && timerTopos < 20.5f)
+	{
+		offsetTopo7 -= 0.075 * deltaTime;
+	}
+	if (timerTopos >= 21.0f && timerTopos < 22.0f)
+	{
+		offsetTopo8 += 0.075 * deltaTime;
+	}
+	if (timerTopos >= 22.5f && timerTopos < 23.5f)
+	{
+		offsetTopo8 -= 0.075 * deltaTime;
+	}
+
+	if (timerTopos >= 24.0f)
+	{
+		timerTopos = 0.0f;
+	}
 }
 
 void DibujarLuces(Shader& lightingShader)
