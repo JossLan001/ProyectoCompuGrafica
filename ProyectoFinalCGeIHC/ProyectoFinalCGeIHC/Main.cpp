@@ -1,3 +1,6 @@
+#define MINIAUDIO_IMPLEMENTATION
+
+
 // Other includes.
 #include "Main.h"
 
@@ -45,6 +48,18 @@ int main()
 
 	// Define the viewport dimensions.
 	glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+	// Inicializa el motor de audio.
+	if (ma_engine_init(NULL, &engine) != MA_SUCCESS) {
+		std::cerr << "Error: No se pudo inicializar el motor de audio.\n";
+		return -1;
+	}
+
+	ma_engine_set_volume(&engine, 0.5f); // Volumen general (0.0 a 1.0)
+
+	// Reproduce un archivo de sonido (WAV, MP3, OGG)
+	ma_engine_play_sound(&engine, "Audio/dark_carnival_extended_.mp3", NULL);
+	ma_engine_play_sound(&engine, "Audio/13 - Misfortune Teller.mp3", NULL);
 
 	// Carga de modelos.
 	Shader lightingShader("Shaders/lighting.vs", "Shaders/lighting.frag");
@@ -457,6 +472,9 @@ int main()
 
 	// Terminate GLFW, clearing any resources allocated by GLFW.
 	glfwTerminate();
+
+	// Limpieza.
+	ma_engine_uninit(&engine);
 
 	return 0;
 }

@@ -25,6 +25,7 @@
 #include "Model.h"
 #include "Camera.h"
 #include "Personaje.h"
+#include "miniaudio.h"
 
 // Deltatime.
 GLfloat deltaTime = 0.0f;	// Time between current frame and last frame.
@@ -46,6 +47,9 @@ bool firstMouse = true;
 bool camaraEstatica = false;
 bool camaraArriba = false;
 
+// Motor de audio.
+ma_engine engine;
+
 // Definición de Funciones.
 // Teclas y Mouse.
 void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode);
@@ -53,6 +57,9 @@ void MouseCallback(GLFWwindow* window, double xPos, double yPos);
 
 // Modo de Camara.
 glm::mat4 ModoCamara();
+
+// Audio.
+void ReproducirAudio(ma_engine engine);
 
 //Dibujo de Estructuras
 void DibujarEstructura(GLuint modelLoc, Shader& lightingShader, Model estructura, glm::vec3 posicionEstructura, float rotacionEstructura);
@@ -294,6 +301,11 @@ glm::mat4 ModoCamara()
 	{
 		return camera.GetViewMatrix();  // Modo Tercera Persona.
 	}
+}
+
+void ReproducirAudio(ma_engine engine, char* ruta)
+{
+	ma_engine_play_sound(&engine, ruta, NULL);
 }
 
 void DibujarEstructura(GLuint modelLoc, Shader& lightingShader, Model estructura, glm::vec3 posicionEstructura, float rotacionEstructura)
