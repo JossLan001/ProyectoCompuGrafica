@@ -55,11 +55,7 @@ int main()
 		return -1;
 	}
 
-	ma_engine_set_volume(&engine, 0.5f); // Volumen general (0.0 a 1.0)
-
-	// Reproduce un archivo de sonido (WAV, MP3, OGG)
-	ma_engine_play_sound(&engine, "Audio/dark_carnival_extended_.mp3", NULL);
-	ma_engine_play_sound(&engine, "Audio/13 - Misfortune Teller.mp3", NULL);
+	ma_engine_set_volume(&engine, 0.25f); // Volumen general (0.0 a 1.0)
 
 	// Carga de modelos.
 	Shader lightingShader("Shaders/lighting.vs", "Shaders/lighting.frag");
@@ -68,7 +64,7 @@ int main()
 	Model vacio((char*)"Modelos/Vacio.obj");
 
 	// Elementos de Entorno.
-	Model suelo((char*)"Modelos/Suelo.obj");
+	Model suelo((char*)"Modelos/plan.obj");
 	Model skydome((char*)"Modelos/Skydome.obj");
 	Model reja((char*)"Modelos/Reja.obj");
 
@@ -465,6 +461,10 @@ int main()
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTransparencia"), 0);
 		glUniform4f(glGetUniformLocation(lightingShader.Program, "colorAlpha"), 1.0f, 1.0f, 1.0f, 1.0f);
 		glBindVertexArray(0);
+
+		// Audio de fondo.
+		timerMusica = ReproducirAudio(audio_musica_1, timerMusica, duracionMusica1);
+		timerFondo = ReproducirAudio(audio_fondo, timerFondo, duracionFondo);
 
 		// Swap the screen buffers.
 		glfwSwapBuffers(window);

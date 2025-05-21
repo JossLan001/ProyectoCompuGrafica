@@ -59,7 +59,23 @@ void MouseCallback(GLFWwindow* window, double xPos, double yPos);
 glm::mat4 ModoCamara();
 
 // Audio.
-void ReproducirAudio(ma_engine engine);
+float ReproducirAudio(const char* ruta, float timer, float tiempoLoop);
+
+const char* audio_fondo = "Audio/Fondo/city_ambience_-_traffic_-_street_-_cars_and_tram.mp3";
+float timerFondo = 0.0f;
+const float duracionFondo = 320.0f;
+
+const char* audio_musica_1 = "Audio/Fondo/dark_carnival_extended_.mp3";
+const char* audio_musica_2 = "Audio/Fondo/marionettes.mp3";
+const char* audio_musica_3 = "Audio/Fondo/RollUp.mp3";
+float timerMusica = 0.0f;
+const float duracionMusica1 = 120.0f;
+const float duracionMusica2 = 70.0f;
+const float duracionMusica3 = 175.0f;
+
+const char* audio_pasos = "Audio/footstep05.mp3";
+float timerPasos = 0.0f;
+const float loopPasos = 0.5f;
 
 //Dibujo de Estructuras
 void DibujarEstructura(GLuint modelLoc, Shader& lightingShader, Model estructura, glm::vec3 posicionEstructura, float rotacionEstructura);
@@ -303,9 +319,18 @@ glm::mat4 ModoCamara()
 	}
 }
 
-void ReproducirAudio(ma_engine engine, char* ruta)
+float ReproducirAudio(const char* ruta, float timer, float tiempoLoop)
 {
-	ma_engine_play_sound(&engine, ruta, NULL);
+	if (timer == 0.0f)
+	{
+		ma_engine_play_sound(&engine, ruta, NULL); // Reproduce un archivo de sonido (WAV, MP3, OGG)
+	}
+	timer += deltaTime;
+	if (timer >= tiempoLoop)
+	{
+		timer = 0.0f;
+	}
+	return timer;
 }
 
 void DibujarEstructura(GLuint modelLoc, Shader& lightingShader, Model estructura, glm::vec3 posicionEstructura, float rotacionEstructura)
@@ -591,6 +616,11 @@ void MoverHarley()
 	if (caminando)
 	{
 		harley.Caminar(deltaTime);
+		timerPasos = ReproducirAudio(audio_pasos, timerPasos, loopPasos);
+	}
+	else
+	{
+		timerPasos = 0.0f;
 	}
 
 }
