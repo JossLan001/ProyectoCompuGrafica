@@ -8,7 +8,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_Kd BatmanImg.png
+map_Kd Texturas/BatmanImg.png
 map_Ks Texturas/Specular_25.png
 
 newmtl Imagen_2
@@ -18,7 +18,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_Kd Gotica1Img.png
+map_Kd Texturas/Gotica1Img.png
 map_Ks Texturas/Specular_25.png
 
 newmtl Lamina
