@@ -1,4 +1,4 @@
-# Blender 4.3.2 MTL File: 'PuestoComida4.blend'
+# Blender 3.6.0 MTL File: 'Proyecto.blend'
 # www.blender.org
 
 newmtl Imagen
@@ -18,25 +18,15 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_Kd Texturas/Gotica3.png
+map_Kd Texturas/Gotica2Img.png
 map_Ks Texturas/Specular_25.png
 
 newmtl Lamina
 Ns 250.000000
 Ka 1.000000 1.000000 1.000000
-Kd 0.000000 0.002172 0.085027
 Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
+map_Kd Texturas/Cabina_Hachas/doortile.png
 map_Ks Texturas/Specular_50.png
-
-newmtl Material.001
-Ns 250.000000
-Ka 1.000000 1.000000 1.000000
-Kd 0.011241 0.011241 0.011241
-Ks 0.500000 0.500000 0.500000
-Ke 0.000000 0.000000 0.000000
-Ni 1.500000
-d 1.000000
-illum 2

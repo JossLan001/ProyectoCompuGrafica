@@ -65,17 +65,25 @@ const char* audio_fondo = "Audio/Fondo/city_ambience_-_traffic_-_street_-_cars_a
 float timerFondo = 0.0f;
 const float duracionFondo = 320.0f;
 
-const char* audio_musica_1 = "Audio/Fondo/dark_carnival_extended_.mp3";
-const char* audio_musica_2 = "Audio/Fondo/marionettes.mp3";
-const char* audio_musica_3 = "Audio/Fondo/RollUp.mp3";
+const char* audio_musica = "Audio/Fondo/dark_carnival_extended_.mp3";
 float timerMusica = 0.0f;
-const float duracionMusica1 = 120.0f;
-const float duracionMusica2 = 70.0f;
-const float duracionMusica3 = 175.0f;
+float duracionMusica = 120.0f;
 
 const char* audio_pasos = "Audio/footstep05.mp3";
 float timerPasos = 0.0f;
 const float loopPasos = 0.5f;
+
+float timerInteraccion = 0.0f;	// Timer para que se repita el audio.
+float timerInteraccion_2 = 0.0f;	// Segundo timer por si se necesitan dos sonidos al mismo tiempo.
+const char* audio_golpe_1 = "Audio/chop.mp3";
+const char* audio_golpe_2 = "Audio/footstep07.mp3";
+const char* audio_bola_boliche = "Audio/qubodup-bowling_roll.mp3";
+const char* audio_strike_boliche = "Audio/strike3n-5.wav";
+const char* audio_agitar_dados = "Audio/dice-shake-1.mp3";
+const char* audio_lanzar_dados = "Audio/dice-throw-1.mp3";
+const char* audio_globos = "Audio/balloon_pop.mp3";
+
+const char* audio_navaja = "Audio/knifeSlice.mp3";
 
 //Dibujo de Estructuras
 void DibujarEstructura(GLuint modelLoc, Shader& lightingShader, Model estructura, glm::vec3 posicionEstructura, float rotacionEstructura);
@@ -222,11 +230,11 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 		}
 	}
 
-	if (key == GLFW_KEY_P && action == GLFW_PRESS && not jugando)
+	if (key == GLFW_KEY_P && action == GLFW_PRESS && not jugando && not pagando)
 	{
 		camaraArriba = not camaraArriba;
-		posicionCamara = glm::vec3(0.0f, 40.0f, 0.0f);
-		objetivoCamara = glm::vec3(0.0f, 0.0f, 0.0f);
+		posicionCamara = glm::vec3(0.0f, 40.0f, 30.0f);
+		objetivoCamara = glm::vec3(0.0f, 0.0f, 30.0f);
 		if (camaraArriba) {
 			upCamara = glm::vec3(0.0f, 0.0f, -1.0f);
 		}
@@ -726,6 +734,8 @@ void ComenzarJuego()
 	tiempoInteraccion = 0.0f;
 	jugando = true;
 	accesorioActivo = juegoActivo;
+	timerInteraccion = 0.0f;
+	timerInteraccion_2 = 0.0f;
 	switch (juegoActivo)
 	{
 	case 1:	// Bateo.
@@ -900,6 +910,11 @@ void AnimarJuego(GLuint modelLoc, Shader& lightingShader, Model objetos[])
 			LanzarObjeto(glm::vec3(1.0f, 1.0f, -1.0f), 8.0f, 840.0f, 2.25f);
 		}
 
+		// Control de Audio.
+		if (tiempoInteraccion >= 1.0f && tiempoInteraccion < 9.0f)
+		{
+			timerInteraccion = ReproducirAudio(audio_golpe_1, timerInteraccion, 2.5f);
+		}
 		break;
 	case 2:	// Topos.
 		if (tiempoInteraccion >= 0.0f && tiempoInteraccion < 0.75f)
@@ -926,6 +941,12 @@ void AnimarJuego(GLuint modelLoc, Shader& lightingShader, Model objetos[])
 		{
 			harley.GolpearTopo(deltaTime);
 		}
+
+		// Control de Audio.
+		if (tiempoInteraccion >= 1.5f && tiempoInteraccion < 8.0f)
+		{
+			timerInteraccion = ReproducirAudio(audio_golpe_2, timerInteraccion, 2.75f);
+		}
 		break;
 	case 3:	// Hachas.
 		if (tiempoInteraccion < 0.75f)
@@ -942,8 +963,16 @@ void AnimarJuego(GLuint modelLoc, Shader& lightingShader, Model objetos[])
 			LanzarObjeto(glm::vec3(0.0f, 0.0f, -1.0f), 6.0f, -840.f, 0.9f);
 			DibujarObjeto(modelLoc, lightingShader, objetos[juegoActivo]);
 		}
+
+		// Control de Audio.
+		if (tiempoInteraccion >= 2.1f)
+		{
+			timerInteraccion = ReproducirAudio(audio_golpe_1, timerInteraccion, 10.0f);
+		}
 		break;
 	case 4:	// Boliche.
+
+		// Control de Bola.
 		if (tiempoInteraccion < 0.5f)
 		{
 			harley.AlzarBola(deltaTime);
@@ -957,7 +986,10 @@ void AnimarJuego(GLuint modelLoc, Shader& lightingShader, Model objetos[])
 			accesorioActivo = 0;
 			LanzarObjeto(glm::vec3(0.0f, 0.0f, 1.0f), 9.0f, 840.f, 1.65f);
 			DibujarObjeto(modelLoc, lightingShader, objetos[juegoActivo]);
+			timerInteraccion = ReproducirAudio(audio_bola_boliche, timerInteraccion, 15.0f);
 		}
+
+		// Control de Bolos.
 		if (tiempoInteraccion >= 3.0f)
 		{
 			rotacionBolos += 450.0 * deltaTime;
@@ -971,11 +1003,13 @@ void AnimarJuego(GLuint modelLoc, Shader& lightingShader, Model objetos[])
 			posicionBolo8 += glm::vec3(0.5f, 1.25f, 3.5f) * deltaTime;
 			posicionBolo9 += glm::vec3(-0.5f, 1.25f, 3.5f) * deltaTime;
 			posicionBolo10 += glm::vec3(0.5f, 1.25f, 3.5f) * deltaTime;
+			timerInteraccion_2 = ReproducirAudio(audio_strike_boliche, timerInteraccion_2, 15.0f);
 		}
 		break;
 	case 5:	// Dados.
 		if (tiempoInteraccion >= 0.0f && tiempoInteraccion < 1.75f)
 		{
+			timerInteraccion = ReproducirAudio(audio_agitar_dados, timerInteraccion, 15.0f);
 			harley.AgitarDados(deltaTime);
 		}
 		if (tiempoInteraccion >= 1.75f)
@@ -986,6 +1020,7 @@ void AnimarJuego(GLuint modelLoc, Shader& lightingShader, Model objetos[])
 		{
 			accesorioActivo = 0;
 			escalaDados = glm::vec3(1.0f);
+			timerInteraccion_2 = ReproducirAudio(audio_lanzar_dados, timerInteraccion_2, 15.0f);
 		}
 		break;
 	case 6:	// Dardos.
@@ -1074,6 +1109,12 @@ void AnimarJuego(GLuint modelLoc, Shader& lightingShader, Model objetos[])
 		if (tiempoInteraccion >= 2.32f)
 		{
 			escalaGlobo5 = glm::vec3(0.1f);
+		}
+
+		// Control de Audio.
+		if (tiempoInteraccion >= 1.0f && tiempoInteraccion <= 2.6)
+		{
+			timerInteraccion = ReproducirAudio(audio_globos, timerInteraccion, 0.33);
 		}
 		break;
 	default:

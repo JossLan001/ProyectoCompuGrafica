@@ -1,6 +1,6 @@
 # Blender 3.6.0
 # www.blender.org
-mtllib PuestoComida3.mtl
+mtllib PuestoComida1.mtl
 o Puesto_Comida.010
 v -1.652279 -0.000000 -1.055180
 v 1.652279 0.000000 1.055180

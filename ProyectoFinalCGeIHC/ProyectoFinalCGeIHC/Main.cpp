@@ -1,8 +1,8 @@
 #define MINIAUDIO_IMPLEMENTATION
 
-
-// Other includes.
 #include "Main.h"
+#include <cstdlib>
+#include <ctime>
 
 int main()
 {
@@ -57,6 +57,8 @@ int main()
 
 	ma_engine_set_volume(&engine, 0.25f); // Volumen general (0.0 a 1.0)
 
+	srand(static_cast<unsigned int>(time(0)));
+
 	// Carga de modelos.
 	Shader lightingShader("Shaders/lighting.vs", "Shaders/lighting.frag");
 	Shader lampShader("Shaders/lamp.vs", "Shaders/lamp.frag");
@@ -70,6 +72,15 @@ int main()
 
 	// Comida.
 	Model puesto_comida((char*)"Modelos/Puesto_Comida.obj");
+	Model puestocomida1((char*)"Modelos/PuestoComida1.obj");
+	Model puestocomida2((char*)"Modelos/PuestoComida2.obj");
+	Model puestocomida3((char*)"Modelos/PuestoComida3.obj");
+	Model puestocomida4((char*)"Modelos/PuestoComida4.obj");
+	Model puestocomida5((char*)"Modelos/PuestoComida5.obj");
+	Model puestocomida6((char*)"Modelos/PuestoComida6.obj");
+	Model puestocomida7((char*)"Modelos/PuestoComida7.obj");
+	Model puestocomida8((char*)"Modelos/PuestoComida8.obj");
+	Model puestocomida9((char*)"Modelos/PuestoComida9.obj");
 	Model mesa_picnic((char*)"Modelos/Mesa_Picnic.obj");
 
 	// Stand Tickets.
@@ -91,6 +102,7 @@ int main()
 
 	// Hachas.
 	Model cabina_hachas((char*)"Modelos/Cabina_Hachas.obj");
+	Model blancos_hachas((char*)"Modelos/Blancos_Hachas.obj");
 	Model hacha_mano((char*)"Modelos/Hacha_Mano.obj");
 	Model hacha((char*)"Modelos/Hacha.obj");
 
@@ -222,16 +234,16 @@ int main()
 		glUniform4f(glGetUniformLocation(lightingShader.Program, "colorAlpha"), 1.0f, 1.0f, 1.0f, 1.0f);
 
 		// Comida.
-		DibujarEstructura(modelLoc, lightingShader, puesto_comida, glm::vec3(2.0f, 0.0f, 17.0f), 90.0f);
-		DibujarEstructura(modelLoc, lightingShader, puesto_comida, glm::vec3(2.0f, 0.0f, 23.0f), 90.0f);
-		DibujarEstructura(modelLoc, lightingShader, puesto_comida, glm::vec3(2.0f, 0.0f, 29.0f), 90.0f);
-		DibujarEstructura(modelLoc, lightingShader, puesto_comida, glm::vec3(-2.0f, 0.0f, 17.0f), -90.0f);
-		DibujarEstructura(modelLoc, lightingShader, puesto_comida, glm::vec3(-2.0f, 0.0f, 23.0f), -90.0f);
-		DibujarEstructura(modelLoc, lightingShader, puesto_comida, glm::vec3(-2.0f, 0.0f, 29.0f), -90.0f);
+		DibujarEstructura(modelLoc, lightingShader, puestocomida1, glm::vec3(2.0f, 0.0f, 17.0f), 90.0f);
+		DibujarEstructura(modelLoc, lightingShader, puestocomida2, glm::vec3(2.0f, 0.0f, 23.0f), 90.0f);
+		DibujarEstructura(modelLoc, lightingShader, puestocomida3, glm::vec3(2.0f, 0.0f, 29.0f), 90.0f);
+		DibujarEstructura(modelLoc, lightingShader, puestocomida4, glm::vec3(-2.0f, 0.0f, 17.0f), -90.0f);
+		DibujarEstructura(modelLoc, lightingShader, puestocomida5, glm::vec3(-2.0f, 0.0f, 23.0f), -90.0f);
+		DibujarEstructura(modelLoc, lightingShader, puestocomida6, glm::vec3(-2.0f, 0.0f, 29.0f), -90.0f);
 
-		DibujarEstructura(modelLoc, lightingShader, puesto_comida, glm::vec3(17.0f, 0.0f, 30.0f), -90.0f);
-		DibujarEstructura(modelLoc, lightingShader, puesto_comida, glm::vec3(17.0f, 0.0f, 36.0f), -90.0f);
-		DibujarEstructura(modelLoc, lightingShader, puesto_comida, glm::vec3(17.0f, 0.0f, 42.0f), -90.0f);
+		DibujarEstructura(modelLoc, lightingShader, puestocomida7, glm::vec3(17.0f, 0.0f, 30.0f), -90.0f);
+		DibujarEstructura(modelLoc, lightingShader, puestocomida8, glm::vec3(17.0f, 0.0f, 36.0f), -90.0f);
+		DibujarEstructura(modelLoc, lightingShader, puestocomida9, glm::vec3(17.0f, 0.0f, 42.0f), -90.0f);
 
 		DibujarEstructura(modelLoc, lightingShader, mesa_picnic, glm::vec3(12.0f, 0.0f, 30.0f), -90.0f);
 		DibujarEstructura(modelLoc, lightingShader, mesa_picnic, glm::vec3(12.0f, 0.0f, 33.0f), -90.0f);
@@ -436,6 +448,8 @@ int main()
 		DibujarEstructura(modelLoc, lightingShader, cabina_hachas, posicionCabinaHachas, rotacionCabinaHachas); // Cabina de Hachas.	
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTransparencia"), 0);
 
+		DibujarEstructura(modelLoc, lightingShader, blancos_hachas, posicionCabinaHachas, rotacionCabinaHachas);	// Blancos de Cabina.
+
 		// Dibuja a Harley.
 		harley.Dibujar(modelLoc, lightingShader, piezas_harley, accesorios[accesorioActivo]);
 		// Anima a Harley.
@@ -463,8 +477,12 @@ int main()
 		glBindVertexArray(0);
 
 		// Audio de fondo.
-		timerMusica = ReproducirAudio(audio_musica_1, timerMusica, duracionMusica1);
+		timerMusica = ReproducirAudio(audio_musica, timerMusica, duracionMusica);
 		timerFondo = ReproducirAudio(audio_fondo, timerFondo, duracionFondo);
+
+		//if (harley.posicion.x > purohueso.posicion.x - apotema && harley.posicion.x < purohueso.posicion.x + apotema && harley.posicion.z > purohueso.posicion.z - apotema && harley.posicion.z < purohueso.posicion.z + apotema) {
+		//	timerInteraccion = ReproducirAudio(audio_navaja, timerInteraccion, 1.332);
+		//}
 
 		// Swap the screen buffers.
 		glfwSwapBuffers(window);
